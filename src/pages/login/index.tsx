@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { loadRoomsAction } from "../../reducers/room/action.creators";
 import { loadUsersAction } from "../../reducers/user/action.creators";
 import { ApiChat } from "../../services/api";
+import { UserStore } from "../../services/local-storage";
 
 export default function LoginPage(){
+    const localStorage = new UserStore();
 
     const dispatcher = useDispatch();
     const apiChat = useMemo(() => new ApiChat(), []);
@@ -25,8 +27,16 @@ export default function LoginPage(){
         const resp = await apiChat.login(formData);
         const rooms = await apiChat.getAllRoomsByUser(resp.user._id, resp.token);  // TODO fix this double rooms call
 
-        dispatcher(loadUsersAction([resp]));
+        let user = resp.user;
+        user = {...user, token: resp.token};
+
+        dispatcher(loadUsersAction([user]));
         dispatcher(loadRoomsAction(rooms)); // TODO fix this double rooms call
+
+        
+        localStorage.setUser(user);
+        // console.log(resp.user);
+        // console.log(resp.token);
 
         navigate(`/`);
     }

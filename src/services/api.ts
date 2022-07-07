@@ -35,7 +35,6 @@ export class ApiChat {
                 'Authorization': `Bearer ${token}`
             }
         });
-        console.log(resp);
         return await resp.json();
     }
 }

@@ -6,6 +6,7 @@ export function Header({navOptions}: {navOptions: iRouterItem[]}){
     navOptions = navOptions.filter(item => item.path !== '*' ? item : '' )
     navOptions = navOptions.filter(item => item.path !== '/login' ? item : '' );
     navOptions = navOptions.filter(item => item.path !== '/room/:id' ? item : '' );
+    navOptions = navOptions.filter(item => item.path !== '*' ? item : '' );
     
 
     return (

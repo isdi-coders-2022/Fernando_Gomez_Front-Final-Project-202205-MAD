@@ -5,7 +5,7 @@ import { iStore } from "../../interfaces/interfaces";
 export default function HomePage(){
 
     const user = useSelector((store: iStore) => store.users);
-    // const rooms = useSelector((store: iStore) => store.rooms);
+    const rooms = useSelector((store: iStore) => store.rooms);
 
     
 
@@ -16,7 +16,7 @@ export default function HomePage(){
         <>
         <h3>User: {user[0].name}</h3>
         <h1>Conversaciones</h1>
-            {/* <List data={rooms} /> */}
+            <List data={rooms} />
         </>
     )
 }

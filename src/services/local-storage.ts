@@ -1,22 +1,38 @@
-import { iUser } from '../interfaces/interfaces.js';
+import { iRoom, iUser } from '../interfaces/interfaces';
 
 export class UserStore {
-    store: string;
+    user: string;
+    rooms: string;
     constructor() {
-        this.store = 'User';
+        this.user = 'User';
+        this.rooms = 'Rooms';
     }
 
     getUser(): iUser {
-        return localStorage.getItem(this.store)
-            ? JSON.parse(localStorage.getItem(this.store) as string)
+        return localStorage.getItem(this.user)
+            ? JSON.parse(localStorage.getItem(this.user) as string)
             : '';
     }
 
     setUser(user: iUser) {
-        localStorage.setItem(this.store, JSON.stringify(user));
+        localStorage.setItem(this.user, JSON.stringify(user));
     }
 
     removeUser() {
-        localStorage.removeItem(this.store);
+        localStorage.removeItem(this.user);
+    }
+
+    getRooms(): iRoom[] {
+        return localStorage.getItem(this.rooms)
+            ? JSON.parse(localStorage.getItem(this.rooms) as string)
+            : '';
+    }
+
+    setRooms(rooms: iRoom[]) {
+        localStorage.setItem(this.rooms, JSON.stringify(rooms));
+    }
+
+    removeRooms() {
+        localStorage.removeItem(this.rooms);
     }
 }

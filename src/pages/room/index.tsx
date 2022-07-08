@@ -7,9 +7,6 @@ export default function RoomPage(){
     const user = useSelector((store: iStore) => store.users);
     const rooms = useSelector((store: iStore) => store.rooms);
 
-    console.log('user: ' + user);
-    console.log('rooms:' + rooms);
-    
     return (
         <>
         <h1>Conversación</h1>

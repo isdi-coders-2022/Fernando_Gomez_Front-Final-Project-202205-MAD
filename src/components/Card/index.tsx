@@ -3,7 +3,6 @@ import { iRoom } from "../../interfaces/interfaces";
 
 
 export function Card({room}: {room: iRoom}) {
-    console.log(room);
     return (
         <>
             <h2>Conversación</h2>

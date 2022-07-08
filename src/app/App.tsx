@@ -1,48 +1,35 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { iRoom, iRouterItem, iStore, iUser } from '../interfaces/interfaces';
 import { loadRoomsAction } from '../reducers/room/action.creators';
 import { loadUsersAction } from '../reducers/user/action.creators';
 import { ApiChat } from '../services/api';
-import { UserStore } from '../services/local-storage';
+import { LocalStoreService } from '../services/local-storage';
 import './App.css';
 
  function App() {
-    const localStorage = new UserStore();
+    const localStorage = useMemo(() => new LocalStoreService(), []);
     const dispatcher = useDispatch();
     const apiChat = useMemo(() => new ApiChat(), []);
-
-    // const getRooms =  () => {
-    // const rooms =       apiChat.getAllRoomsByUser(us._id as string, us.token as string) ;
-    // // const roomsApi = Promise.all([getRooms()])
-    // return rooms;
-
-    // }
-
-    // const rooms = getRooms()
-
-    // getRooms();
-
-    // useEffect(() => {
-    //     apiChat.getAllRoomsByUser().then(robots => dispatcher(loadRobotsAction(robots)));
-    // }, [apiRobot, dispatcher]);
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         const user: iUser = localStorage.getUser();
         const rooms: iRoom[] = localStorage.getRooms();
-     // TODO fix this double rooms call
+
+        if(!user  || !rooms){
+            navigate('/login');
+        }
+
+        if (user){
+            apiChat.getAllRoomsByUser(user._id as string, user.token as string).then(rooms => dispatcher(loadRoomsAction(rooms)));
  
-        // console.log('user del local: ', localStorage.getUser());
-        console.log('user: ',user);
-
-
-        dispatcher(loadUsersAction([user]));
-        dispatcher(loadRoomsAction(rooms));
-        
-    }, [dispatcher, localStorage]);
+            dispatcher(loadUsersAction([user]));
+            dispatcher(loadRoomsAction(rooms));
+        }
+    }, [apiChat, dispatcher, localStorage, navigate]);
 
     const HomePage = React.lazy(() => import('../pages/home'));
     const LoginPage = React.lazy(() => import('../pages/login'));

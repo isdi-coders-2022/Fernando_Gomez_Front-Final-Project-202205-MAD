@@ -1,6 +1,7 @@
+import { SyntheticEvent } from 'react';
 import { iRoom, iUser } from '../interfaces/interfaces';
 
-export class UserStore {
+export class LocalStoreService {
     user: string;
     rooms: string;
     constructor() {
@@ -35,4 +36,5 @@ export class UserStore {
     removeRooms() {
         localStorage.removeItem(this.rooms);
     }
+
 }

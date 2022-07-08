@@ -1,6 +1,6 @@
 import { ReactNode, useMemo } from "react"
-import { useDispatch } from "react-redux";
-import { iRouterItem } from "../../interfaces/interfaces"
+import { useDispatch, useSelector } from "react-redux";
+import { iRouterItem, iStore } from "../../interfaces/interfaces"
 import { ApiChat } from "../../services/api";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
@@ -14,12 +14,17 @@ export function Layout({
     navOptions: iRouterItem[];
 }){
 
+    const user = useSelector((store: iStore) => store.users);
+    
     const dispatcher = useDispatch();
     const apiChat = useMemo(() => new ApiChat(), []);
     
     return (
         <>
+        {user.length !== 0 &&
             <Header navOptions={navOptions} />
+
+        }
             <main>{children}</main>
             <Footer />
         </>

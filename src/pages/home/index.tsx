@@ -9,9 +9,6 @@ export default function HomePage(){
 
     
 
-    // console.log('user: ' + user);
-    // console.log('rooms:' + rooms);
-    
     return (
         <>
         <h3>User: {user[0].name}</h3>

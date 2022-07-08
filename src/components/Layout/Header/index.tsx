@@ -12,11 +12,6 @@ export function Header({navOptions}: {navOptions: iRouterItem[]}){
     const navigate = useNavigate();
     const user = useSelector((store: iStore) => store.users);
 
-    // console.log('user en el header: ' + user);
-    console.log('user: ', user);
-    
-
-
     const logout = (ev: SyntheticEvent) => {
         ev.preventDefault();
         localStorage.removeItem('User');

@@ -15,6 +15,22 @@ import './App.css';
     const apiChat = useMemo(() => new ApiChat(), []);
     const navigate = useNavigate();
 
+    // Socket conf
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // End socket conf
+
     useEffect(() => {
         const user: iUser = localStorage.getUser();
         const rooms: iRoom[] = localStorage.getRooms();

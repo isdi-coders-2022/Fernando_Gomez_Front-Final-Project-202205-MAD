@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { loadRoomsAction } from "../../reducers/room/action.creators";
 import { loadUsersAction } from "../../reducers/user/action.creators";
 import { ApiChat } from "../../services/api";
-import { UserStore } from "../../services/local-storage";
+import { LocalStoreService } from "../../services/local-storage";
 
 export default function LoginPage(){
-    const localStorage = new UserStore();
+    const localStorage = new LocalStoreService();
 
     const dispatcher = useDispatch();
     const apiChat = useMemo(() => new ApiChat(), []);
@@ -25,19 +25,17 @@ export default function LoginPage(){
     const handleSubmit = async (ev: SyntheticEvent) => {
         ev.preventDefault();
         const resp = await apiChat.login(formData);
-        const rooms = await apiChat.getAllRoomsByUser(resp.user._id, resp.token);  // TODO fix this double rooms call
+        const rooms = await apiChat.getAllRoomsByUser(resp.user._id, resp.token);  
 
         let user = resp.user;
         user = {...user, token: resp.token};
 
         dispatcher(loadUsersAction([user]));
-        dispatcher(loadRoomsAction(rooms)); // TODO fix this double rooms call
+        dispatcher(loadRoomsAction(rooms)); 
 
         
         localStorage.setUser(user);
         localStorage.setRooms(rooms);
-        // console.log(resp.user);
-        // console.log(resp.token);
 
         navigate(`/`);
     }

@@ -35,6 +35,7 @@ export default function LoginPage(){
 
         
         localStorage.setUser(user);
+        localStorage.setRooms(rooms);
         // console.log(resp.user);
         // console.log(resp.token);
 

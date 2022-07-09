@@ -1,42 +1,52 @@
 import { iMessage } from "../../interfaces/interfaces";
 import { RoomCard } from "../RoomCard";
 import {handleSubmitNewMessage} from '../../chat/chat-socket';
-// import io from 'socket.io-client';
+import { SyntheticEvent, useState } from "react";
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:4000');
+
 
 
 
 export function RoomList({data}: {data: iMessage[]}) {
+    socket.on('message', (message) => {
+        handleNewMessage(message);
+    })
+    
+    const handleNewMessage = (message: any) => {
+        const messages = document.querySelector('#messages');
 
-// const socket = io('http://localhost:4000');
+        console.log('message: ',message);
+    
+        messages?.appendChild(buildNewMessage(message));
+    }
+    
+    const buildNewMessage = (message: string) => {
 
-// const messages = document.querySelector('#messages');
-// const message: any  = document.querySelector('#message');
+        console.log('build message: ',message)
+    
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode(message));
+        return li;
+    }
 
-//  const handleSubmitNewMessage = () => {
-   
-//     if(message){
+     const initialState = '';
 
-//     // console.log(message.value);
+    const [formData, setFormData] = useState(initialState);
+    const handleChange = (ev: SyntheticEvent) => {
+        const element = ev.target as HTMLFormElement;
+        setFormData(element.value);
+    };
 
-//         socket.emit('message', {data: message.value})
-//     }
-// }
-
-// socket.on('message', ({data}) => {
-//     // alert('dfdf');
-//     // console.log(data);
-//     handleNewMessage(data);
-// })
-
-// const handleNewMessage = (message: any) => {
-//     messages?.appendChild(buildNewMessage(message));
-// }
-
-// const buildNewMessage = (message: string) => {
-//     const li = document.createElement('li');
-//     li.appendChild(document.createTextNode(message));
-//     return li;
-// }
+    const handleSubmit = async (ev: SyntheticEvent) => {
+        ev.preventDefault();
+        socket.emit('message', formData);
+        // updatedRobot = await apiRobot.updateOne( (robot as iRobot)._id , updatedRobot);
+        // dispatch(robotActions.updateRobotAction(updatedRobot));
+        // // setFormData(initialState);
+        // navigate(`/details/${updatedRobot._id}`);
+    }
     return (
         <>
             <ul>
@@ -48,11 +58,29 @@ export function RoomList({data}: {data: iMessage[]}) {
                 }
             </ul>
             <div>
-                <ul id="messages"></ul>
+                <ul id="messages">
+                    <li>messages:</li>
+
+                </ul>
             </div>
             <div>
-                <input type="text" id="message" />
-                <button onClick={handleSubmitNewMessage} >Enviar</button>
+
+
+            <form onSubmit={handleSubmit}>
+                        <div>
+                            <input 
+                                type="text" 
+                                name="name"
+                                placeholder="Escribe un mensaje.."
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <button type="submit">Enviar</button>
+
+                    </form>
+                {/* <input type="text" id="message" />
+                <button onClick={handleSubmitNewMessage} >enviar js</button> */}
             </div>
         </>
     )

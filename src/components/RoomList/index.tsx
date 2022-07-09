@@ -1,44 +1,22 @@
 import { iMessage } from "../../interfaces/interfaces";
 import { RoomCard } from "../RoomCard";
-import {handleSubmitNewMessage} from '../../chat/chat-socket';
+import {handleNewMessage, socket} from '../../chat/chat-socket';
 import { SyntheticEvent, useState } from "react";
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:4000');
 
 
 
 
 export function RoomList({data}: {data: iMessage[]}) {
-    socket.on('message', (message) => {
-        handleNewMessage(message);
-    })
-    
-    const handleNewMessage = (message: any) => {
-        const messages = document.querySelector('#messages');
+    const initialFormData = '';
 
-        console.log('message: ',message);
-    
-        messages?.appendChild(buildNewMessage(message));
-    }
-    
-    const buildNewMessage = (message: string) => {
-
-        console.log('build message: ',message)
-    
-        const li = document.createElement('li');
-        li.appendChild(document.createTextNode(message));
-        return li;
-    }
-
-     const initialState = '';
-
-    const [formData, setFormData] = useState(initialState);
+    const [formData, setFormData] = useState(initialFormData);
     const handleChange = (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
         setFormData(element.value);
     };
-
+    
     const handleSubmit = async (ev: SyntheticEvent) => {
         ev.preventDefault();
         socket.emit('message', formData);

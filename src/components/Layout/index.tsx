@@ -26,7 +26,7 @@ export function Layout({
 
         }
             <main>{children}</main>
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

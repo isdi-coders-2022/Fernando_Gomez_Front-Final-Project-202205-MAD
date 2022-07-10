@@ -13,7 +13,7 @@ export function Card({room}: {room: iRoom}) {
                     <span>{room.messages[room.messages.length - 1].content}</span>
                 </Link>
                 </div>
-                <div>{room.name}</div>
+                <div>room name: {room.name}</div>
             </ div>
         </>
     )

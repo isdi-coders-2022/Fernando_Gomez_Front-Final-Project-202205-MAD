@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RoomList } from "../../components/RoomList";
+import { Room } from "../../components/Room";
 import { iStore } from "../../interfaces/interfaces";
 
 export default function RoomPage(){
@@ -11,7 +11,7 @@ export default function RoomPage(){
         <>
         <h1>Conversación</h1>
 
-            <RoomList data={rooms[0].messages} />
+            <Room data={rooms[0].messages} roomId={rooms[0]._id as string} />
         </>
     )
 }

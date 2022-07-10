@@ -16,7 +16,7 @@ import './App.css';
     const navigate = useNavigate();
 
     useEffect(() => {
-        const user: iUser = localStorage.getUser();
+        const user: iUser = localStorage.getUsers()[0];
         const rooms: iRoom[] = localStorage.getRooms();
 
         if(!user  || !rooms){

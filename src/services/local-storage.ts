@@ -1,25 +1,25 @@
 import { iRoom, iUser } from '../interfaces/interfaces';
 
 export class LocalStoreService {
-    user: string;
+    users: string;
     rooms: string;
     constructor() {
-        this.user = 'User';
+        this.users = 'Users';
         this.rooms = 'Rooms';
     }
 
-    getUser(): iUser {
-        return localStorage.getItem(this.user)
-            ? JSON.parse(localStorage.getItem(this.user) as string)
+    getUsers(): iUser[] {
+        return localStorage.getItem(this.users)
+            ? JSON.parse(localStorage.getItem(this.users) as string)
             : '';
     }
 
-    setUser(user: iUser) {
-        localStorage.setItem(this.user, JSON.stringify(user));
+    setUsers(users: iUser[]) {
+        localStorage.setItem(this.users, JSON.stringify(users));
     }
 
     removeUser() {
-        localStorage.removeItem(this.user);
+        localStorage.removeItem(this.users);
     }
 
     getRooms(): iRoom[] {

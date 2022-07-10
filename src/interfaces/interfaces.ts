@@ -11,15 +11,13 @@ export interface iUser{
     updatedAt?: string;
     online: boolean;
     onConversation?: string; 
-    rooms: any[];
-    messages: any[];
+    rooms: iRoom[];
 }
 
 export interface iRoom{
     _id?: string;
-    id?: string;
     name?: string;
-    users: string[];
+    users: iUser[];
     messages: iMessage[];
     image?: string;
     createdAt: string;
@@ -28,12 +26,10 @@ export interface iRoom{
 
 export interface iMessage{
     _id?: string;
-    id?: string;
-    room: string;
     sender: string;
     recipient: string;
     content: string;
-    createdAt: string;
+    createdAt?: string;
     type: string;
 }
 export interface iStore{

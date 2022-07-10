@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
-import { iRoom, iRouterItem, iStore, iUser } from '../interfaces/interfaces';
+import { iRoom, iRouterItem, iUser } from '../interfaces/interfaces';
 import { loadRoomsAction } from '../reducers/room/action.creators';
 import { loadUsersAction } from '../reducers/user/action.creators';
 import { ApiChat } from '../services/api';

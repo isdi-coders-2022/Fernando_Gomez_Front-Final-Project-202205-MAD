@@ -1,4 +1,3 @@
-import { SyntheticEvent } from 'react';
 import { iRoom, iUser } from '../interfaces/interfaces';
 
 export class LocalStoreService {

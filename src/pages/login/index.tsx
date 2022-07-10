@@ -33,8 +33,15 @@ export default function LoginPage(){
         dispatcher(loadUsersAction([user]));
         dispatcher(loadRoomsAction(rooms)); 
 
-        
-        localStorage.setUser(user);
+        const users = await apiChat.getAllUsers(resp.user._id, resp.token); 
+        const otherUsers = users.filter(user => user._id !== resp.user._id);
+
+        console.log('users: ', users);
+        console.log('users filtrado: ', otherUsers);
+
+        const usersArray = [user, ...otherUsers];
+
+        localStorage.setUsers(usersArray);
         localStorage.setRooms(rooms);
 
         navigate(`/`);

@@ -16,7 +16,7 @@ import './App.css';
     const navigate = useNavigate();
 
     useEffect(() => {
-        const user: iUser = localStorage.getUser();
+        const user: iUser = localStorage.getUsers()[0];
         const rooms: iRoom[] = localStorage.getRooms();
 
         if(!user  || !rooms){
@@ -43,7 +43,8 @@ import './App.css';
     ]
 
   return (
-    <Layout navOptions={routerOptions} >
+    <div className='layout'>
+    <Layout navOptions={routerOptions}  >
         <React.Suspense>
             <Routes>
                 {routerOptions.map((item) => (
@@ -56,6 +57,7 @@ import './App.css';
             </Routes>
         </React.Suspense>
     </Layout>
+</div>
   );
 }
 

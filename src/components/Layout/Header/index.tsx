@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { iRouterItem, iStore } from "../../../interfaces/interfaces";
 import { loadRoomsAction } from "../../../reducers/room/action.creators";
 import { loadUsersAction } from "../../../reducers/user/action.creators";
-// import { LocalStoreService } from "../../../services/local-storage";
+import styles from './index.module.css';
 
 export function Header({navOptions}: {navOptions: iRouterItem[]}){
     const dispatcher = useDispatch();
@@ -31,7 +31,7 @@ export function Header({navOptions}: {navOptions: iRouterItem[]}){
     return (
         <>
             <header>
-                <nav>
+                <nav className={styles.nav}>
                     <div>
                         <ul>
                             {

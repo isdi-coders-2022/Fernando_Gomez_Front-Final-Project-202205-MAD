@@ -1,3 +1,5 @@
+import { iUser } from "../interfaces/interfaces";
+
 export class ApiChat {
     apiUrl: string;
     constructor(){
@@ -29,6 +31,17 @@ export class ApiChat {
 
     async getAllRoomsByUser(id: string, token: string): Promise<any> {
         const url = `${this.apiUrl}room/user/${id}`;
+        const resp = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return await resp.json();
+    }
+
+    async getAllUsers(id: string, token: string): Promise<iUser[]> {
+        const url = `${this.apiUrl}user`;
         const resp = await fetch(url, {
             method: 'GET',
             headers: {

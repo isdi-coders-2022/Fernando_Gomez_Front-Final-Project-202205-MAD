@@ -60,7 +60,7 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
         <>
             <ul>
                 {room?.messages.map(item => (
-                    <li key={item.content + item.sender}>
+                    <li key={item.createdAt}>
                         {item.createdAt}
                         <RoomCard message={item}/>
                     </li>

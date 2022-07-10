@@ -10,7 +10,6 @@ export function Header({navOptions}: {navOptions: iRouterItem[]}){
     const dispatcher = useDispatch();
 
     const navigate = useNavigate();
-    const user = useSelector((store: iStore) => store.users);
 
     const logout = (ev: SyntheticEvent) => {
         ev.preventDefault();
@@ -33,16 +32,20 @@ export function Header({navOptions}: {navOptions: iRouterItem[]}){
         <>
             <header>
                 <nav>
-                    <ul>
-                        {
-                            navOptions.map(item => 
-                                <li key={item.label}>
-                                    <Link to={item.path}>{item.label}</Link>
-                                </li>
-                                )
-                        }
-                    </ul>
+                    <div>
+                        <ul>
+                            {
+                                navOptions.map(item => 
+                                    <li key={item.label}>
+                                        <Link to={item.path}>{item.label}</Link>
+                                    </li>
+                                    )
+                            }
+                        </ul>
+                    </div>
+                    <div>
                         <button onClick={logout} >Logout</button> 
+                    </div>    
                 </nav>
             </header>
         </>

@@ -12,12 +12,10 @@ export interface iUser{
     online: boolean;
     onConversation?: string; 
     rooms: iRoom[];
-    // messages: any[];
 }
 
 export interface iRoom{
     _id?: string;
-    id?: string;
     name?: string;
     users: iUser[];
     messages: iMessage[];
@@ -28,8 +26,6 @@ export interface iRoom{
 
 export interface iMessage{
     _id?: string;
-    // id?: string;
-    // room: string;
     sender: string;
     recipient: string;
     content: string;

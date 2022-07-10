@@ -4,7 +4,6 @@ import { iStore } from "../../interfaces/interfaces";
 
 export default function RoomPage(){
 
-    const user = useSelector((store: iStore) => store.users);
     const rooms = useSelector((store: iStore) => store.rooms);
 
     return (

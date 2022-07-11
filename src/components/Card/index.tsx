@@ -7,12 +7,8 @@ import { formatDate } from "../../utils/formatDate";
 import styles from './index.module.css';
 
 export function Card({room}: {room: iRoom}) {
-    const localStorage = useMemo(() => new LocalStoreService(), []);
-    const user: iUser = localStorage.getUser();
-    const navigate = useNavigate();
-        if(!user){
-            navigate('/login');
-        }
+    const user = useSelector((store: iStore) => store.user[0]);
+   
     const users = useSelector((store: iStore) => store.users);
     const id1 = room.name?.substring(0, 24);
     const id2 = room.name?.substring(24, room.name.length);

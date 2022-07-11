@@ -17,11 +17,11 @@ export interface iUser{
 export interface iRoom{
     _id?: string;
     name?: string;
-    users: iUser[];
+    users: string[];
     messages: iMessage[];
     image?: string;
-    createdAt: string;
-    type: string;
+    createdAt?: string;
+    type?: string;
 }
 
 export interface iMessage{
@@ -30,7 +30,7 @@ export interface iMessage{
     recipient: string;
     content: string;
     createdAt?: string;
-    type: string;
+    type?: string;
 }
 export interface iStore{
     user: iUser[];

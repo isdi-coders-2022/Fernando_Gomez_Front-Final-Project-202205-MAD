@@ -1,6 +1,7 @@
 import { SyntheticEvent, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loadLoggedUsersAction } from "../../reducers/logged-user/action.creators";
 import { loadRoomsAction } from "../../reducers/room/action.creators";
 import { loadUsersAction } from "../../reducers/user/action.creators";
 import { ApiChat } from "../../services/api";
@@ -26,23 +27,22 @@ export default function LoginPage(){
         ev.preventDefault();
         const resp = await apiChat.login(formData);
         const rooms = await apiChat.getAllRoomsByUser(resp.user._id, resp.token);  
+        const users = await apiChat.getAllUsers(resp.user._id, resp.token);  
 
         let user = resp.user;
         user = {...user, token: resp.token};
 
-        dispatcher(loadUsersAction([user]));
+        dispatcher(loadLoggedUsersAction([user]));
+        dispatcher(loadUsersAction(users));
         dispatcher(loadRoomsAction(rooms)); 
 
-        const users = await apiChat.getAllUsers(resp.user._id, resp.token); 
-        const otherUsers = users.filter(user => user._id !== resp.user._id);
+        // const users = await apiChat.getAllUsers(resp.user._id, resp.token); 
+        // const otherUsers = users.filter(user => user._id !== resp.user._id);
 
-        console.log('users: ', users);
-        console.log('users filtrado: ', otherUsers);
+        // const usersArray = [user, ...otherUsers];
 
-        const usersArray = [user, ...otherUsers];
-
-        localStorage.setUsers(usersArray);
-        localStorage.setRooms(rooms);
+        localStorage.setUser(user);
+        // localStorage.setRooms(rooms);
 
         navigate(`/`);
     }

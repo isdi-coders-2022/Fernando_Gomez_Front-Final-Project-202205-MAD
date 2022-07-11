@@ -48,7 +48,7 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
 
     // TODO review. A message isn't sended with the same text
     
-    socket.on('response-message', (payload) => {
+    socket.on('message', (payload) => {
         const updatedRoom = payload
         dispatcher(updateRoomAction(updatedRoom as iRoom));
     })
@@ -61,10 +61,6 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
         <>
             <ul>
                 {room?.messages.map(item => {
-                    
-
-                   
-
                     return (
                             <li key={item.createdAt} className={styles.list}>
                                 <RoomCard message={item}/>

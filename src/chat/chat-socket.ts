@@ -3,9 +3,7 @@ import io from 'socket.io-client';
 export const socket = io('http://localhost:4000');
 
 
-socket.on('response-message', (payload) => {
-    const updatedRoom = payload
-})
+
 
 export const handleNewMessage = (message: any) => {
     const messages = document.querySelector('#messages');

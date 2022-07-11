@@ -1,6 +1,7 @@
 import { SyntheticEvent, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loadLoggedUsersAction } from "../../reducers/logged-user/action.creators";
 import { loadRoomsAction } from "../../reducers/room/action.creators";
 import { loadUsersAction } from "../../reducers/user/action.creators";
 import { ApiChat } from "../../services/api";
@@ -31,6 +32,7 @@ export default function LoginPage(){
         let user = resp.user;
         user = {...user, token: resp.token};
 
+        dispatcher(loadLoggedUsersAction([user]));
         dispatcher(loadUsersAction(users));
         dispatcher(loadRoomsAction(rooms)); 
 

@@ -13,10 +13,7 @@ export default function HomePage(){
             navigate('/login');
         }
 
-    const users = useSelector((store: iStore) => store.users);
     const rooms = useSelector((store: iStore) => store.rooms);
-
-    
 
     return (
         <>

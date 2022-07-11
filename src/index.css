@@ -17,12 +17,14 @@ code {
     padding: 0;
 }
 
-ul, ul::after, ul::before{
+ul, ul::after, ul::before, li, li::after, li::before{
     list-style: none;
+    text-decoration: none;
 }
 
 a, a::after, a::before, a:visited{
     color: inherit;
+    text-decoration: none;
 }
 
 #root{

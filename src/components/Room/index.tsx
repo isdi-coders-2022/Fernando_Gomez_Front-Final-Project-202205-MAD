@@ -5,10 +5,12 @@ import { SyntheticEvent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadRoomsAction, updateRoomAction } from "../../reducers/room/action.creators";
 import styles from './index.module.css';
+import { formatDate } from "../../utils/formatDate";
 
 export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
     const rooms = useSelector((store: iStore) => store.rooms);
-    const user = useSelector((store: iStore) => store.users[0]);
+
+    const user = useSelector((store: iStore) => store.user[0]);
     const users = useSelector((store: iStore) => store.users);
     
     const room = rooms.find((room) => roomId === room._id)   
@@ -59,22 +61,12 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
         <>
             <ul>
                 {room?.messages.map(item => {
-                    const sender = users.find(user => user._id === item.sender);
-                    let date = (item.createdAt as string).slice(0, -9);
-                    date = (date).slice(1);
-                    date = (date).replace('T', ' ');
+                    
+
+                   
 
                     return (
-                            <li 
-                                key={item.createdAt + item.content} 
-                                className={
-                                    user._id === sender?._id 
-                                        ? `${styles.card_container} ${ styles.mine}` 
-                                        : `${styles.card_container} ${ styles.not_mine}`
-                                }
-                            >
-                                {/* {JSON.parse(item.createdAt as string)} */}
-                                {date}
+                            <li key={item.createdAt} className={styles.list}>
                                 <RoomCard message={item}/>
                             </li>
                         )

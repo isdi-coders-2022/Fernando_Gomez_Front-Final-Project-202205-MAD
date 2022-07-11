@@ -1,3 +1,20 @@
 .card_container{
-    background-color: red;
+    -webkit-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.75);
+}
+.card_container:hover{
+    background-color: gray;
+}
+.message{
+    font-size: 1.2rem;
+    text-align: end;
+}
+.card_container span{
+    font-size: 1rem;
+}
+.date{
+    font-size: 0.8rem;
+    font-style: italic;
+    text-align: end;
 }

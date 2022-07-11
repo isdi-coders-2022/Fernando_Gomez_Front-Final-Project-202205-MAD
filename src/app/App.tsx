@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { iRoom, iRouterItem, iUser } from '../interfaces/interfaces';
+import { loadLoggedUsersAction } from '../reducers/logged-user/action.creators';
 import { loadRoomsAction } from '../reducers/room/action.creators';
 import { loadUsersAction } from '../reducers/user/action.creators';
 import { ApiChat } from '../services/api';
@@ -19,15 +20,15 @@ import './App.css';
         const user: iUser = localStorage.getUser();
         if(!user){
             navigate('/login');
-        }
-
+        } 
+        
         if (user){
             apiChat.getAllRoomsByUser(user._id as string, user.token as string).then(rooms => dispatcher(loadRoomsAction(rooms)));
             apiChat.getAllUsers(user._id as string, user.token as string).then(users => dispatcher(loadUsersAction(users)));
- 
-            // dispatcher(loadUsersAction([user]));
-            // dispatcher(loadRoomsAction(rooms));
+            dispatcher(loadLoggedUsersAction([user]));
+
         }
+        
     }, [apiChat, dispatcher, localStorage, navigate]);
 
     const HomePage = React.lazy(() => import('../pages/home'));

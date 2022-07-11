@@ -33,6 +33,7 @@ export interface iMessage{
     type: string;
 }
 export interface iStore{
+    user: iUser[];
     users: iUser[];
     rooms: iRoom[];
 }

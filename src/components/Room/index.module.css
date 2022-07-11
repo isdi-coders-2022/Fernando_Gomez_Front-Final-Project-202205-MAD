@@ -1,12 +1,4 @@
-.card_container{
-    background-color: gray;
+.list{
+    display: grid;
 }
 
-.mine{
-    text-align: end;
-}
-
-.not_mine{
-    background-color: green;
-    text-align: start;
-}

@@ -3,10 +3,8 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { iRoom, iStore, iUser } from "../../interfaces/interfaces";
 import { LocalStoreService } from "../../services/local-storage";
+import { formatDate } from "../../utils/formatDate";
 import styles from './index.module.css';
-
-
-
 
 export function Card({room}: {room: iRoom}) {
     const localStorage = useMemo(() => new LocalStoreService(), []);
@@ -16,37 +14,39 @@ export function Card({room}: {room: iRoom}) {
             navigate('/login');
         }
     const users = useSelector((store: iStore) => store.users);
-    const sender = users.find(user => user._id === room.messages[room.messages.length - 1].sender);
     const id1 = room.name?.substring(0, 24);
     const id2 = room.name?.substring(24, room.name.length);
-    console.log(id1);
-    console.log(id2);
+  
     let otherId = '';
     (user._id === id1) ? otherId = id2 as string : otherId = id1 as string;
-    console.log('otherId: ', otherId);
 
     const otherUser = users.find(user => user._id === otherId);
-    // const otherUser = users.find(user => user._id === '62cad2e2c32835e32432a546');
-    console.log(otherUser);
-    console.log(users);
 
     return (
         <>
-                <Link to={`room/${room._id}`} >
-                    <div className={styles.card_container} >
+            <Link to={`room/${room._id}`} >
+                <div className={styles.card_container} >
+                    <div>
                         <div>
-                            <div>
+                            <span>
                                 {otherUser?.nickname}
-                            </div>
-                            <div>
-                                {room.messages.length > 0 
-                                    ? <span>{room.messages[room.messages.length - 1].content}</span>
-                                    : <pre>Envía tu primer mensaje..</pre>
-                                }
-                            </div>
+                            </span>
                         </div>
-                    </ div>
-                </Link>
+                        <div>
+                            <p className={styles.date}>
+                                {formatDate(room.messages[room.messages.length - 1].createdAt as string)}
+                            </p>
+                            <p className={styles.message}>
+                            {room.messages.length > 0 
+                                ? `${room.messages[room.messages.length - 1].content}`
+                                : `Envía tu primer mensaje..`
+                            }
+                            </p>
+                        </div>
+                     
+                    </div>
+                </ div>
+            </Link>
                 
         </>
     )

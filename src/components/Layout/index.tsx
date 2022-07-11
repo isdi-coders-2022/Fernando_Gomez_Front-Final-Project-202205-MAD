@@ -15,9 +15,6 @@ export function Layout({
 
     const user = useSelector((store: iStore) => store.users);
     
-    const dispatcher = useDispatch();
-    const apiChat = useMemo(() => new ApiChat(), []);
-    
     return (
         <>
         {user.length !== 0 &&

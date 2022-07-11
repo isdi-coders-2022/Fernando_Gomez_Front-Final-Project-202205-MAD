@@ -51,7 +51,3 @@ export function Header({navOptions}: {navOptions: iRouterItem[]}){
         </>
     )
 }
-
-// function dispatcher(arg0: { payload: import("../../../interfaces/interfaces").iUser[]; type: string; }) {
-//     throw new Error("Function not implemented.");
-// }

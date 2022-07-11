@@ -16,18 +16,17 @@ import './App.css';
     const navigate = useNavigate();
 
     useEffect(() => {
-        const user: iUser = localStorage.getUsers()[0];
-        const rooms: iRoom[] = localStorage.getRooms();
-
-        if(!user  || !rooms){
+        const user: iUser = localStorage.getUser();
+        if(!user){
             navigate('/login');
         }
 
         if (user){
             apiChat.getAllRoomsByUser(user._id as string, user.token as string).then(rooms => dispatcher(loadRoomsAction(rooms)));
+            apiChat.getAllUsers(user._id as string, user.token as string).then(users => dispatcher(loadUsersAction(users)));
  
-            dispatcher(loadUsersAction([user]));
-            dispatcher(loadRoomsAction(rooms));
+            // dispatcher(loadUsersAction([user]));
+            // dispatcher(loadRoomsAction(rooms));
         }
     }, [apiChat, dispatcher, localStorage, navigate]);
 

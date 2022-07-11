@@ -20,7 +20,8 @@ export function Card({room}: {room: iRoom}) {
 
     return (
         <>
-            <Link to={`room/${room._id}`} >
+            {room.messages.length > 0 &&
+                <Link to={`room/${room._id}`} >
                 <div className={styles.card_container} >
                     <div>
                         <div>
@@ -43,6 +44,7 @@ export function Card({room}: {room: iRoom}) {
                     </div>
                 </ div>
             </Link>
+            }
                 
         </>
     )

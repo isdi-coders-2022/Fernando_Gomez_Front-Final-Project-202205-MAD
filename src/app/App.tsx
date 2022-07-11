@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { iRoom, iRouterItem, iUser } from '../interfaces/interfaces';
+import UsersPage from '../pages/users';
 import { loadLoggedUsersAction } from '../reducers/logged-user/action.creators';
 import { loadRoomsAction } from '../reducers/room/action.creators';
 import { loadUsersAction } from '../reducers/user/action.creators';
@@ -34,11 +35,13 @@ import './App.css';
     const HomePage = React.lazy(() => import('../pages/home'));
     const LoginPage = React.lazy(() => import('../pages/login'));
     const RoomPage = React.lazy(() => import('../pages/room'));
+    const UsersPage = React.lazy(() => import('../pages/users'));
 
     const routerOptions: iRouterItem[] = [
         { path: '/', label: 'Home', page: <HomePage /> },
         { path: '/login', label: 'Login', page: <LoginPage /> },
         { path: '/room/:id', label: 'Room', page: <RoomPage /> },
+        { path: '/users', label: 'Users', page: <UsersPage /> },
         { path: '*', label: '', page: <HomePage /> },
     ]
 

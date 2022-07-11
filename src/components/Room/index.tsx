@@ -31,7 +31,7 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
             _id : '',
             createdAt: JSON.stringify(new Date()),
             sender: user._id as string,
-            recipient: room?.users[1]._id as string,
+            recipient: room?.users[1] as string,
             content: formData,
             type: 'p2p'
         }
@@ -46,7 +46,7 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
 
     }, [formData])
 
-    // TODO review. A mmesage isn't sended with the same text
+    // TODO review. A message isn't sended with the same text
     
     socket.on('response-message', (payload) => {
         const updatedRoom = payload

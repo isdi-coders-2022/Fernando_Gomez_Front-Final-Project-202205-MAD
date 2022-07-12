@@ -1,6 +1,7 @@
 import { SyntheticEvent, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Spinner } from '../../components/Layout/Spinner';
 import { loadLoggedUsersAction } from '../../reducers/logged-user/action.creators';
 import { loadRoomsAction } from '../../reducers/room/action.creators';
 import { loadUsersAction } from '../../reducers/user/action.creators';
@@ -9,6 +10,8 @@ import { LocalStoreService } from '../../services/local-storage';
 import styles from './index.module.css';
 
 export default function LoginPage() {
+    const [loading, setLoading] = useState(false);
+
     const localStorage = new LocalStoreService();
 
     const dispatcher = useDispatch();
@@ -35,12 +38,15 @@ export default function LoginPage() {
 
     const handleSubmit = async (ev: SyntheticEvent) => {
         ev.preventDefault();
+        setLoading(true);
+
         const resp = await apiChat.login(formData);
         const rooms = await apiChat.getAllRoomsByUser(
             resp.user._id,
             resp.token
         );
         const users = await apiChat.getAllUsers(resp.user._id, resp.token);
+            setLoading(false);
 
         let user = resp.user;
         user = { ...user, token: resp.token };
@@ -52,6 +58,7 @@ export default function LoginPage() {
         localStorage.setUser(user);
 
         navigate(`/`);
+        
     };
 
     const handleSubmitSignUp = async (ev: SyntheticEvent) => {
@@ -77,82 +84,90 @@ export default function LoginPage() {
     }
 
     return (
+        <>
+            {loading ? (
+                <Spinner  />
+            ) : (
+                <div  className={styles.container}>
+                <div className={styles.logo_section}>
+                    <img src="./logo.png" alt="" />
+                </div>
+                <div>
+                <form id='loginform' onSubmit={handleSubmit} className={styles.form}>
+                    <div>
+                        <div><label htmlFor="">Email</label></div>
+                        <div><input type="email" name="email" onChange={handleChange} required /></div>
+                    </div>
+                    <div>
+                        <div><label htmlFor="">Password</label></div>
+                        <div>
+                            <input
+                                type="password"
+                                name="password"
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <div><button type="submit">Login</button></div>
+                    </div>
+                    <div>
+                        <div><p>¿No tienes cuenta?</p></div>
+                        <div>
+                            <button onClick={openModal} >Regístrate</button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+    
+    
+                <div>
+                <form id='signupform' onSubmit={handleSubmitSignUp} className={ `${styles.modal} ${styles.d_none} ${styles.form}`}>
+                    <div>
+                        <div><label htmlFor="">Nombre</label></div>
+                        <div><input type="text" name="name" onChange={handleChangeSignUp} required /></div>
+                    </div>
+                    <div>
+                        <div><label htmlFor="">Apellido</label></div>
+                        <div><input type="text" name="surname" onChange={handleChangeSignUp} required /></div>
+                    </div>
+                    <div>
+                        <div><label htmlFor="">Nick name</label></div>
+                        <div><input type="text" name="nickname" onChange={handleChangeSignUp} required /></div>
+                    </div>
+                    <div>
+                        <div><label htmlFor="">Email</label></div>
+                        <div><input type="email" name="email" onChange={handleChangeSignUp} required /></div>
+                    </div>
+                    <div>
+                        <div><label htmlFor="">Password</label></div>
+                        <div>
+                            <input
+                                type="password"
+                                name="password"
+                                onChange={handleChangeSignUp}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <div><button type="submit">Registrarme</button></div>
+                    </div>
+                    <div>
+                        <div><p>¿Ya tienes cuenta?</p></div>
+                        <div>
+                            <button onClick={closeModal} >Login</button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+            )
+
+            }
+        </>
         
-        <div  className={styles.container}>
-            <div className={styles.logo_section}>
-                <img src="./logo.png" alt="" />
-            </div>
-            <div>
-            <form id='loginform' onSubmit={handleSubmit} className={styles.form}>
-                <div>
-                    <div><label htmlFor="">Email</label></div>
-                    <div><input type="email" name="email" onChange={handleChange} required /></div>
-                </div>
-                <div>
-                    <div><label htmlFor="">Password</label></div>
-                    <div>
-                        <input
-                            type="password"
-                            name="password"
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                </div>
-                <div>
-                    <div><button type="submit">Login</button></div>
-                </div>
-                <div>
-                    <div><p>¿No tienes cuenta?</p></div>
-                    <div>
-                        <button onClick={openModal} >Regístrate</button>
-                    </div>
-                </div>
-            </form>
-            </div>
-
-
-            <div>
-            <form id='signupform' onSubmit={handleSubmitSignUp} className={ `${styles.modal} ${styles.d_none} ${styles.form}`}>
-                <div>
-                    <div><label htmlFor="">Nombre</label></div>
-                    <div><input type="text" name="name" onChange={handleChangeSignUp} required /></div>
-                </div>
-                <div>
-                    <div><label htmlFor="">Apellido</label></div>
-                    <div><input type="text" name="surname" onChange={handleChangeSignUp} required /></div>
-                </div>
-                <div>
-                    <div><label htmlFor="">Nick name</label></div>
-                    <div><input type="text" name="nickname" onChange={handleChangeSignUp} required /></div>
-                </div>
-                <div>
-                    <div><label htmlFor="">Email</label></div>
-                    <div><input type="email" name="email" onChange={handleChangeSignUp} required /></div>
-                </div>
-                <div>
-                    <div><label htmlFor="">Password</label></div>
-                    <div>
-                        <input
-                            type="password"
-                            name="password"
-                            onChange={handleChangeSignUp}
-                            required
-                        />
-                    </div>
-                </div>
-                <div>
-                    <div><button type="submit">Registrarme</button></div>
-                </div>
-                <div>
-                    <div><p>¿Ya tienes cuenta?</p></div>
-                    <div>
-                        <button onClick={closeModal} >Login</button>
-                    </div>
-                </div>
-            </form>
-            </div>
-        </div>
 
         
     );

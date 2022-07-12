@@ -8,6 +8,8 @@ import { loadUsersAction } from "../../../reducers/user/action.creators";
 import styles from './index.module.css';
 
 export function Header({navOptions}: {navOptions: iRouterItem[]}){
+    const user = useSelector((store: iStore) => store.user[0]);
+
     const dispatcher = useDispatch();
 
     const navigate = useNavigate();
@@ -31,22 +33,26 @@ export function Header({navOptions}: {navOptions: iRouterItem[]}){
 
     return (
         <>
-            <header>
+            <header className={styles.header}>
                 <nav className={styles.nav}>
-                    <div>
-                        <ul>
+                    {/* <div> */}
+                        {/* <ul> */}
                             {
                                 navOptions.map(item => 
-                                    <li key={item.label}>
+                                    <div key={item.label}>
                                         <Link to={item.path}>{item.label}</Link>
-                                    </li>
+                                    </div>
                                     )
                             }
-                        </ul>
-                    </div>
-                    <div>
-                        <button onClick={logout} >Logout</button> 
-                    </div>    
+                            <div>
+                                <button onClick={logout} >Logout</button> 
+                            </div>  
+                            <div>
+                                {user.nickname} 
+                            </div> 
+                        {/* </ul> */}
+                    {/* </div> */}
+                      
                 </nav>
             </header>
         </>

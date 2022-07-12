@@ -1,0 +1,22 @@
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.form div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+    padding: 0.4rem;
+
+}

@@ -13,7 +13,7 @@ export function Layout({
     navOptions: iRouterItem[];
 }){
 
-    const user = useSelector((store: iStore) => store.users);
+    const user = useSelector((store: iStore) => store.user);
     
     return (
         <>

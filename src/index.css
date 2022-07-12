@@ -48,5 +48,12 @@ button, input[type="submit"], input[type="reset"] {
 	outline: inherit;
 }
 
+.d_none{
+    display: none;
+}
+.d_initial{
+    display: initial;
+}
+
 
 

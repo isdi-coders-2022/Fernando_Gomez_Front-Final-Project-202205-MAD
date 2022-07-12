@@ -1,6 +1,6 @@
 import { SyntheticEvent, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loadLoggedUsersAction } from '../../reducers/logged-user/action.creators';
 import { loadRoomsAction } from '../../reducers/room/action.creators';
 import { loadUsersAction } from '../../reducers/user/action.creators';
@@ -16,12 +16,21 @@ export default function LoginPage() {
 
     const navigate = useNavigate();
     const initialState = { email: '', password: '' };
+    const initSignUp = { name: '', nickname: '',  email: '', password: '' };
     const [formData, setFormData] = useState(initialState);
+    const [signUp, setSignup] = useState(initSignUp);
 
     const handleChange = (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
         const value = element.value;
         setFormData({ ...formData, [element.name]: value });
+    };
+
+    const handleChangeSignUp = (ev: SyntheticEvent) => {
+        const element = ev.target as HTMLFormElement;
+        const value = element.value;
+        setSignup({ ...signUp, [element.name]: value });
+        console.log(signUp);
     };
 
     const handleSubmit = async (ev: SyntheticEvent) => {
@@ -45,12 +54,39 @@ export default function LoginPage() {
         navigate(`/`);
     };
 
+    const handleSubmitSignUp = async (ev: SyntheticEvent) => {
+        ev.preventDefault();
+        const resp = await apiChat.signup(signUp);
+
+        if(resp.status === 201){
+            closeModal();
+        } else{
+            // TODO improve this
+            alert('Se ha producido un error')
+        }
+    };
+
+    const openModal = () => {
+        document.querySelector('#loginform')?.classList.add(`${styles.d_none}`);
+        document.querySelector('#signupform')?.classList.remove(`${styles.d_none}`);
+    }
+
+    const closeModal = () => {
+        document.querySelector('#loginform')?.classList.remove(`${styles.d_none}`);
+        document.querySelector('#signupform')?.classList.add(`${styles.d_none}`);
+    }
+
     return (
-        <div className={styles.container}>
-            <form onSubmit={handleSubmit} className={styles.form}>
+        
+        <div  className={styles.container}>
+            <div className={styles.logo_section}>
+                <img src="./logo.png" alt="" />
+            </div>
+            <div>
+            <form id='loginform' onSubmit={handleSubmit} className={styles.form}>
                 <div>
                     <div><label htmlFor="">Email</label></div>
-                    <div><input type="email" name="email" onChange={handleChange} /></div>
+                    <div><input type="email" name="email" onChange={handleChange} required /></div>
                 </div>
                 <div>
                     <div><label htmlFor="">Password</label></div>
@@ -59,13 +95,65 @@ export default function LoginPage() {
                             type="password"
                             name="password"
                             onChange={handleChange}
+                            required
                         />
                     </div>
                 </div>
                 <div>
                     <div><button type="submit">Login</button></div>
                 </div>
+                <div>
+                    <div><p>¿No tienes cuenta?</p></div>
+                    <div>
+                        <button onClick={openModal} >Regístrate</button>
+                    </div>
+                </div>
             </form>
+            </div>
+
+
+            <div>
+            <form id='signupform' onSubmit={handleSubmitSignUp} className={ `${styles.modal} ${styles.d_none} ${styles.form}`}>
+                <div>
+                    <div><label htmlFor="">Nombre</label></div>
+                    <div><input type="text" name="name" onChange={handleChangeSignUp} required /></div>
+                </div>
+                <div>
+                    <div><label htmlFor="">Apellido</label></div>
+                    <div><input type="text" name="surname" onChange={handleChangeSignUp} required /></div>
+                </div>
+                <div>
+                    <div><label htmlFor="">Nick name</label></div>
+                    <div><input type="text" name="nickname" onChange={handleChangeSignUp} required /></div>
+                </div>
+                <div>
+                    <div><label htmlFor="">Email</label></div>
+                    <div><input type="email" name="email" onChange={handleChangeSignUp} required /></div>
+                </div>
+                <div>
+                    <div><label htmlFor="">Password</label></div>
+                    <div>
+                        <input
+                            type="password"
+                            name="password"
+                            onChange={handleChangeSignUp}
+                            required
+                        />
+                    </div>
+                </div>
+                <div>
+                    <div><button type="submit">Registrarme</button></div>
+                </div>
+                <div>
+                    <div><p>¿Ya tienes cuenta?</p></div>
+                    <div>
+                        <button onClick={closeModal} >Login</button>
+                    </div>
+                </div>
+            </form>
+            </div>
         </div>
+
+        
     );
 }

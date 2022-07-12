@@ -1,20 +1,15 @@
-import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { List } from "../../components/List";
-import { iStore, iUser } from "../../interfaces/interfaces";
-import { LocalStoreService } from "../../services/local-storage";
+import { iStore } from "../../interfaces/interfaces";
+import styles from './index.module.css';
 
 export default function HomePage(){
-    const user = useSelector((store: iStore) => store.user[0]);
 
     const rooms = useSelector((store: iStore) => store.rooms);
-    console.log('rroms in home page: ', rooms);
 
     return (
         <>
-        <h3>User: {user.nickname}</h3>
-        <h1>Conversaciones</h1>
+        <h1 className={styles.h1}>Conversaciones</h1>
             <List data={rooms} />
         </>
     )

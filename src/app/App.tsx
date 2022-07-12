@@ -2,8 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
-import { iRoom, iRouterItem, iUser } from '../interfaces/interfaces';
-import UsersPage from '../pages/users';
+import { iRouterItem, iUser } from '../interfaces/interfaces';
 import { loadLoggedUsersAction } from '../reducers/logged-user/action.creators';
 import { loadRoomsAction } from '../reducers/room/action.creators';
 import { loadUsersAction } from '../reducers/user/action.creators';
@@ -27,7 +26,6 @@ import './App.css';
             apiChat.getAllRoomsByUser(user._id as string, user.token as string).then(rooms => dispatcher(loadRoomsAction(rooms)));
             apiChat.getAllUsers(user._id as string, user.token as string).then(users => dispatcher(loadUsersAction(users)));
             dispatcher(loadLoggedUsersAction([user]));
-
         }
         
     }, [apiChat, dispatcher, localStorage, navigate]);
@@ -36,12 +34,14 @@ import './App.css';
     const LoginPage = React.lazy(() => import('../pages/login'));
     const RoomPage = React.lazy(() => import('../pages/room'));
     const UsersPage = React.lazy(() => import('../pages/users'));
+    const SignUpPage = React.lazy(() => import('../pages/signup'));
 
     const routerOptions: iRouterItem[] = [
         { path: '/', label: 'Home', page: <HomePage /> },
         { path: '/login', label: 'Login', page: <LoginPage /> },
         { path: '/room/:id', label: 'Room', page: <RoomPage /> },
         { path: '/users', label: 'Users', page: <UsersPage /> },
+        { path: '/signup', label: 'Sign-up', page: <SignUpPage /> },
         { path: '*', label: '', page: <HomePage /> },
     ]
 

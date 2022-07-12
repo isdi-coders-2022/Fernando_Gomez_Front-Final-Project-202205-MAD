@@ -7,7 +7,7 @@ export class ApiChat {
     }
 
     async signup(payload: any): Promise<any> {
-        const resp = await fetch(this.apiUrl, {
+        const resp = await fetch(`${this.apiUrl}user`, {
             method: 'POST',
             body: JSON.stringify(payload),
             headers: {
@@ -18,8 +18,7 @@ export class ApiChat {
     }
 
     async login(payload: any): Promise<any> {
-        const url = `${this.apiUrl}user/login`
-        const resp = await fetch(url, {
+        const resp = await fetch(`${this.apiUrl}user/login`, {
             method: 'POST',
             body: JSON.stringify(payload),
             headers: {

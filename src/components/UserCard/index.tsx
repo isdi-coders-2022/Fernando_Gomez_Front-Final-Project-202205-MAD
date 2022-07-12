@@ -36,14 +36,17 @@ export function UserCard({user}: {user: iUser}) {
             }
             socket.emit('new-p2p-room', {
                 room: newRoom,
+            });
+
+            socket.on('new-p2p-room', (payload: iRoom) => {
+                // const newRoom = payload
+                dispatcher(addRoomAction(payload as iRoom));
+                navigate(`/room/${payload._id}`);
             })
         }
     }
 
-    socket.on('new-p2p-room', (payload) => {
-        const newRoom = payload
-        dispatcher(addRoomAction(newRoom as iRoom));
-    })
+    
 
     return (
         <>

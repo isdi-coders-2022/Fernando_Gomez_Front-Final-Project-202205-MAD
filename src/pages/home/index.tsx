@@ -6,16 +6,10 @@ import { iStore, iUser } from "../../interfaces/interfaces";
 import { LocalStoreService } from "../../services/local-storage";
 
 export default function HomePage(){
-    // const localStorage = useMemo(() => new LocalStoreService(), []);
-    // const user: iUser = localStorage.getUser();
-    // const navigate = useNavigate();
-    //     if(!user){
-    //         navigate('/login');
-    //     }
-
     const user = useSelector((store: iStore) => store.user[0]);
 
     const rooms = useSelector((store: iStore) => store.rooms);
+    console.log('rroms in home page: ', rooms);
 
     return (
         <>

@@ -10,7 +10,7 @@ import { ApiChat } from '../services/api';
 import { LocalStoreService } from '../services/local-storage';
 import './App.css';
 
- function App() {
+function App() {
     const localStorage = useMemo(() => new LocalStoreService(), []);
     const dispatcher = useDispatch();
     const apiChat = useMemo(() => new ApiChat(), []);
@@ -18,16 +18,19 @@ import './App.css';
 
     useEffect(() => {
         const user: iUser = localStorage.getUser();
-        if(!user){
+        if (!user) {
             navigate('/login');
-        } 
-        
-        if (user){
-            apiChat.getAllRoomsByUser(user._id as string, user.token as string).then(rooms => dispatcher(loadRoomsAction(rooms)));
-            apiChat.getAllUsers(user._id as string, user.token as string).then(users => dispatcher(loadUsersAction(users)));
+        }
+
+        if (user) {
+            apiChat
+                .getAllRoomsByUser(user._id as string, user.token as string)
+                .then((rooms) => dispatcher(loadRoomsAction(rooms)));
+            apiChat
+                .getAllUsers(user._id as string, user.token as string)
+                .then((users) => dispatcher(loadUsersAction(users)));
             dispatcher(loadLoggedUsersAction([user]));
         }
-        
     }, [apiChat, dispatcher, localStorage, navigate]);
 
     const HomePage = React.lazy(() => import('../pages/home'));
@@ -41,25 +44,25 @@ import './App.css';
         { path: '/room/:id', label: 'Room', page: <RoomPage /> },
         { path: '/users', label: 'Users', page: <UsersPage /> },
         { path: '*', label: '', page: <HomePage /> },
-    ]
+    ];
 
-  return (
-    <div className='layout'>
-    <Layout navOptions={routerOptions}  >
-        <React.Suspense>
-            <Routes>
-                {routerOptions.map((item) => (
-                    <Route
-                        key={item.label}
-                        path={item.path}
-                        element={item.page}
-                    ></Route>
-                ))}
-            </Routes>
-        </React.Suspense>
-    </Layout>
-</div>
-  );
+    return (
+        <div className="layout">
+            <Layout navOptions={routerOptions}>
+                <React.Suspense>
+                    <Routes>
+                        {routerOptions.map((item) => (
+                            <Route
+                                key={item.label}
+                                path={item.path}
+                                element={item.page}
+                            ></Route>
+                        ))}
+                    </Routes>
+                </React.Suspense>
+            </Layout>
+        </div>
+    );
 }
 
 export default App;

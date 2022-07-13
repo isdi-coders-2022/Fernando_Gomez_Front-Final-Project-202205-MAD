@@ -12,7 +12,9 @@ export default function RoomPage(){
     return (
         <>
         <h1>Conversación</h1>
-            {rooms.length > 0 && <Room data={room?.messages as iMessage[]} roomId={room?._id as string} />}
+            {rooms.length > 0 && 
+            <Room data={room?.messages as iMessage[]} roomId={room?._id as string} />
+            }
             
         </>
     )

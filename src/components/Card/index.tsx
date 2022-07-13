@@ -25,6 +25,7 @@ export function Card({room}: {room: iRoom}) {
                 <div className={styles.card_container} >
                     <div>
                         <div>
+                            <span>prueba</span>
                             <span>
                                 {otherUser?.nickname}
                             </span>

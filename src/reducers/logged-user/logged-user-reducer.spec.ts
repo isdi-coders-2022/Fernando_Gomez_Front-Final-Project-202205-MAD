@@ -1,7 +1,19 @@
 import * as actions from './action.creators';
 import { AnyAction } from '@reduxjs/toolkit';
-import { iUser } from '../../interfaces/interfaces';
-import { userReducer } from './reducer';
+import { iMessage, iRoom, iUser } from '../../interfaces/interfaces';
+import { userReducer } from '../user/reducer';
+import { loggedUserReducer } from './reducer';
+
+const mockMessage: iMessage = {
+    sender: '',
+    recipient: '',
+    content: '',
+}
+
+const mockRoom: iRoom = {
+    messages: [mockMessage],
+    users: []
+}
 
 const mockedArray: iUser[] = [
     {
@@ -17,7 +29,7 @@ const mockedArray: iUser[] = [
         updatedAt: 'string',
         online: false,
         onConversation: 'string',
-        rooms: [],
+        rooms: [mockRoom],
     },
     {
         _id: '2',
@@ -32,33 +44,33 @@ const mockedArray: iUser[] = [
         updatedAt: 'string',
         online: false,
         onConversation: 'string',
-        rooms: [],
+        rooms: [mockRoom],
     },
 ];
 describe('Given users reducer', () => {
     describe('When calling it with load action with an array of users', () => {
         test('It should return a new state with that array of users', () => {
-            const newState = userReducer(
+            const newState = loggedUserReducer(
                 [],
-                actions.loadUsersAction(mockedArray)
+                actions.loadLoggedUsersAction(mockedArray)
             );
             expect(newState).toEqual(mockedArray);
         });
     });
     describe('When calling it with add action with a user', () => {
         test('It should return a new state with an array with that user', () => {
-            const newState = userReducer(
+            const newState = loggedUserReducer(
                 [],
-                actions.addUserAction(mockedArray[0])
+                actions.addLoggedUserAction(mockedArray[0])
             );
             expect(newState).toEqual([mockedArray[0]]);
         });
     });
     describe('When calling it with update action with a user or partial user', () => {
         test('It should return a new state with a updated array of users', () => {
-            const newState = userReducer(
+            const newState = loggedUserReducer(
                 mockedArray,
-                actions.updateUserAction({
+                actions.updateLoggedUserAction({
                     ...mockedArray[0],
                     name: 'true',
                 })
@@ -70,16 +82,16 @@ describe('Given users reducer', () => {
     });
     describe('When calling it with delete action with a user', () => {
         test('It should return a new state with an array of previous users without the deleted one', () => {
-            const newState = userReducer(
+            const newState = loggedUserReducer(
                 mockedArray,
-                actions.deleteUserAction(mockedArray[0])
+                actions.deleteLoggedUserAction(mockedArray[0])
             );
             expect(newState).toEqual([mockedArray[1]]);
         });
     });
     describe('When calling it with a non related action', () => {
         test('It should return a new state equal to the previous one', () => {
-            const newState = userReducer(mockedArray, {} as AnyAction);
+            const newState = loggedUserReducer(mockedArray, {} as AnyAction);
             expect(newState).toEqual(mockedArray);
         });
     });

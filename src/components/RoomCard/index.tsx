@@ -16,7 +16,7 @@ export function RoomCard({message}: {message: iMessage}) {
                 ? `${styles.card_container} ${ styles.mine}` 
                 : `${styles.card_container} ${ styles.not_mine}`
         }>
-            <p className={styles.date}>{date}</p>
+            <p className={styles.date}  >{date}</p>
             <p className={styles.message}>{message.content}</p>
         </ div>
     )

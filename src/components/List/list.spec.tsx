@@ -1,16 +1,16 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
-import { iRoom, iRouterItem, iStore, iUser } from '../../../interfaces/interfaces';
-import { Header, List } from './index';
-import { fireEvent, render, screen } from '../../../utils/test-utils';
-import { loggedUserReducer } from '../../../reducers/logged-user/reducer';
-import { userReducer } from '../../../reducers/user/reducer';
-import { roomReducer } from '../../../reducers/room/reducer';
-import { Layout } from '../index';
+import { iRoom, iRouterItem, iStore, iUser } from '../../interfaces/interfaces';
+import { loggedUserReducer } from '../../reducers/logged-user/reducer';
+import { roomReducer } from '../../reducers/room/reducer';
+import { userReducer } from '../../reducers/user/reducer';
+import { render, screen } from '../../utils/test-utils';
+import { Layout } from '../Layout';
+import { List } from './index';
 
 
-describe('Given the Header component', () => {
+
+describe('Given the List component', () => {
   describe('when it is called', () => {
     test('it should be rendered', () => {
 
@@ -30,7 +30,7 @@ describe('Given the Header component', () => {
             rooms: [],
         };
 
-      const HomePage = React.lazy(() => import('../../../pages/home/index'));
+      const HomePage = React.lazy(() => import('../../pages/home/index'));
 
       const mockRouterOptions: iRouterItem[] = [
         { path: '/', label: 'Home', page: <HomePage /> }
@@ -56,8 +56,8 @@ describe('Given the Header component', () => {
         </BrowserRouter>,
         { preloadedState, reducer }
       );
-      const display = screen.getByText(/Home/i);
-      expect(display).toBeInTheDocument();
+      const element = screen.getByTestId('1');
+      expect(element).toBeInTheDocument();
     });
   });
 });

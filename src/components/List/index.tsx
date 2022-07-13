@@ -4,7 +4,7 @@ import { Card } from "../Card";
 
 export function List({data}: {data: iRoom[]}) {
     return (
-        <ul>
+        <ul data-testid="1">
             {data.map(item => (
                 <li key={item.name}>
                     <Card room={item}/>

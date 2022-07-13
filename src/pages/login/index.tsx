@@ -33,7 +33,6 @@ export default function LoginPage() {
         const element = ev.target as HTMLFormElement;
         const value = element.value;
         setSignup({ ...signUp, [element.name]: value });
-        console.log(signUp);
     };
 
     const handleSubmit = async (ev: SyntheticEvent) => {

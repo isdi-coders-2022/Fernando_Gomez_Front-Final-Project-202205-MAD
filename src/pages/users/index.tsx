@@ -1,30 +1,44 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { UsersList } from "../../components/UsersList";
-import { iStore } from "../../interfaces/interfaces";
-import styles from './index.module.css'
+import { SyntheticEvent, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { UsersList } from '../../components/UsersList';
+import { iStore, iUser } from '../../interfaces/interfaces';
+import styles from './index.module.css';
 
-export default function UsersPage(){
+export default function UsersPage() {
     const users = useSelector((store: iStore) => store.users);
 
-    const [search, setSearch] = useState(true) ;
-    const results = users.filter(user => user.name.includes('Migu'))
+    const initResult: iUser[] = []
+    const [search, setSearch] = useState(true);
+    const [result, setResult] = useState(initResult);
+    let results: iUser[] = [];
 
-console.log('users: ', users);
-console.log('results: ', results);
-
+    const changeInput = (ev: SyntheticEvent) => {
+        if ((ev.target as HTMLFormElement).value !== ''){
+            results = users.filter((user) => user.nickname.includes((ev.target as HTMLFormElement).value));
+            setResult(results);
+            setSearch(false);
+        } else{
+            setSearch(true);
+        }
+    };
 
     return (
         <div className={styles.container}>
-            {search ? (
-                <UsersList data={users} />
-            ) : (
-                <UsersList data={results} />
-            )
-
-            }
-                
-           
-        </ div>
-    )
+            <div>
+                <input
+                    onChange={changeInput}
+                    type="text"
+                    id="searchBar"
+                    placeholder="🔍"
+                />
+            </div>
+            <div>
+                {search ? (
+                    <UsersList data={users} />
+                ) : (
+                    <UsersList data={result} />
+                )}
+            </div>
+        </div>
+    );
 }

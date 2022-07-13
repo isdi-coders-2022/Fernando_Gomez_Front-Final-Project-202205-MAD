@@ -34,14 +34,12 @@ import './App.css';
     const LoginPage = React.lazy(() => import('../pages/login'));
     const RoomPage = React.lazy(() => import('../pages/room'));
     const UsersPage = React.lazy(() => import('../pages/users'));
-    const SignUpPage = React.lazy(() => import('../pages/signup'));
 
     const routerOptions: iRouterItem[] = [
         { path: '/', label: 'Home', page: <HomePage /> },
         { path: '/login', label: 'Login', page: <LoginPage /> },
         { path: '/room/:id', label: 'Room', page: <RoomPage /> },
         { path: '/users', label: 'Users', page: <UsersPage /> },
-        { path: '/signup', label: 'Sign-up', page: <SignUpPage /> },
         { path: '*', label: '', page: <HomePage /> },
     ]
 

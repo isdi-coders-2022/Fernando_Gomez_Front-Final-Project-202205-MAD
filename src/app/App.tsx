@@ -36,7 +36,7 @@ function App() {
         }
     }, [apiChat, dispatcher, localStorage, navigate]);
 
-    const HomePage = React.lazy(() => import('../pages/home'));
+    const HomePage = React.lazy(() => import('../pages/home/home-page'));
     const LoginPage = React.lazy(() => import('../pages/login'));
     const RoomPage = React.lazy(() => import('../pages/room'));
     const GroupRoomPage = React.lazy(() => import('../pages/group-room/group-room'));

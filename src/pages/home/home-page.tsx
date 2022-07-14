@@ -21,14 +21,9 @@ export default function HomePage(){
     });
 
     useEffect(() => {
-        
-
-            
         apiChat
                 .getAllRoomsByUser(loggedUser._id as string, loggedUser.token as string)
                 .then((rooms) => dispatcher(loadRoomsAction(rooms)));
-       
-
     }, [update]);
 
     return (

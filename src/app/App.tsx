@@ -31,7 +31,7 @@ function App() {
                 .getAllUsers(user._id as string, user.token as string)
                 .then((users) => dispatcher(loadUsersAction(users)));
             dispatcher(loadLoggedUsersAction([user]));
-        dispatcher(addGroupUserAction(user._id as string));
+            dispatcher(addGroupUserAction(user._id as string));
 
         }
     }, [apiChat, dispatcher, localStorage, navigate]);

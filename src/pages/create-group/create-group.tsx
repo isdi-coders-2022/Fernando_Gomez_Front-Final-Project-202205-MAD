@@ -38,7 +38,6 @@ export default function CreateGroupPage() {
     const handleChange = (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
         const value = element.value;
-        console.log(value);
         setFormData({ ...formData, [element.name]: value });
     };
 
@@ -49,7 +48,6 @@ export default function CreateGroupPage() {
             name: formData.name,
             users: groupRoom
         };
-        console.log(newRoom);
         socket.emit('new-group-room', {
             room: newRoom,
         });
@@ -57,7 +55,6 @@ export default function CreateGroupPage() {
         
     };
     socket.on('new-group-room', (payload: iRoom) => {
-        console.log('por socket: ', payload);
         dispatcher(addRoomAction(payload as iRoom));
         navigate(`/group-room/${payload._id}`);
     });

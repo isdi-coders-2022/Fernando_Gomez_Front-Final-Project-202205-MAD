@@ -18,7 +18,6 @@ export default function RoomPage() {
     (user._id === id1) ? otherId = id2 as string : otherId = id1 as string;
 
     const otherUser = users.find(user => user._id === otherId);
-    console.log(room);
 
     return (
         <>

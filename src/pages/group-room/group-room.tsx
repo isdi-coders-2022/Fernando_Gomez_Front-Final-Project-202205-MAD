@@ -15,8 +15,6 @@ export default function GroupRoomPage() {
     const room = rooms.find((room) => room._id === id);
     const apiChat = useMemo(() => new ApiChat(), []);
 
-    console.log('object');
-
     // useEffect(() => {
 
     //     if (user) {
@@ -26,7 +24,6 @@ export default function GroupRoomPage() {
           
     //     }
     // }, [apiChat, user]);
-    console.log(room);
 
     return (
         <>

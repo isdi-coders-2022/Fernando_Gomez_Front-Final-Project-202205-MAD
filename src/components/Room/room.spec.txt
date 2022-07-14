@@ -56,7 +56,7 @@ describe('Given the Room component', () => {
         </BrowserRouter>,
         { preloadedState, reducer }
       );
-      const element = screen.getByTestId('2');
+      const element = screen.getByTestId('1');
         expect(element).toBeInTheDocument();
     });
   });

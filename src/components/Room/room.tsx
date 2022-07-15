@@ -33,6 +33,7 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
             content: formData,
             type: 'p2p'
         }
+     
         let array = JSON.stringify(room?.messages);
         let newArray = JSON.parse(array);
         newArray?.push(newMessage);
@@ -43,13 +44,6 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
         })
 
     }, [formData])
-
-    // TODO review. A message isn't sended with the same text
-    
-    // socket.on('message', (payload) => {
-    //     const updatedRoom = payload
-    //     dispatcher(updateRoomAction(updatedRoom as iRoom));
-    // })
 
     return (
         <>

@@ -46,10 +46,10 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
 
     // TODO review. A message isn't sended with the same text
     
-    socket.on('message', (payload) => {
-        const updatedRoom = payload
-        dispatcher(updateRoomAction(updatedRoom as iRoom));
-    })
+    // socket.on('message', (payload) => {
+    //     const updatedRoom = payload
+    //     dispatcher(updateRoomAction(updatedRoom as iRoom));
+    // })
 
     return (
         <>

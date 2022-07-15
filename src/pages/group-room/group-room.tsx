@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Room } from '../../components/Room';
+import { Room } from '../../components/Room/room';
 import { iMessage, iStore, iUser } from '../../interfaces/interfaces';
 import { loadRoomsAction } from '../../reducers/room/action.creators';
 import { ApiChat } from '../../services/api';

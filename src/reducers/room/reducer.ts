@@ -14,8 +14,7 @@ export const roomReducer = createReducer(initialState, (builder) =>  builder
             ...state,
         action.payload
         ]
-    }
-        
+    }     
     )
     .addCase(actions.updateRoomAction, (state, action) => 
         state.map((item) => 

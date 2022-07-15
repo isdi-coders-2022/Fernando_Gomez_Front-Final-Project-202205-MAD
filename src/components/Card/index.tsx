@@ -20,26 +20,49 @@ export function Card({room}: {room: iRoom}) {
 
     return (
         <>
-            {room.messages.length > 0 &&
+            {(room.messages.length > 0  || room.type === 'group') &&
                 <Link to={`room/${room._id}`} >
                 <div className={styles.card_container} >
                     <div>
                         <div>
-                            <span>prueba</span>
-                            <span>
+                            {room.type !== 'group' ? (
+                                <span>
                                 {otherUser?.nickname}
                             </span>
+                            ) : (
+                                <span>
+                                {room.name}
+                            </span>
+                            )
+                                
+                            }
                         </div>
                         <div>
-                            <p className={styles.date}>
+                        {(room.messages.length > 0 ) &&
+                            
+                                <>
+                                <p className={styles.date}>
                                 {formatDate(room.messages[room.messages.length - 1].createdAt as string)}
                             </p>
                             <p className={styles.message}>
-                            {room.messages.length > 0 
-                                ? `${room.messages[room.messages.length - 1].content}`
-                                : `Envía tu primer mensaje..`
-                            }
+                            
+                                {room.messages[room.messages.length - 1].content}
+                            
+                            </p></>
+                            
+                        }
+
+                        {(room.messages.length === 0 ) &&
+                            <>
+                            
+                            <p className={styles.message}>
+                            
+                                Envía tu primer mensaje..
+                            
                             </p>
+                            </>
+                        }
+                            
                         </div>
                      
                     </div>

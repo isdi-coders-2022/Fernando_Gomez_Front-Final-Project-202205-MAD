@@ -36,6 +36,7 @@ export interface iStore{
     user: iUser[];
     users: iUser[];
     rooms: iRoom[];
+    groupRoom: string[];
 }
 
 export interface iRouterItem {

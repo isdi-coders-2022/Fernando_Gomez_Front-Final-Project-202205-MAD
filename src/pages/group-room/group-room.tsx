@@ -1,31 +1,33 @@
+import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Room } from '../../components/Room';
-import { iMessage, iStore } from '../../interfaces/interfaces';
+import { iMessage, iStore, iUser } from '../../interfaces/interfaces';
+import { loadRoomsAction } from '../../reducers/room/action.creators';
+import { ApiChat } from '../../services/api';
 
-export default function RoomPage() {
+export default function GroupRoomPage() {
     const { id } = useParams();
     const user = useSelector((store: iStore) => store.user[0]);
 
     const rooms = useSelector((store: iStore) => store.rooms);
     const users = useSelector((store: iStore) => store.users);
     const room = rooms.find((room) => room._id === id);
+    const apiChat = useMemo(() => new ApiChat(), []);
 
-    const id1 = room?.name?.substring(0, 24);
-    const id2 = room?.name?.substring(24, room.name.length);
+    // useEffect(() => {
 
-    let otherId = '';
-    (user._id === id1) ? otherId = id2 as string : otherId = id1 as string;
-
-    const otherUser = users.find(user => user._id === otherId);
+    //     if (user) {
+    //         apiChat
+    //             .getAllRoomsByUser(user._id as string, user.token as string)
+    //             .then((rooms) => dispatcher(loadRoomsAction(rooms)));
+          
+    //     }
+    // }, [apiChat, user]);
 
     return (
         <>
-            {room?.type === 'group' ? (
-                <h1>{room.name}</h1>
-            ) : (
-                <h1>{otherUser?.nickname}</h1>
-            )}
+                <h1>{room?.name}</h1>
             {rooms.length > 0 && (
                 <Room
                     data={room?.messages as iMessage[]}
@@ -35,3 +37,5 @@ export default function RoomPage() {
         </>
     );
 }
+
+

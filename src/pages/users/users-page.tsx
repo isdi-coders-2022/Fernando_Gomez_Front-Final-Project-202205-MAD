@@ -1,6 +1,7 @@
 import { SyntheticEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { UsersList } from '../../components/UsersList';
+import { Link } from 'react-router-dom';
+import { UsersList } from '../../components/UsersList/users-list';
 import { iStore, iUser } from '../../interfaces/interfaces';
 import styles from './index.module.css';
 
@@ -24,6 +25,11 @@ export default function UsersPage() {
 
     return (
         <div className={styles.container}>
+            <Link to={`/create-group`} >
+                <button>
+                    Crear un grupo
+                </button>
+            </Link>
             <div>
                 <input
                     onChange={changeInput}
@@ -34,9 +40,9 @@ export default function UsersPage() {
             </div>
             <div>
                 {search ? (
-                    <UsersList data={users} />
+                    <UsersList data={users} group={false} />
                 ) : (
-                    <UsersList data={result} />
+                    <UsersList data={result} group={false} />
                 )}
             </div>
         </div>

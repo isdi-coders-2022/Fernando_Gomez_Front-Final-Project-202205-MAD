@@ -1,17 +1,15 @@
 import { iMessage, iRoom, iStore } from "../../interfaces/interfaces";
 import { RoomCard } from "../RoomCard";
 import { socket} from '../../chat/chat-socket';
-import { SyntheticEvent, useCallback, useEffect, useState } from "react";
+import { SyntheticEvent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadRoomsAction, updateRoomAction } from "../../reducers/room/action.creators";
+import { updateRoomAction } from "../../reducers/room/action.creators";
 import styles from './index.module.css';
-import { formatDate } from "../../utils/formatDate";
 
 export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
     const rooms = useSelector((store: iStore) => store.rooms);
 
     const user = useSelector((store: iStore) => store.user[0]);
-    const users = useSelector((store: iStore) => store.users);
     
     const room = rooms.find((room) => roomId === room._id)   
     const dispatcher = useDispatch();

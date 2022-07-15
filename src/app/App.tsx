@@ -9,6 +9,7 @@ import { loadLoggedUsersAction } from '../reducers/logged-user/action.creators';
 import {
     addRoomAction,
     loadRoomsAction,
+    updateRoomAction,
 } from '../reducers/room/action.creators';
 import { loadUsersAction } from '../reducers/user/action.creators';
 import { ApiChat } from '../services/api';
@@ -29,6 +30,11 @@ function App() {
     //     //     navigate(`/room/${payload._id}`);
     //     // }
     // })
+
+    socket.on('message', (payload) => {
+        const updatedRoom = payload
+        dispatcher(updateRoomAction(updatedRoom as iRoom));
+    })
 
     useEffect(() => {
         const user: iUser = localStorage.getUser();

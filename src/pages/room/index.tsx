@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Room } from '../../components/Room';
+import { Room } from '../../components/Room/room';
 import { iMessage, iStore } from '../../interfaces/interfaces';
 
 export default function RoomPage() {

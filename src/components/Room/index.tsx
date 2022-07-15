@@ -51,10 +51,6 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
         dispatcher(updateRoomAction(updatedRoom as iRoom));
     })
 
-    // useEffect(() => {
-    //     dispatcher(loadRoomsAction(rooms));
-    // }, [dispatcher])
-
     return (
         <>
             <ul data-testid="1">

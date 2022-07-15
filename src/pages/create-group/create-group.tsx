@@ -11,10 +11,14 @@ import styles from './index.module.css';
 
 export default function CreateGroupPage() {
     const loggedUser = useSelector((store: iStore) => store.user[0]);
+
     const users = useSelector((store: iStore) => store.users);
     const groupRoom = useSelector((store: iStore) => store.groupRoom);
     const dispatcher = useDispatch();
     const navigate = useNavigate();
+
+    // dispatcher(addGroupUserAction(loggedUser._id as string));
+
 
     const initResult: iUser[] = [];
     const [search, setSearch] = useState(true);
@@ -43,10 +47,14 @@ export default function CreateGroupPage() {
 
     const create = async (ev: SyntheticEvent) => {
         ev.preventDefault();
+
+        
+        const newGroupRoom = [...groupRoom];
+        newGroupRoom.unshift(loggedUser._id as string);
         
         const newRoom = {
             name: formData.name,
-            users: groupRoom
+            users: newGroupRoom
         };
         socket.emit('new-group-room', {
             room: newRoom,
@@ -55,9 +63,16 @@ export default function CreateGroupPage() {
         
     };
     socket.on('new-group-room', (payload: iRoom) => {
-        dispatcher(addRoomAction(payload as iRoom));
         navigate(`/group-room/${payload._id}`);
     });
+
+    // socket.on('new-group-room', (payload: iRoom) => {
+    //     console.log(payload);
+    //     dispatcher(addRoomAction(payload as iRoom));
+    //     // if (payload.users[0] === loggedUser._id){
+    //     //     navigate(`/room/${payload._id}`);
+    //     // }
+    // })
 
     return (
         <div className={styles.container}>

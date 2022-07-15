@@ -33,10 +33,10 @@ export function UserCard({user}: {user: iUser}) {
                 room: newRoom,
             });
 
-            socket.on('new-p2p-room', (payload: iRoom) => {
-                dispatcher(addRoomAction(payload as iRoom));
-                navigate(`/room/${payload._id}`);
-            })
+            // socket.on('new-p2p-room', (payload: iRoom) => {
+            //     dispatcher(addRoomAction(payload as iRoom));
+            //     navigate(`/room/${payload._id}`);
+            // })
         }
     }
 

@@ -9,11 +9,12 @@ import { sortIds } from "../../utils/sortIds";
 import styles from './index.module.css';
 
 export function CreateGroupCard({ user }: { user: iUser }) {
-    const loggedUser = useSelector((store: iStore) => store.user[0]);
+    // const loggedUser = useSelector((store: iStore) => store.user[0]);
     const rooms = useSelector((store: iStore) => store.rooms);
     const groupRoom = useSelector((store: iStore) => store.groupRoom);
     const dispatcher = useDispatch();
-    const navigate = useNavigate();
+
+
 
     const participant = groupRoom.find(u => u === user._id);
     let initState: boolean;

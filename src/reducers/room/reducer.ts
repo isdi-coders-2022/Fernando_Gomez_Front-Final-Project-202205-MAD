@@ -9,10 +9,14 @@ export const roomReducer = createReducer(initialState, (builder) =>  builder
     .addCase(actions.loadRoomsAction, (_state, action) => [
         ...action.payload
     ])
-    .addCase(actions.addRoomAction, (state, action) => [
-        ...state,
+    .addCase(actions.addRoomAction, (state, action) => {
+        return (state.some(room => room._id === action.payload._id)) ? state : [
+            ...state,
         action.payload
-    ])
+        ]
+    }
+        
+    )
     .addCase(actions.updateRoomAction, (state, action) => 
         state.map((item) => 
             item._id === action.payload._id ? action.payload : item

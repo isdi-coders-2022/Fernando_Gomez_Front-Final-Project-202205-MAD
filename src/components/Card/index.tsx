@@ -54,12 +54,9 @@ export function Card({room}: {room: iRoom}) {
 
                         {(room.messages.length === 0 ) &&
                             <>
-                            
-                            <p className={styles.message}>
-                            
-                                Envía tu primer mensaje..
-                            
-                            </p>
+                                <p className={styles.message}>
+                                    Has sido añadido a este grupo
+                                </p>
                             </>
                         }
                             

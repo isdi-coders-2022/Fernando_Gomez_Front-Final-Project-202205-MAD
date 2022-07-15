@@ -50,6 +50,14 @@
     },
     "prettier": {
       "singleQuote": true
+    },
+    "jest": {
+        "roots": [
+            "<rootDir>/dist/"
+        ],
+        "coveragePathIgnorePatterns": [
+            "<rootDir>/src/index.ts"
+        ]
     }
   }
   

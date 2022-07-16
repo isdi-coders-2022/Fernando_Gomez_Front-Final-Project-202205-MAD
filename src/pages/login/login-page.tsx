@@ -56,7 +56,8 @@ export default function LoginPage() {
         dispatcher(loadUsersAction(users));
         dispatcher(loadRoomsAction(rooms));
 
-        localStorage.setUser(user);
+        localStorage.setUser(user._id);
+        localStorage.setToken(user.token);
 
         navigate(`/`);
         
@@ -78,8 +79,6 @@ export default function LoginPage() {
     const handleSubmitSignUp = async (ev: SyntheticEvent) => {
         ev.preventDefault();
         const resp = await apiChat.signup(signUp);
-        console.log(resp);
-        alert('df')
 
         if(resp.status === 201){
             closeModal();

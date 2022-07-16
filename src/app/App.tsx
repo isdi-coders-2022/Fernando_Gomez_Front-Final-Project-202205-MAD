@@ -29,18 +29,24 @@ function App() {
     })
 
     useEffect(() => {
-        const user: iUser = localStorage.getUser();
-        if (!user) {
+        const userId: string = localStorage.getUser();
+        const token: string = localStorage.getToken();
+
+        if (!userId || !token) {
             navigate('/login');
         }
-        if (user) {
+        if (userId) {
             apiChat
-                .getAllRoomsByUser(user._id as string, user.token as string)
+                .getUserbyId(userId as string, token as string)
+                .then((user) => dispatcher(loadLoggedUsersAction([user])));
+            
+            apiChat
+                .getAllRoomsByUser(userId as string, token as string)
                 .then((rooms) => dispatcher(loadRoomsAction(rooms)));
             apiChat
-                .getAllUsers(user._id as string, user.token as string)
+                .getAllUsers(userId as string, token as string)
                 .then((users) => dispatcher(loadUsersAction(users)));
-            dispatcher(loadLoggedUsersAction([user]));
+            // dispatcher(loadLoggedUsersAction([user]));
             // dispatcher(addGroupUserAction(user._id as string));
         }
     }, [apiChat, dispatcher, localStorage, navigate]);
@@ -53,6 +59,7 @@ function App() {
     );
     const UsersPage = React.lazy(() => import('../pages/users/users-page'));
     const GroupRoomsPage = React.lazy(() => import('../pages/group-rooms/group-rooms-page'));
+    const EditProfilePage = React.lazy(() => import('../pages/edit-profile/edit-profile-page'));
     const CreateGroupPage = React.lazy(
         () => import('../pages/create-group/create-group')
     );
@@ -68,6 +75,7 @@ function App() {
         },
         { path: '/users', label: 'Users', page: <UsersPage /> },
         { path: '/group-rooms', label: 'Groups', page: <GroupRoomsPage /> },
+        { path: '/edit-profile', label: 'Edit profile', page: <EditProfilePage /> },
         {
             path: '/create-group',
             label: 'Create group',

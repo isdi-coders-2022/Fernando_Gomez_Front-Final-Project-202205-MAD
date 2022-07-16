@@ -1,22 +1,18 @@
-import { iRoom, iUser } from '../interfaces/interfaces';
-
 export class LocalStoreService {
     user: string;
-    users: string;
-    rooms: string;
+    token: string;
     constructor() {
         this.user = 'User';
-        this.users = 'Users';
-        this.rooms = 'Rooms';
+        this.token = 'Token';
     }
 
-    getUser(): iUser {
+    getUser(): string {
         return localStorage.getItem(this.user)
             ? JSON.parse(localStorage.getItem(this.user) as string)
             : '';
     }
 
-    setUser(user: iUser) {
+    setUser(user: string) {
         localStorage.setItem(this.user, JSON.stringify(user));
     }
 
@@ -24,32 +20,17 @@ export class LocalStoreService {
         localStorage.removeItem(this.user);
     }
 
-    getUsers(): iUser[] {
-        return localStorage.getItem(this.users)
-            ? JSON.parse(localStorage.getItem(this.users) as string)
+    getToken(): string {
+        return localStorage.getItem(this.token)
+            ? JSON.parse(localStorage.getItem(this.token) as string)
             : '';
     }
 
-    setUsers(users: iUser[]) {
-        localStorage.setItem(this.users, JSON.stringify(users));
+    setToken(token: string) {
+        localStorage.setItem(this.token, JSON.stringify(token));
     }
 
-    removeUsers() {
-        localStorage.removeItem(this.users);
+    removeToken() {
+        localStorage.removeItem(this.token);
     }
-
-    getRooms(): iRoom[] {
-        return localStorage.getItem(this.rooms)
-            ? JSON.parse(localStorage.getItem(this.rooms) as string)
-            : '';
-    }
-
-    setRooms(rooms: iRoom[]) {
-        localStorage.setItem(this.rooms, JSON.stringify(rooms));
-    }
-
-    removeRooms() {
-        localStorage.removeItem(this.rooms);
-    }
-
 }

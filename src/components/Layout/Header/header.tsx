@@ -38,10 +38,12 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
     navOptions = navOptions.filter((item) =>
         item.path !== '/group-room/:id' ? item : ''
     );
+    navOptions = navOptions.filter((item) =>
+    item.path !== '/edit-profile' ? item : ''
+);
     navOptions = navOptions.filter((item) => (item.path !== '*' ? item : ''));
 
     const openModal = () => {
-        console.log('object');
         document.querySelector('#drop-menu')?.classList.remove(`${styles.d_none}`);
         document.querySelector('#drop-menu')?.classList.add(`${styles.d_initial}`);
     }
@@ -72,7 +74,11 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
 
                 <div id="drop-menu" className={`${styles.modal} ${styles.d_none}`}>
                         <div><span onClick={closeModal}>X</span></div>
-                        <div><span>Editar perfil</span></div>
+                        <div>
+                            <Link to={`/edit-profile`} >
+                            <span>Editar perfil</span>
+                            </Link>
+                        </div>
                         <div><span onClick={logout}>Logout</span></div>
                 </div>
             </header>

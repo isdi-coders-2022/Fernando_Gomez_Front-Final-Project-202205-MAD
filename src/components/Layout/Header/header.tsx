@@ -65,7 +65,7 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
                         className={styles.avatar}
                         onClick={openModal}
                             src={user.avatar}
-                            alt={user.name}
+                            alt={user.nickname}
                         />
                     </div>
                 </nav>

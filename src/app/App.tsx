@@ -52,6 +52,7 @@ function App() {
         () => import('../pages/group-room/group-room')
     );
     const UsersPage = React.lazy(() => import('../pages/users/users-page'));
+    const GroupRoomsPage = React.lazy(() => import('../pages/group-rooms/group-rooms-page'));
     const CreateGroupPage = React.lazy(
         () => import('../pages/create-group/create-group')
     );
@@ -66,6 +67,7 @@ function App() {
             page: <GroupRoomPage />,
         },
         { path: '/users', label: 'Users', page: <UsersPage /> },
+        { path: '/group-rooms', label: 'Groups', page: <GroupRoomsPage /> },
         {
             path: '/create-group',
             label: 'Create group',

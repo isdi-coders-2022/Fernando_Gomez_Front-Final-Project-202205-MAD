@@ -10,6 +10,7 @@ import { LocalStoreService } from '../../services/local-storage';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
 import styles from './index.module.css';
+import { iUser } from '../../interfaces/interfaces';
 
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
@@ -59,8 +60,9 @@ export default function LoginPage() {
         localStorage.setUser(user._id);
         localStorage.setToken(user.token);
 
+        await apiChat.updateUser( (resp.user as iUser)._id , resp.token as string, {...resp.user, online: true});
+
         navigate(`/`);
-        
     };
 
     function handleUpload(ev: SyntheticEvent) {

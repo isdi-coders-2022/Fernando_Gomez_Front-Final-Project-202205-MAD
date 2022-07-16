@@ -7,6 +7,8 @@ import { loadRoomsAction } from '../../reducers/room/action.creators';
 import { loadUsersAction } from '../../reducers/user/action.creators';
 import { ApiChat } from '../../services/api';
 import { LocalStoreService } from '../../services/local-storage';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase";
 import styles from './index.module.css';
 
 export default function LoginPage() {
@@ -19,9 +21,9 @@ export default function LoginPage() {
 
     const navigate = useNavigate();
     const initialState = { email: '', password: '' };
-    const initSignUp = { name: '', nickname: '',  email: '', password: '' };
+    const initSignUp = { name: '', nickname: '',  email: '', avatar: '', password: '' };
     const [formData, setFormData] = useState(initialState);
-    const [signUp, setSignup] = useState(initSignUp);
+    const [signUp, setSignUp] = useState(initSignUp);
 
     const handleChange = (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
@@ -32,7 +34,7 @@ export default function LoginPage() {
     const handleChangeSignUp = (ev: SyntheticEvent) => {
         const element = ev.target as HTMLFormElement;
         const value = element.value;
-        setSignup({ ...signUp, [element.name]: value });
+        setSignUp({ ...signUp, [element.name]: value });
     };
 
     const handleSubmit = async (ev: SyntheticEvent) => {
@@ -54,11 +56,25 @@ export default function LoginPage() {
         dispatcher(loadUsersAction(users));
         dispatcher(loadRoomsAction(rooms));
 
-        localStorage.setUser(user);
+        localStorage.setUser(user._id);
+        localStorage.setToken(user.token);
 
         navigate(`/`);
         
     };
+
+    function handleUpload(ev: SyntheticEvent) {
+        const element = ev.target as HTMLInputElement;
+        const file = (element.files as FileList)[0];
+        const avatarRef = ref(storage, `/files/${file.name}`);
+        uploadBytes(
+            avatarRef,
+            file as unknown as Blob | Uint8Array | ArrayBuffer
+        );
+        getDownloadURL(ref(storage, `/files/${file.name}`)).then(
+            (url) => (setSignUp({ ...signUp, avatar: url }))
+        );
+    }
 
     const handleSubmitSignUp = async (ev: SyntheticEvent) => {
         ev.preventDefault();
@@ -146,6 +162,17 @@ export default function LoginPage() {
                                 type="password"
                                 name="password"
                                 onChange={handleChangeSignUp}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <div><label htmlFor="">Avatar</label></div>
+                        <div>
+                            <input
+                                type="file"
+                                name="avatar"
+                                onChange={handleUpload}
                                 required
                             />
                         </div>

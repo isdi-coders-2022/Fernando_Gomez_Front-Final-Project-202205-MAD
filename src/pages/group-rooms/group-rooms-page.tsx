@@ -18,8 +18,9 @@ import { ApiChat } from '../../services/api';
 import { dateToNumber } from '../../utils/dateToNumber';
 import styles from './index.module.css';
 
-export default function HomePage() {
+export default function GroupRoomsPage() {
     const rooms = useSelector((store: iStore) => store.rooms);
+    const selectedRooms: iRoom[] = rooms.filter(room => room.type === 'group');
     const dispatcher = useDispatch();
 
     const compare = (a: iRoom, b: iRoom) => {
@@ -31,7 +32,7 @@ export default function HomePage() {
         return dateA < dateB;
     };
 
-    const sortedRooms = [...rooms].sort((a, b) => +compare(a, b));
+    const sortedRooms = [...selectedRooms].sort((a, b) => +compare(a, b));
 
     socket.on('new-group-room', (payload: iRoom) => {
         dispatcher(addRoomAction(payload as iRoom));

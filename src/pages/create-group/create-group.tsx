@@ -66,14 +66,6 @@ export default function CreateGroupPage() {
         navigate(`/group-room/${payload._id}`);
     });
 
-    // socket.on('new-group-room', (payload: iRoom) => {
-    //     console.log(payload);
-    //     dispatcher(addRoomAction(payload as iRoom));
-    //     // if (payload.users[0] === loggedUser._id){
-    //     //     navigate(`/room/${payload._id}`);
-    //     // }
-    // })
-
     return (
         <div className={styles.container}>
             <h1>Escoge los participantes</h1>

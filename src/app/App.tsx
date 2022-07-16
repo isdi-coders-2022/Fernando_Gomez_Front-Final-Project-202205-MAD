@@ -23,43 +23,43 @@ function App() {
     const apiChat = useMemo(() => new ApiChat(), []);
     const navigate = useNavigate();
 
-    // socket.on('new-group-room', (payload: iRoom) => {
-    //     console.log(payload);
-    //     dispatcher(addRoomAction(payload as iRoom));
-    //     // if (payload.users[0] === loggedUser._id){
-    //     //     navigate(`/room/${payload._id}`);
-    //     // }
-    // })
-
     socket.on('message', (payload) => {
         const updatedRoom = payload
         dispatcher(updateRoomAction(updatedRoom as iRoom));
     })
 
     useEffect(() => {
-        const user: iUser = localStorage.getUser();
-        if (!user) {
+        const userId: string = localStorage.getUser();
+        const token: string = localStorage.getToken();
+
+        if (!userId || !token) {
             navigate('/login');
         }
-        if (user) {
+        if (userId) {
             apiChat
-                .getAllRoomsByUser(user._id as string, user.token as string)
+                .getUserbyId(userId as string, token as string)
+                .then((user) => dispatcher(loadLoggedUsersAction([user])));
+            
+            apiChat
+                .getAllRoomsByUser(userId as string, token as string)
                 .then((rooms) => dispatcher(loadRoomsAction(rooms)));
             apiChat
-                .getAllUsers(user._id as string, user.token as string)
+                .getAllUsers(userId as string, token as string)
                 .then((users) => dispatcher(loadUsersAction(users)));
-            dispatcher(loadLoggedUsersAction([user]));
+            // dispatcher(loadLoggedUsersAction([user]));
             // dispatcher(addGroupUserAction(user._id as string));
         }
     }, [apiChat, dispatcher, localStorage, navigate]);
 
     const HomePage = React.lazy(() => import('../pages/home/home-page'));
-    const LoginPage = React.lazy(() => import('../pages/login'));
+    const LoginPage = React.lazy(() => import('../pages/login/login-page'));
     const RoomPage = React.lazy(() => import('../pages/room'));
     const GroupRoomPage = React.lazy(
         () => import('../pages/group-room/group-room')
     );
     const UsersPage = React.lazy(() => import('../pages/users/users-page'));
+    const GroupRoomsPage = React.lazy(() => import('../pages/group-rooms/group-rooms-page'));
+    const EditProfilePage = React.lazy(() => import('../pages/edit-profile/edit-profile-page'));
     const CreateGroupPage = React.lazy(
         () => import('../pages/create-group/create-group')
     );
@@ -74,6 +74,8 @@ function App() {
             page: <GroupRoomPage />,
         },
         { path: '/users', label: 'Users', page: <UsersPage /> },
+        { path: '/group-rooms', label: 'Groups', page: <GroupRoomsPage /> },
+        { path: '/edit-profile', label: 'Edit profile', page: <EditProfilePage /> },
         {
             path: '/create-group',
             label: 'Create group',

@@ -39,6 +39,17 @@ export class ApiChat {
         return await resp.json();
     }
 
+    async getUserbyId(id: string, token: string): Promise<iUser> {
+        const url = `${this.apiUrl}user/${id}`;
+        const resp = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return await resp.json();
+    }
+
     async getAllUsers(id: string, token: string): Promise<iUser[]> {
         const url = `${this.apiUrl}user`;
         const resp = await fetch(url, {
@@ -49,4 +60,16 @@ export class ApiChat {
         });
         return await resp.json();
     }
+
+    async updateUser(id: iUser['_id'], token: string, payload: iUser): Promise<iUser> {
+        const resp = await fetch(`${this.apiUrl}user/${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify(payload),
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }
+        });
+        return await resp.json();
+    };
 }

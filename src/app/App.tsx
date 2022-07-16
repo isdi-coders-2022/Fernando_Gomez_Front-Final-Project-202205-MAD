@@ -23,14 +23,6 @@ function App() {
     const apiChat = useMemo(() => new ApiChat(), []);
     const navigate = useNavigate();
 
-    // socket.on('new-group-room', (payload: iRoom) => {
-    //     console.log(payload);
-    //     dispatcher(addRoomAction(payload as iRoom));
-    //     // if (payload.users[0] === loggedUser._id){
-    //     //     navigate(`/room/${payload._id}`);
-    //     // }
-    // })
-
     socket.on('message', (payload) => {
         const updatedRoom = payload
         dispatcher(updateRoomAction(updatedRoom as iRoom));
@@ -54,7 +46,7 @@ function App() {
     }, [apiChat, dispatcher, localStorage, navigate]);
 
     const HomePage = React.lazy(() => import('../pages/home/home-page'));
-    const LoginPage = React.lazy(() => import('../pages/login'));
+    const LoginPage = React.lazy(() => import('../pages/login/login-page'));
     const RoomPage = React.lazy(() => import('../pages/room'));
     const GroupRoomPage = React.lazy(
         () => import('../pages/group-room/group-room')

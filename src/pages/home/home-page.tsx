@@ -28,16 +28,10 @@ export default function HomePage() {
         }
         const dateA = dateToNumber(a.messages[a.messages.length -1].createdAt as string);
         const dateB = dateToNumber(b.messages[b.messages.length -1].createdAt as string);
-
-        console.log(dateA, dateB);
-        console.log(dateA > dateB);
         return dateA < dateB;
     };
 
     const sortedRooms = [...rooms].sort((a, b) => +compare(a, b));
-    // console.log('sorted', sortedRooms);
-
-    // console.log(rooms);
 
     socket.on('new-group-room', (payload: iRoom) => {
         dispatcher(addRoomAction(payload as iRoom));

@@ -1,4 +1,5 @@
 .header{
+    position: relative;
     padding: 2rem;
     background-color: var(--primary-color);
 }
@@ -6,4 +7,23 @@
 .nav {
     display: flex;
     justify-content: space-evenly;
+}
+.avatar {
+    border-radius: 50%;
+    width: 40px;
+}
+.d_none{
+    display: none;
+}
+.d_initial{
+    display: initial;
+}
+.modal{
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 50;
+    width: 50%;
+    background-color: white;
+    text-align: center;
 }

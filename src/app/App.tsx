@@ -7,6 +7,7 @@ import { iRoom, iRouterItem, iUser } from '../interfaces/interfaces';
 import { loadLoggedUsersAction } from '../reducers/logged-user/action.creators';
 import {
     addRoomAction,
+    loadRoomsAction,
     updateRoomAction,
 } from '../reducers/room/action.creators';
 import { loadUsersAction, updateUserAction } from '../reducers/user/action.creators';
@@ -55,9 +56,12 @@ function App() {
                     apiChat
                     .getAllRoomsByUser(userId as string, token as string)
                     .then((rooms) => {
+                        dispatcher(loadRoomsAction(rooms))
                         apiChat
                         .getAllUsers(userId as string, token as string)
-                        .then((users) => dispatcher(loadUsersAction(users)));
+                        .then((users) => {
+                            dispatcher(loadUsersAction(users))
+                        });
                     });
 
                 });

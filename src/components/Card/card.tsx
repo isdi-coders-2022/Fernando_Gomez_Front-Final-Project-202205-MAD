@@ -19,7 +19,7 @@ export function Card({ room }: { room: iRoom }) {
     return (
         <>
             {(room.messages.length > 0 || room.type === 'group') && (
-                <Link to={`room/${room._id}`}>
+                <Link to={`/room/${room._id}`}>
                     <div className={styles.card_container}>
                         <div>
                             <div>

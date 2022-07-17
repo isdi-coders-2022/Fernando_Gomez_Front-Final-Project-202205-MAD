@@ -11,7 +11,7 @@ import {
     loadRoomsAction,
     updateRoomAction,
 } from '../reducers/room/action.creators';
-import { loadUsersAction } from '../reducers/user/action.creators';
+import { loadUsersAction, updateUserAction } from '../reducers/user/action.creators';
 import { ApiChat } from '../services/api';
 import { LocalStoreService } from '../services/local-storage';
 import './App.css';
@@ -24,8 +24,11 @@ function App() {
     const navigate = useNavigate();
 
     socket.on('message', (payload) => {
-        const updatedRoom = payload
-        dispatcher(updateRoomAction(updatedRoom as iRoom));
+        dispatcher(updateRoomAction(payload as iRoom));
+    })
+
+    socket.on('login-logout', (payload) => {
+        dispatcher(updateUserAction(payload as iUser));
     })
 
     useEffect(() => {

@@ -1,5 +1,5 @@
 import { iRoom } from "../../interfaces/interfaces";
-import { Card } from "../Card";
+import { Card } from "../Card/card";
 
 
 export function List({data}: {data: iRoom[]}) {

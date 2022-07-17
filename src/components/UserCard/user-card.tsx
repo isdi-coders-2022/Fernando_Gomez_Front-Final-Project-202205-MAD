@@ -10,8 +10,8 @@ import styles from './index.module.css';
 export function UserCard({user}: {user: iUser}) {
     // TODO verify if there exists teh room yet
     const loggedUser = useSelector((store: iStore) => store.user[0]);
+    
     const rooms = useSelector((store: iStore) => store.rooms);
-    const dispatcher = useDispatch();
     const navigate = useNavigate();
 
     const handleClick = (ev: SyntheticEvent) => {
@@ -24,23 +24,20 @@ export function UserCard({user}: {user: iUser}) {
             navigate(`/room/${exists._id}`);
         }else{
             const newRoom: iRoom = {
-                name: '',
+                owner: loggedUser._id as string,
                 users: [user._id as string, loggedUser._id as string],
                 messages: [],
                 image: '',
             }
             socket.emit('new-p2p-room', newRoom );
-            socket.on('new-p2p-room', (payload: iRoom) => {
-                dispatcher(addRoomAction(payload as iRoom));
-                navigate(`/room/${payload._id}`);
-            })
-            
         }
     }
-
     
-
-    
+    socket.on('new-p2p-room', (payload: iRoom) => {
+            if(payload.owner === loggedUser._id){
+                navigate(`/room/${payload._id}`);
+            }
+    })
 
     return (
         <>

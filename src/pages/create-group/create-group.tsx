@@ -4,9 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { socket } from '../../chat/chat-socket';
 import { UsersList } from '../../components/UsersList/users-list';
 import { iRoom, iStore, iUser } from '../../interfaces/interfaces';
-import { addGroupUserAction, loadGroupUsersAction } from '../../reducers/group-room/action.creators';
-import { addRoomAction } from '../../reducers/room/action.creators';
-import { ApiChat } from '../../services/api';
+import { loadGroupUsersAction } from '../../reducers/group-room/action.creators';
 import styles from './index.module.css';
 
 export default function CreateGroupPage() {
@@ -16,9 +14,6 @@ export default function CreateGroupPage() {
     const groupRoom = useSelector((store: iStore) => store.groupRoom);
     const dispatcher = useDispatch();
     const navigate = useNavigate();
-
-    // dispatcher(addGroupUserAction(loggedUser._id as string));
-
 
     const initResult: iUser[] = [];
     const [search, setSearch] = useState(true);
@@ -54,15 +49,14 @@ export default function CreateGroupPage() {
         
         const newRoom = {
             name: formData.name,
+            owner: loggedUser._id as string,
             users: newGroupRoom
         };
         socket.emit('new-group-room', newRoom );
         dispatcher(loadGroupUsersAction([]));
         
     };
-    socket.on('new-group-room', (payload: iRoom) => {
-        navigate(`/group-room/${payload._id}`);
-    });
+    
 
     return (
         <div className={styles.container}>

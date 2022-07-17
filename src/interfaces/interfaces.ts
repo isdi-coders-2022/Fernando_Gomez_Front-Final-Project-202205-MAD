@@ -16,6 +16,7 @@ export interface iUser{
 
 export interface iRoom{
     _id?: string;
+    owner: string;
     name?: string;
     users: string[];
     messages: iMessage[];

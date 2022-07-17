@@ -1,5 +1,4 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { iUser } from "../../interfaces/interfaces";
 import * as actions from './action.creators'
 
 

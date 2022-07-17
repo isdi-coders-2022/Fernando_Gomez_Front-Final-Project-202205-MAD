@@ -1,9 +1,8 @@
-import { iMessage, iRoom, iStore } from "../../interfaces/interfaces";
+import { iMessage, iStore } from "../../interfaces/interfaces";
 import { RoomCard } from "../RoomCard/room-card";
 import { socket} from '../../chat/chat-socket';
 import { SyntheticEvent, useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateRoomAction } from "../../reducers/room/action.creators";
+import { useSelector } from "react-redux";
 import styles from './index.module.css';
 
 export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
@@ -12,7 +11,6 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
     const user = useSelector((store: iStore) => store.user[0]);
     
     const room = rooms.find((room) => roomId === room._id)   
-    const dispatcher = useDispatch();
 
     const initialFormData = '';
 

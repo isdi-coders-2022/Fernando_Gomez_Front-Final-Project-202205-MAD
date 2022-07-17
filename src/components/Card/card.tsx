@@ -1,8 +1,6 @@
-import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { iRoom, iStore, iUser } from '../../interfaces/interfaces';
-import { LocalStoreService } from '../../services/local-storage';
 import { formatDate } from '../../utils/formatDate';
 import styles from './index.module.css';
 
@@ -26,7 +24,7 @@ export function Card({ room }: { room: iRoom }) {
                         <div>
                             <div>
                                 {room.type !== 'group' ? (
-                                    <span>{otherUser?.nickname} {(otherUser?.online) ? <img src="/online.png" alt="online" /> : ''} </span>
+                                    <span>{otherUser?.nickname} {(otherUser?.online) ? <span className='text_green'>en línea...</span> : ''} </span>
                                 ) : (
                                     <span>{room.name}</span>
                                 )}
@@ -54,7 +52,13 @@ export function Card({ room }: { room: iRoom }) {
                                 {room.messages.length === 0 && (
                                     <>
                                         <p className={styles.message}>
-                                            Has sido añadido a este grupo
+                                            {room.owner === user._id ? (
+                                                `Has creado este grupo`
+                                            ) : (
+                                                `Has sido añadido a este grupo`
+                                            )
+
+                                            }
                                         </p>
                                     </>
                                 )}

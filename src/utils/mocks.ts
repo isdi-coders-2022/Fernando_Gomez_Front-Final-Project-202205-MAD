@@ -2,11 +2,13 @@ import { iRoom, iUser } from "../interfaces/interfaces";
 
 export const mockRoom: iRoom = {
     _id: '1',
+    owner: 'id',
     messages: [],
     users: []
 }
 export const mockRoom2 = {
     _id: '2',
+    owner: 'id2',
     messages: [],
     users: []
 }

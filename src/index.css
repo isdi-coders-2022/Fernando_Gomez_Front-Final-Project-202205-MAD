@@ -55,9 +55,10 @@ button, input[type="submit"], input[type="reset"] {
     display: initial;
 }
 
-/* Spinner */
-
-/* End Spinner */
+.text_green{
+    color: green;
+    font-weight: bold;
+}
 
 
 

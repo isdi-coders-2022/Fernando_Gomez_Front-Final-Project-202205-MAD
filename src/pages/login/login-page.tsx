@@ -1,7 +1,7 @@
 import { SyntheticEvent, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Spinner } from '../../components/Layout/Spinner';
+import { Spinner } from '../../components/Layout/Spinner/spinner';
 import { loadLoggedUsersAction } from '../../reducers/logged-user/action.creators';
 import { loadRoomsAction } from '../../reducers/room/action.creators';
 import { loadUsersAction } from '../../reducers/user/action.creators';

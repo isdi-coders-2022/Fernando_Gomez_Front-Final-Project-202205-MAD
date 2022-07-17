@@ -6,13 +6,10 @@ import { iRouterItem, iStore, iUser } from '../../../interfaces/interfaces';
 import { loadLoggedUsersAction } from '../../../reducers/logged-user/action.creators';
 import { loadRoomsAction } from '../../../reducers/room/action.creators';
 import { loadUsersAction } from '../../../reducers/user/action.creators';
-import { ApiChat } from '../../../services/api';
 import styles from './index.module.css';
 
 export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
     const user = useSelector((store: iStore) => store.user[0]);
-    const apiChat = new ApiChat();
-
 
     const dispatcher = useDispatch();
 

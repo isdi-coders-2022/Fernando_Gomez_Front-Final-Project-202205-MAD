@@ -1,12 +1,13 @@
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { iRoom, iStore, iUser } from '../../interfaces/interfaces';
+import { Link, useNavigate } from 'react-router-dom';
+import { socket } from '../../chat/chat-socket';
+import { iRoom, iStore } from '../../interfaces/interfaces';
 import { formatDate } from '../../utils/formatDate';
 import styles from './index.module.css';
 
 export function Card({ room }: { room: iRoom }) {
     const user = useSelector((store: iStore) => store.user[0]);
-
+    const navigate = useNavigate()
     const users = useSelector((store: iStore) => store.users);
     const id1 = room.name?.substring(0, 24);
     const id2 = room.name?.substring(24, room.name.length);
@@ -16,11 +17,19 @@ export function Card({ room }: { room: iRoom }) {
 
     const otherUser = users.find((user) => user._id === otherId);
 
+    const emitAndNavigate = () => {
+        socket.emit('update-seen-messages', {
+            otherUserId: otherUser?._id,
+            token: user.token,
+            roomId: room._id
+        });
+        navigate(`/room/${room._id}`);
+    }
+
     return (
         <>
             {(room.messages.length > 0 || room.type === 'group') && (
-                <Link to={`/room/${room._id}`}>
-                    <div className={styles.card_container}>
+                    <div className={styles.card_container} onClick={emitAndNavigate}>
                         <div>
                             <div>
                                 {room.type !== 'group' ? (
@@ -65,7 +74,6 @@ export function Card({ room }: { room: iRoom }) {
                             </div>
                         </div>
                     </div>
-                </Link>
             )}
         </>
     );

@@ -1,7 +1,7 @@
 import { SyntheticEvent, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Spinner } from '../../components/Layout/Spinner';
+import { Spinner } from '../../components/Layout/Spinner/spinner';
 import { loadLoggedUsersAction } from '../../reducers/logged-user/action.creators';
 import { loadRoomsAction } from '../../reducers/room/action.creators';
 import { loadUsersAction } from '../../reducers/user/action.creators';
@@ -10,6 +10,8 @@ import { LocalStoreService } from '../../services/local-storage';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
 import styles from './index.module.css';
+import { iUser } from '../../interfaces/interfaces';
+import { socket } from '../../chat/chat-socket';
 
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
@@ -58,22 +60,26 @@ export default function LoginPage() {
 
         localStorage.setUser(user._id);
         localStorage.setToken(user.token);
+        const newUser: iUser = {
+            ...user, online: true, token: user.token
+        }
+
+        socket.emit('update-user', newUser);
 
         navigate(`/`);
-        
     };
 
-    function handleUpload(ev: SyntheticEvent) {
+    async function handleUpload(ev: SyntheticEvent) {
+        // TODO export this function -> dry
         const element = ev.target as HTMLInputElement;
         const file = (element.files as FileList)[0];
         const avatarRef = ref(storage, `/files/${file.name}`);
-        uploadBytes(
+        await uploadBytes(
             avatarRef,
             file as unknown as Blob | Uint8Array | ArrayBuffer
         );
-        getDownloadURL(ref(storage, `/files/${file.name}`)).then(
-            (url) => (setSignUp({ ...signUp, avatar: url }))
-        );
+        const url = await getDownloadURL(ref(storage, `/files/${file.name}`));
+        setSignUp({ ...signUp, avatar: url })
     }
 
     const handleSubmitSignUp = async (ev: SyntheticEvent) => {

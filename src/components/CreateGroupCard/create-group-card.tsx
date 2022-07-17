@@ -1,20 +1,12 @@
 import { SyntheticEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { socket } from "../../chat/chat-socket";
-import { iRoom, iStore, iUser } from "../../interfaces/interfaces";
+import { iStore, iUser } from "../../interfaces/interfaces";
 import { addGroupUserAction, deleteGroupUserAction } from "../../reducers/group-room/action.creators";
-import { addRoomAction } from "../../reducers/room/action.creators";
-import { sortIds } from "../../utils/sortIds";
 import styles from './index.module.css';
 
 export function CreateGroupCard({ user }: { user: iUser }) {
-    // const loggedUser = useSelector((store: iStore) => store.user[0]);
-    const rooms = useSelector((store: iStore) => store.rooms);
     const groupRoom = useSelector((store: iStore) => store.groupRoom);
     const dispatcher = useDispatch();
-
-
 
     const participant = groupRoom.find(u => u === user._id);
     let initState: boolean;
@@ -44,7 +36,6 @@ export function CreateGroupCard({ user }: { user: iUser }) {
                     <span onClick={handleClick} >añadido</span>
                 ) : (
                     <span onClick={handleClick}>añadir</span>
-
                 )
                 }
             </ div>

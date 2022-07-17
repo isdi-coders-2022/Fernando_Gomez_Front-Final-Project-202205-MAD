@@ -1,27 +1,12 @@
-import {
-    SyntheticEvent,
-    useCallback,
-    useEffect,
-    useMemo,
-    useState,
-} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { socket } from '../../chat/chat-socket';
-import { List } from '../../components/List';
+import { useSelector } from 'react-redux';
+import { List } from '../../components/List/list';
 import { iRoom, iStore } from '../../interfaces/interfaces';
-import {
-    addRoomAction,
-    loadRoomsAction,
-    updateRoomAction,
-} from '../../reducers/room/action.creators';
-import { ApiChat } from '../../services/api';
 import { dateToNumber } from '../../utils/dateToNumber';
 import styles from './index.module.css';
 
 export default function GroupRoomsPage() {
     const rooms = useSelector((store: iStore) => store.rooms);
     const selectedRooms: iRoom[] = rooms.filter(room => room.type === 'group');
-    const dispatcher = useDispatch();
 
     const compare = (a: iRoom, b: iRoom) => {
         if (a.messages[a.messages.length -1] === undefined || b.messages[b.messages.length -1] === undefined) {
@@ -34,13 +19,9 @@ export default function GroupRoomsPage() {
 
     const sortedRooms = [...selectedRooms].sort((a, b) => +compare(a, b));
 
-    socket.on('new-group-room', (payload: iRoom) => {
-        dispatcher(addRoomAction(payload as iRoom));
-    });
-
     return (
         <>
-            <h1 className={styles.h1}>Conversaciones</h1>
+            <h1 className={styles.h1}>Grupos</h1>
             <List data={sortedRooms} />
         </>
     );

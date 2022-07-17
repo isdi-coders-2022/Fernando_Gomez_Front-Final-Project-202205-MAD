@@ -1,7 +1,8 @@
 import { SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { iRouterItem, iStore } from '../../../interfaces/interfaces';
+import { socket } from '../../../chat/chat-socket';
+import { iRouterItem, iStore, iUser } from '../../../interfaces/interfaces';
 import { loadLoggedUsersAction } from '../../../reducers/logged-user/action.creators';
 import { loadRoomsAction } from '../../../reducers/room/action.creators';
 import { loadUsersAction } from '../../../reducers/user/action.creators';
@@ -14,13 +15,20 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
 
     const navigate = useNavigate();
 
-    const logout = (ev: SyntheticEvent) => {
+    const logout = async (ev: SyntheticEvent) => {
         ev.preventDefault();
         localStorage.removeItem('User');
+        localStorage.removeItem('Token');
 
         dispatcher(loadLoggedUsersAction([]));
         dispatcher(loadUsersAction([]));
         dispatcher(loadRoomsAction([]));
+
+        const newUser: iUser = {
+            ...user, online: false
+        }
+
+        socket.emit('update-user', newUser);
 
         navigate(`/login`);
     };
@@ -53,6 +61,11 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
         document.querySelector('#drop-menu')?.classList.add(`${styles.d_none}`);
     }
 
+    const navAndClose = () => {
+        closeModal();
+        navigate('/edit-profile');
+    }
+
     return (
         <>
             <header className={styles.header}>
@@ -73,13 +86,13 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
                 </nav>
 
                 <div id="drop-menu" className={`${styles.modal} ${styles.d_none}`}>
-                        <div><span onClick={closeModal}>X</span></div>
-                        <div>
-                            <Link to={`/edit-profile`} >
+                        <div onClick={closeModal}><span >X</span></div>
+                        <div onClick={navAndClose}>
+                            {/* <Link to={`/edit-profile`} > */}
                             <span>Editar perfil</span>
-                            </Link>
+                            {/* </Link> */}
                         </div>
-                        <div><span onClick={logout}>Logout</span></div>
+                        <div onClick={logout}><span >Logout</span></div>
                 </div>
             </header>
         </>

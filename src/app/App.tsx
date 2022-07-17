@@ -1,32 +1,45 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { socket } from '../chat/chat-socket';
-import { Layout } from '../components/Layout';
-import { iRoom, iRouterItem, iStore, iUser } from '../interfaces/interfaces';
-import { addGroupUserAction } from '../reducers/group-room/action.creators';
+import { Layout } from '../components/Layout/layout';
+import { iRoom, iRouterItem, iUser } from '../interfaces/interfaces';
 import { loadLoggedUsersAction } from '../reducers/logged-user/action.creators';
 import {
     addRoomAction,
     loadRoomsAction,
     updateRoomAction,
 } from '../reducers/room/action.creators';
-import { loadUsersAction } from '../reducers/user/action.creators';
+import { loadUsersAction, updateUserAction } from '../reducers/user/action.creators';
 import { ApiChat } from '../services/api';
 import { LocalStoreService } from '../services/local-storage';
 import './App.css';
 
 function App() {
+    // TODO login and register forms seems to cross over when insert data in login and try to access to register
     const localStorage = useMemo(() => new LocalStoreService(), []);
-    const loggedUser = useSelector((store: iStore) => store.user[0]);
+    // const loggedUser = useSelector((store: iStore) => store.user[0]);
+
     const dispatcher = useDispatch();
     const apiChat = useMemo(() => new ApiChat(), []);
     const navigate = useNavigate();
 
     socket.on('message', (payload) => {
-        const updatedRoom = payload
-        dispatcher(updateRoomAction(updatedRoom as iRoom));
+        dispatcher(updateRoomAction(payload as iRoom));
     })
+
+    socket.on('update-user', (payload) => {
+        dispatcher(updateUserAction(payload as iUser));
+    })
+
+    socket.on('new-p2p-room', (payload: iRoom) => {
+        dispatcher(addRoomAction(payload as iRoom));
+    })
+
+    socket.on('new-group-room', (payload: iRoom) => {
+        dispatcher(addRoomAction(payload as iRoom));
+    });
+
 
     useEffect(() => {
         const userId: string = localStorage.getUser();
@@ -38,22 +51,26 @@ function App() {
         if (userId) {
             apiChat
                 .getUserbyId(userId as string, token as string)
-                .then((user) => dispatcher(loadLoggedUsersAction([user])));
-            
-            apiChat
-                .getAllRoomsByUser(userId as string, token as string)
-                .then((rooms) => dispatcher(loadRoomsAction(rooms)));
-            apiChat
-                .getAllUsers(userId as string, token as string)
-                .then((users) => dispatcher(loadUsersAction(users)));
-            // dispatcher(loadLoggedUsersAction([user]));
-            // dispatcher(addGroupUserAction(user._id as string));
+                .then((user) => {
+                    dispatcher(loadLoggedUsersAction([user]));
+                    apiChat
+                    .getAllRoomsByUser(userId as string, token as string)
+                    .then((rooms) => {
+                        dispatcher(loadRoomsAction(rooms))
+                        apiChat
+                        .getAllUsers(userId as string, token as string)
+                        .then((users) => {
+                            dispatcher(loadUsersAction(users))
+                        });
+                    });
+
+                });
         }
     }, [apiChat, dispatcher, localStorage, navigate]);
 
     const HomePage = React.lazy(() => import('../pages/home/home-page'));
     const LoginPage = React.lazy(() => import('../pages/login/login-page'));
-    const RoomPage = React.lazy(() => import('../pages/room'));
+    const RoomPage = React.lazy(() => import('../pages/room/room-page'));
     const GroupRoomPage = React.lazy(
         () => import('../pages/group-room/group-room')
     );

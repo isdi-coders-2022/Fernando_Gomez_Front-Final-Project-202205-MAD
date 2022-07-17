@@ -1,23 +1,14 @@
 import { SyntheticEvent, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { iUser, iStore } from "../../interfaces/interfaces";
-import { updateLoggedUserAction } from "../../reducers/logged-user/action.creators";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
-import { ApiChat } from "../../services/api";
-import { LocalStoreService } from "../../services/local-storage";
-
-
+import { socket } from "../../chat/chat-socket";
 
 export default function EditProfilePage(){
 
     const user = useSelector((store: iStore) => store.user[0]);
-    const localStorage = new LocalStoreService();
-    const token = localStorage.getToken();
-
-    const dispatcher = useDispatch();
-    const apiChat = new ApiChat();
     const navigate = useNavigate();
     const goBack = () => navigate(-1);
 
@@ -33,26 +24,27 @@ export default function EditProfilePage(){
         setFormData({...formData, [element.name]: value});
     };
 
-    function handleUpload(ev: SyntheticEvent) {
+    async function handleUpload(ev: SyntheticEvent) {
         const element = ev.target as HTMLInputElement;
         const file = (element.files as FileList)[0];
         const avatarRef = ref(storage, `/files/${file.name}`);
-        uploadBytes(
+        await uploadBytes(
             avatarRef,
             file as unknown as Blob | Uint8Array | ArrayBuffer
         );
-        getDownloadURL(ref(storage, `/files/${file.name}`)).then(
-            (url) => (setFormData({ ...formData, avatar: url }))
-        );
+        // TODO needs twice to load the correct image
+        const url = await getDownloadURL(ref(storage, `/files/${file.name}`));
+        setFormData({ ...formData, avatar: url })
     }
 
     const handleSubmit = async (ev: SyntheticEvent) => {
         ev.preventDefault();
-        let updatedUser: iUser = {...formData as iUser};
+        const updatedUser: iUser = {...formData as iUser};
 
-        updatedUser = await apiChat.updateUser( (user as iUser)._id , token as string, updatedUser);
-        dispatcher(updateLoggedUserAction(updatedUser));
-        // setFormData(initialState);
+        socket.emit('update-user', 
+            updatedUser
+        );
+
         navigate(`/`);
     }
 

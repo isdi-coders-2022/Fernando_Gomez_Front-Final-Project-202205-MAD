@@ -21,6 +21,11 @@ export function UserCard({user}: {user: iUser}) {
         const exists = rooms.find(room => room.name as string === roomName as string);
 
         if (!!exists){
+            socket.emit('on-conversation', {
+                userId: user._id,
+                token: user.token,
+                roomId: exists._id
+            })
             navigate(`/room/${exists._id}`);
         }else{
             const newRoom: iRoom = {
@@ -35,19 +40,22 @@ export function UserCard({user}: {user: iUser}) {
     
     socket.on('new-p2p-room', (payload: iRoom) => {
             if(payload.owner === loggedUser._id){
+                socket.emit('on-conversation', {
+                    userId: user._id,
+                    token: user.token,
+                    roomId: payload._id
+                })
                 navigate(`/room/${payload._id}`);
             }
     })
 
     return (
         <>
-            {/* <Link to={``} > */}
                     <div className={styles.card_container} onClick={handleClick}>
                         <p>
                             {user.nickname}
                         </p>
                     </ div>
-            {/* </Link> */}
                 
         </>
     )

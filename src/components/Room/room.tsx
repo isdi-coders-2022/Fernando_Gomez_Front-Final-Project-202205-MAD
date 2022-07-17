@@ -10,9 +10,16 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
     const rooms = useSelector((store: iStore) => store.rooms);
 
     const user = useSelector((store: iStore) => store.user[0]);
+    const users = useSelector((store: iStore) => store.users);
     
-    const room = rooms.find((room) => roomId === room._id) 
-    
+    const room = rooms.find((room) => roomId === room._id);
+
+    const id1 = room?.name?.substring(0, 24);
+    const id2 = room?.name?.substring(24, room.name.length);
+
+    let otherId = '';
+    user._id === id1 ? (otherId = id2 as string) : (otherId = id1 as string);
+
     const initialFormData = '';
 
     const [formData, setFormData] = useState(initialFormData);
@@ -20,6 +27,10 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
         const element = ev.target as HTMLFormElement;
         setFormData(element.value);
     };
+
+    const otherUser =  users.find(user => user._id === otherId)
+
+    const seen = otherUser?.onConversation === roomId ? true : false;
     
     const handleSubmit = useCallback(async (ev: SyntheticEvent) => {
         ev.preventDefault();
@@ -28,15 +39,15 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
             _id : '',
             createdAt: JSON.stringify(new Date()),
             sender: user._id as string,
-            recipient: room?.users[1] as string,
+            recipient: otherId as string,
             content: formData,
-            seen: false
+            seen: seen
         }
      
         let array = JSON.stringify(room?.messages);
         let newArray = JSON.parse(array);
         newArray?.push(newMessage);
-      
+
         socket.emit('message', {
             message: newMessage,
             roomId: room?._id as string,

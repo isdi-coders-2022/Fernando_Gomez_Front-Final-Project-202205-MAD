@@ -25,8 +25,9 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
         dispatcher(loadRoomsAction([]));
 
         const newUser: iUser = {
-            ...user, online: false
-        }
+            ...user,
+            online: false,
+        };
 
         socket.emit('update-user', newUser);
 
@@ -47,52 +48,90 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
         item.path !== '/group-room/:id' ? item : ''
     );
     navOptions = navOptions.filter((item) =>
-    item.path !== '/edit-profile' ? item : ''
-);
+        item.path !== '/edit-profile' ? item : ''
+    );
     navOptions = navOptions.filter((item) => (item.path !== '*' ? item : ''));
 
     const openModal = () => {
-        document.querySelector('#drop-menu')?.classList.remove(`${styles.d_none}`);
-        document.querySelector('#drop-menu')?.classList.add(`${styles.d_initial}`);
-    }
+        document
+            .querySelector('#drop-menu')
+            ?.classList.remove(`${styles.d_none}`);
+        document
+            .querySelector('#drop-menu')
+            ?.classList.add(`${styles.d_initial}`);
+    };
 
     const closeModal = () => {
-        document.querySelector('#drop-menu')?.classList.remove(`${styles.d_initial}`);
+        document
+            .querySelector('#drop-menu')
+            ?.classList.remove(`${styles.d_initial}`);
         document.querySelector('#drop-menu')?.classList.add(`${styles.d_none}`);
-    }
+    };
 
     const navAndClose = () => {
         closeModal();
+        if (user.onConversation !== '') {
+            socket.emit('on-conversation', {
+                userId: user._id,
+                token: user.token,
+                roomId: '',
+            });
+        }
         navigate('/edit-profile');
-    }
+    };
+
+    const navAndEmit = (path: string) => {
+        if (user.onConversation !== '') {
+            socket.emit('on-conversation', {
+                userId: user._id,
+                token: user.token,
+                roomId: '',
+            });
+        }
+        navigate(`${path}`);
+    };
 
     return (
         <>
             <header className={styles.header}>
                 <nav className={styles.nav}>
                     {navOptions.map((item) => (
-                        <div key={item.label}>
-                            <Link to={item.path}>{item.label}</Link>
+                        <div
+                            onClick={() => {
+                                navAndEmit(item.path);
+                            }}
+                            key={item.label}
+                        >
+                            {/* <div  key={item.label}> */}
+                            {/* <Link to={item.path}>{item.label}</Link> */}
+                            <span>{item.label}</span>
                         </div>
                     ))}
                     <div>
                         <img
-                        className={styles.avatar}
-                        onClick={openModal}
+                            className={styles.avatar}
+                            onClick={openModal}
                             src={user.avatar}
                             alt={user.nickname}
                         />
                     </div>
                 </nav>
 
-                <div id="drop-menu" className={`${styles.modal} ${styles.d_none}`}>
-                        <div onClick={closeModal}><span >X</span></div>
-                        <div onClick={navAndClose}>
-                            {/* <Link to={`/edit-profile`} > */}
-                            <span>Editar perfil</span>
-                            {/* </Link> */}
-                        </div>
-                        <div onClick={logout}><span >Logout</span></div>
+                <div
+                    id="drop-menu"
+                    className={`${styles.modal} ${styles.d_none}`}
+                >
+                    <div onClick={closeModal}>
+                        <span>X</span>
+                    </div>
+                    <div onClick={navAndClose}>
+                        {/* <Link to={`/edit-profile`} > */}
+                        <span>Editar perfil</span>
+                        {/* </Link> */}
+                    </div>
+                    <div onClick={logout}>
+                        <span>Logout</span>
+                    </div>
                 </div>
             </header>
         </>

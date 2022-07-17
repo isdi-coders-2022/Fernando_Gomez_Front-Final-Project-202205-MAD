@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { socket } from '../../chat/chat-socket';
 import { List } from '../../components/List/list';
 import { iRoom, iStore } from '../../interfaces/interfaces';
 
@@ -7,8 +9,18 @@ import styles from './index.module.css';
 
 export default function HomePage() {
     const rooms = useSelector((store: iStore) => store.rooms);
+    // const user = useSelector((store: iStore) => store.user[0]);
 
-    
+    // useEffect(() => {
+    //     if (user !== undefined &&  user.onConversation !== ''){
+    //         alert('yes')
+    //         socket.emit('on-conversation', {
+    //             userId: user._id,
+    //             token: user.token,
+    //             roomId: ''
+    //         })
+    //     }
+    // })
 
     const compare = (a: iRoom, b: iRoom) => {
         if (a.messages[a.messages.length -1] === undefined || b.messages[b.messages.length -1] === undefined) {

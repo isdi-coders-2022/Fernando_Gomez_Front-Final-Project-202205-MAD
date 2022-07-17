@@ -40,7 +40,7 @@ export default function GroupRoomsPage() {
 
     return (
         <>
-            <h1 className={styles.h1}>Conversaciones</h1>
+            <h1 className={styles.h1}>Grupos</h1>
             <List data={sortedRooms} />
         </>
     );

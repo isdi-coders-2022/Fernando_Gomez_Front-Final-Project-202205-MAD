@@ -27,9 +27,11 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
         dispatcher(loadUsersAction([]));
         dispatcher(loadRoomsAction([]));
 
-        socket.emit('login-logout', {
-            newUser: {...user, online: false},
-        });
+        const newUser: iUser = {
+            ...user, online: false
+        }
+
+        socket.emit('update-user', newUser);
 
         navigate(`/login`);
     };

@@ -17,6 +17,7 @@ import { LocalStoreService } from '../services/local-storage';
 import './App.css';
 
 function App() {
+    // TODO login and register forms seems to cross over when insert data in login and try to access to register
     const localStorage = useMemo(() => new LocalStoreService(), []);
     const loggedUser = useSelector((store: iStore) => store.user[0]);
     const dispatcher = useDispatch();
@@ -27,7 +28,7 @@ function App() {
         dispatcher(updateRoomAction(payload as iRoom));
     })
 
-    socket.on('login-logout', (payload) => {
+    socket.on('update-user', (payload) => {
         dispatcher(updateUserAction(payload as iUser));
     })
 
@@ -57,7 +58,7 @@ function App() {
 
     const HomePage = React.lazy(() => import('../pages/home/home-page'));
     const LoginPage = React.lazy(() => import('../pages/login/login-page'));
-    const RoomPage = React.lazy(() => import('../pages/room'));
+    const RoomPage = React.lazy(() => import('../pages/room/room-page'));
     const GroupRoomPage = React.lazy(
         () => import('../pages/group-room/group-room')
     );

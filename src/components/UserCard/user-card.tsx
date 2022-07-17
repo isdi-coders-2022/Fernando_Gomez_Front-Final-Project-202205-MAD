@@ -29,16 +29,16 @@ export function UserCard({user}: {user: iUser}) {
                 messages: [],
                 image: '',
             }
-            socket.emit('new-p2p-room', {
-                room: newRoom,
-            });
-
-            // socket.on('new-p2p-room', (payload: iRoom) => {
-            //     dispatcher(addRoomAction(payload as iRoom));
-            //     navigate(`/room/${payload._id}`);
-            // })
+            socket.emit('new-p2p-room', newRoom );
+            socket.on('new-p2p-room', (payload: iRoom) => {
+                dispatcher(addRoomAction(payload as iRoom));
+                navigate(`/room/${payload._id}`);
+            })
+            
         }
     }
+
+    
 
     
 

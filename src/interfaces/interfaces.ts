@@ -30,7 +30,7 @@ export interface iMessage{
     recipient: string;
     content: string;
     createdAt?: string;
-    type?: string;
+    seen?: boolean;
 }
 export interface iStore{
     user: iUser[];

@@ -1,13 +1,13 @@
 import * as actions from './action.creators';
 import { AnyAction } from '@reduxjs/toolkit';
 import { iMessage, iRoom, iUser } from '../../interfaces/interfaces';
-import { userReducer } from '../user/reducer';
 import { loggedUserReducer } from './reducer';
 
 const mockMessage: iMessage = {
     sender: '',
     recipient: '',
     content: '',
+    seen: false
 }
 
 const mockRoom: iRoom = {

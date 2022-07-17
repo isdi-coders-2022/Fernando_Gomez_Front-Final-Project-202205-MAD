@@ -56,9 +56,7 @@ export default function CreateGroupPage() {
             name: formData.name,
             users: newGroupRoom
         };
-        socket.emit('new-group-room', {
-            room: newRoom,
-        });
+        socket.emit('new-group-room', newRoom );
         dispatcher(loadGroupUsersAction([]));
         
     };

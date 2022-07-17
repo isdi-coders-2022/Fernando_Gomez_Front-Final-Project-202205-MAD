@@ -1,5 +1,5 @@
 import { iMessage, iRoom, iStore } from "../../interfaces/interfaces";
-import { RoomCard } from "../RoomCard";
+import { RoomCard } from "../RoomCard/room-card";
 import { socket} from '../../chat/chat-socket';
 import { SyntheticEvent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,7 +31,6 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
             sender: user._id as string,
             recipient: room?.users[1] as string,
             content: formData,
-            type: 'p2p'
         }
      
         let array = JSON.stringify(room?.messages);

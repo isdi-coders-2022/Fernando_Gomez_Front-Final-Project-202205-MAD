@@ -16,13 +16,18 @@ export function Card({ room }: { room: iRoom }) {
     user._id === id1 ? (otherId = id2 as string) : (otherId = id1 as string);
 
     const otherUser = users.find((user) => user._id === otherId);
-
+// TODO do the same in the other cards of groups and users
     const emitAndNavigate = () => {
         socket.emit('update-seen-messages', {
             otherUserId: otherUser?._id,
             token: user.token,
             roomId: room._id
         });
+        socket.emit('on-conversation', {
+            userId: user._id,
+            token: user.token,
+            roomId: room?._id
+        })
         navigate(`/room/${room._id}`);
     }
 

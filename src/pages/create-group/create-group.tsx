@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { socket } from '../../chat/chat-socket';
@@ -14,6 +14,16 @@ export default function CreateGroupPage() {
     const groupRoom = useSelector((store: iStore) => store.groupRoom);
     const dispatcher = useDispatch();
     const navigate = useNavigate();
+
+    // useEffect(() => {
+    //     if (loggedUser.onConversation !== ''){
+    //         socket.emit('on-conversation', {
+    //             userId: loggedUser._id,
+    //             token: loggedUser.token,
+    //             roomId: ''
+    //         })
+    //     }
+    // }, [])
 
     const initResult: iUser[] = [];
     const [search, setSearch] = useState(true);

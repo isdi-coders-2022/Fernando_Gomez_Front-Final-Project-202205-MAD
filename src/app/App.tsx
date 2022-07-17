@@ -32,6 +32,11 @@ function App() {
         dispatcher(updateUserAction(payload as iUser));
     })
 
+    socket.on('on-conversation', (payload) => {
+        console.log(payload);
+        dispatcher(updateUserAction(payload as iUser));
+    })
+
     socket.on('new-p2p-room', (payload: iRoom) => {
         dispatcher(addRoomAction(payload as iRoom));
     })
@@ -41,7 +46,6 @@ function App() {
     });
 
     socket.on('update-seen-messages', (payload: iRoom) => {
-        console.log('nuevos mensajes vistos: ', payload.messages);
         dispatcher(updateRoomAction(payload as iRoom));
     });
 

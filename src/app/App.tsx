@@ -41,16 +41,17 @@ function App() {
         if (userId) {
             apiChat
                 .getUserbyId(userId as string, token as string)
-                .then((user) => dispatcher(loadLoggedUsersAction([user])));
-            
-            apiChat
-                .getAllRoomsByUser(userId as string, token as string)
-                .then((rooms) => dispatcher(loadRoomsAction(rooms)));
-            apiChat
-                .getAllUsers(userId as string, token as string)
-                .then((users) => dispatcher(loadUsersAction(users)));
-            // dispatcher(loadLoggedUsersAction([user]));
-            // dispatcher(addGroupUserAction(user._id as string));
+                .then((user) => {
+                    dispatcher(loadLoggedUsersAction([user]));
+                    apiChat
+                    .getAllRoomsByUser(userId as string, token as string)
+                    .then((rooms) => {
+                        apiChat
+                        .getAllUsers(userId as string, token as string)
+                        .then((users) => dispatcher(loadUsersAction(users)));
+                    });
+
+                });
         }
     }, [apiChat, dispatcher, localStorage, navigate]);
 

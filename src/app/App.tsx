@@ -40,6 +40,11 @@ function App() {
         dispatcher(addRoomAction(payload as iRoom));
     });
 
+    socket.on('update-seen-messages', (payload: iRoom) => {
+        console.log('nuevos mensajes vistos: ', payload.messages);
+        dispatcher(updateRoomAction(payload as iRoom));
+    });
+
 
     useEffect(() => {
         const userId: string = localStorage.getUser();

@@ -1,4 +1,33 @@
-.list{
-    display: grid;
+.ul_container {
+    height: 75vh;
+    overflow: scroll;
 }
 
+.list {
+    display: grid;
+}
+.span {
+    display: block;
+    height: 45px;
+}
+.form {
+    display: flex;
+    justify-content: end;
+    padding-top: 1rem;
+}
+.form img {
+    width: 40px;
+    margin: 0 20px 0 20px;
+    transition: all 0.5s;
+}
+.form img:hover{
+    transform: scale(1.3);
+}
+.form div:nth-child(1) {
+    display: flex;
+    align-items: center;
+}
+.input_box {
+    width: 400px;
+    height: 35px;
+}

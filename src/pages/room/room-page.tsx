@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Room } from '../../components/Room/room';
 import { iMessage, iStore } from '../../interfaces/interfaces';
+import styles from './index.module.css'
 
 export default function RoomPage() {
     const { id } = useParams();
@@ -15,16 +16,30 @@ export default function RoomPage() {
     const id2 = room?.name?.substring(24, room.name.length);
 
     let otherId = '';
-    (user._id === id1) ? otherId = id2 as string : otherId = id1 as string;
+    user._id === id1 ? (otherId = id2 as string) : (otherId = id1 as string);
 
-    const otherUser = users.find(user => user._id === otherId);
+    const otherUser = users.find((user) => user._id === otherId);
 
     return (
         <>
             {room?.type === 'group' ? (
-                <h1>{room.name}</h1>
+                <div className={styles.other_user}>
+                    <span>
+                        <img className={styles.avatar} src={room.image} alt={room.name} />
+                    </span>
+                    <span>{room.name}</span>
+                </div>
             ) : (
-                <h1 data-testid="2">{otherUser?.nickname}</h1>
+                <div className={styles.other_user}>
+                    <span>
+                        <img
+                         className={styles.avatar}
+                            src={otherUser?.avatar}
+                            alt={otherUser?.nickname}
+                        />
+                    </span>
+                    <span data-testid="2">{otherUser?.nickname}</span>{' '}
+                </div>
             )}
             {rooms.length > 0 && (
                 <Room

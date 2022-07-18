@@ -6,7 +6,8 @@ export class ApiChat {
         this.apiUrl = 'http://localhost:4000/'
     }
 
-    async signup(payload: iUser): Promise<iUser> {
+    async signup(payload: any): Promise<any> {
+        // TODO review these types
         const resp = await fetch(`${this.apiUrl}user`, {
             method: 'POST',
             body: JSON.stringify(payload),

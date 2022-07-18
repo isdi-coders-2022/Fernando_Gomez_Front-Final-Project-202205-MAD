@@ -11,7 +11,7 @@ export default function GroupRoomPage() {
 
     return (
         <>
-                <h1>{room?.name}</h1>
+                <h1 data-testid="2">{room?.name}</h1>
             {rooms.length > 0 && (
                 <Room
                     data={room?.messages as iMessage[]}

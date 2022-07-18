@@ -53,11 +53,17 @@
         "singleQuote": true
     },
     "jest": {
-        "roots": [
-            "<rootDir>/dist/"
-        ],
-        "coveragePathIgnorePatterns": [
-            "<rootDir>/src/index.ts"
+        "collectCoverageFrom": [
+            "src/**/*.{ts,tsx}",
+            "!src/app/App.tsx",
+            "!src/index.tsx",
+            "!src/models/.ts",
+            "!src/services/test-utils.tsx",
+            "!src/serviceWorker.ts",
+            "!src/reportWebVitals.ts",
+            "!src/redux//action.types.ts",
+            "!src/interfaces/*.ts",
+            "!src/react-app-env.d.ts"
         ]
     }
 }

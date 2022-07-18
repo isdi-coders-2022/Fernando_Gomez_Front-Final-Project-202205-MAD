@@ -24,7 +24,7 @@ export default function RoomPage() {
             {room?.type === 'group' ? (
                 <h1>{room.name}</h1>
             ) : (
-                <h1>{otherUser?.nickname}</h1>
+                <h1 data-testid="2">{otherUser?.nickname}</h1>
             )}
             {rooms.length > 0 && (
                 <Room

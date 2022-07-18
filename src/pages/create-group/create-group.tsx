@@ -13,18 +13,6 @@ export default function CreateGroupPage() {
     const users = useSelector((store: iStore) => store.users);
     const groupRoom = useSelector((store: iStore) => store.groupRoom);
     const dispatcher = useDispatch();
-    const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     if (loggedUser.onConversation !== ''){
-    //         socket.emit('on-conversation', {
-    //             userId: loggedUser._id,
-    //             token: loggedUser.token,
-    //             roomId: ''
-    //         })
-    //     }
-    // }, [])
-
     const initResult: iUser[] = [];
     const [search, setSearch] = useState(true);
     const [result, setResult] = useState(initResult);
@@ -70,7 +58,7 @@ export default function CreateGroupPage() {
 
     return (
         <div className={styles.container}>
-            <h1>Escoge los participantes</h1>
+            <h1>Selecciona los participantes</h1>
             <form id="form" onSubmit={create}>
                 <div>
                     <input onChange={handleChange} type="text" placeholder='Nombre del grupo' name="name" required />

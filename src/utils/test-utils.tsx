@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { loggedUserReducer } from '../reducers/logged-user/reducer';
 import { roomReducer } from '../reducers/room/reducer';
 import { userReducer } from '../reducers/user/reducer';
+import { groupRoomReducer } from '../reducers/group-room/reducer';
 
 
 function render(
@@ -20,7 +21,8 @@ function render(
                 reducer: {
                     user: loggedUserReducer, 
                     users: userReducer, 
-                    rooms: roomReducer
+                    rooms: roomReducer,
+                    groupRoom: groupRoomReducer
                 }, preloadedState
             })}>
                 {children}

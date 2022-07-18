@@ -81,7 +81,7 @@ export function Room({ roomId, data }: { roomId: string; data: iMessage[] }) {
                     {room?.messages.map((item) => {
                         return (
                             <li key={item.createdAt} className={styles.list}>
-                                <RoomCard message={item} />
+                                <RoomCard message={item} rtype={room.type as string} />
                             </li>
                         );
                     })}

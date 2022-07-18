@@ -33,7 +33,6 @@ function App() {
     })
 
     socket.on('on-conversation', (payload) => {
-        console.log(payload);
         dispatcher(updateUserAction(payload as iUser));
     })
 
@@ -43,6 +42,15 @@ function App() {
 
     socket.on('new-group-room', (payload: iRoom) => {
         dispatcher(addRoomAction(payload as iRoom));
+        if (payload.owner === localStorage.getUser()){
+            socket.emit('on-conversation', {
+                userId: localStorage.getUser(),
+                token: localStorage.getToken(),
+                roomId: payload._id
+            })
+            navigate(`/room/${payload._id}`);
+        }
+       
     });
 
     socket.on('update-seen-messages', (payload: iRoom) => {

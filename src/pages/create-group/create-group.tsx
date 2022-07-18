@@ -1,11 +1,12 @@
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { socket } from '../../chat/chat-socket';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { UsersList } from '../../components/UsersList/users-list';
 import { iRoom, iStore, iUser } from '../../interfaces/interfaces';
 import { loadGroupUsersAction } from '../../reducers/group-room/action.creators';
 import styles from './index.module.css';
+import { storage } from '../../firebase';
 
 export default function CreateGroupPage() {
     const loggedUser = useSelector((store: iStore) => store.user[0]);
@@ -16,7 +17,11 @@ export default function CreateGroupPage() {
     const initResult: iUser[] = [];
     const [search, setSearch] = useState(true);
     const [result, setResult] = useState(initResult);
-    const [formData, setFormData] = useState({name: ''});
+    const initFormData = {
+        name: '',
+        image: ''
+    }
+    const [formData, setFormData] = useState(initFormData);
 
     let results: iUser[] = [];
 
@@ -38,15 +43,27 @@ export default function CreateGroupPage() {
         setFormData({ ...formData, [element.name]: value });
     };
 
+    async function handleUpload(ev: SyntheticEvent) {
+        // TODO export this function -> dry
+        const element = ev.target as HTMLInputElement;
+        const file = (element.files as FileList)[0];
+        const avatarRef = ref(storage, `/files/${file.name}`);
+        await uploadBytes(
+            avatarRef,
+            file as unknown as Blob | Uint8Array | ArrayBuffer
+        );
+        const url = await getDownloadURL(ref(storage, `/files/${file.name}`));
+        setFormData({ ...formData, image: url })
+        console.log(url);
+    }
+
     const create = async (ev: SyntheticEvent) => {
         ev.preventDefault();
-
-        
         const newGroupRoom = [...groupRoom];
         newGroupRoom.unshift(loggedUser._id as string);
         
         const newRoom = {
-            name: formData.name,
+            ...formData,
             owner: loggedUser._id as string,
             users: newGroupRoom
         };
@@ -63,6 +80,18 @@ export default function CreateGroupPage() {
                 <div>
                     <input onChange={handleChange} type="text" placeholder='Nombre del grupo' name="name" required />
                 </div>
+
+                <div>
+                        <div><label htmlFor="">Avatar</label></div>
+                        <div>
+                            <input
+                                type="file"
+                                name="image"
+                                onChange={handleUpload}
+                            />
+                        </div>
+                    </div>
+
                 <div>
                     <div>
                         <button type="submit">Aceptar y crear</button>

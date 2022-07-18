@@ -54,10 +54,6 @@ export function Room({ roomId, data }: { roomId: string; data: iMessage[] }) {
                 roomId: room?._id as string,
             });
             setFormData('');
-            const el = document.querySelector('#input-box');
-            if (el) {
-                console.log(el);
-            }
         },
         [formData]
     );

@@ -8,7 +8,6 @@ import { dateToNumber } from '../../utils/dateToNumber';
 import styles from './index.module.css';
 
 export default function HomePage() {
-    console.log('Sorted rooms');
     const rooms = useSelector((store: iStore) => store.rooms);
 
     const compare = (a: iRoom, b: iRoom) => {

@@ -111,7 +111,7 @@ export default function LoginPage() {
             ) : (
                 <div  className={styles.container}>
                 <div className={styles.logo_section}>
-                    <img src="./logo.png" alt="" />
+                    <img src="./assets/logo.png" alt="" />
                 </div>
                 <div>
                 <form id='loginform' onSubmit={handleSubmit} className={styles.form}>
@@ -179,7 +179,6 @@ export default function LoginPage() {
                                 type="file"
                                 name="avatar"
                                 onChange={handleUpload}
-                                required
                             />
                         </div>
                     </div>

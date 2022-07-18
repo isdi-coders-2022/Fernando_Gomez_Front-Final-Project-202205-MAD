@@ -54,6 +54,10 @@ export function Room({ roomId, data }: { roomId: string; data: iMessage[] }) {
                 roomId: room?._id as string,
             });
             setFormData('');
+            const el = document.querySelector('#input-box');
+            if (el) {
+                console.log(el);
+            }
         },
         [formData]
     );
@@ -72,7 +76,10 @@ export function Room({ roomId, data }: { roomId: string; data: iMessage[] }) {
         if (elem) {
             elem.scrollTop = elem.scrollHeight;
         }
-    })
+    });
+
+    const cols = 30;
+    const rows = 2;
 
     return (
         <>
@@ -81,28 +88,40 @@ export function Room({ roomId, data }: { roomId: string; data: iMessage[] }) {
                     {room?.messages.map((item) => {
                         return (
                             <li key={item.createdAt} className={styles.list}>
-                                <RoomCard message={item} rtype={room.type as string} />
+                                <RoomCard
+                                    message={item}
+                                    rtype={room.type as string}
+                                />
                             </li>
                         );
                     })}
                 </ul>
-                {/* <span className={styles.span}></span> */}
             </div>
 
             <div>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className={styles.form}>
                     <div>
                         <input
                             id="input-box"
+                            className={styles.input_box}
                             type="text"
                             name="name"
-                            placeholder="Escribe un mensaje.."
+                            placeholder="Mensaje..."
                             onChange={handleChange}
                             required
                             value={formData}
+                            autoFocus
                         />
                     </div>
-                    <button type="submit">Enviar</button>
+                    <div>
+                        <button type="submit">
+                            <img
+                                className={styles.send}
+                                src="/assets/send.png"
+                                alt="Enviar"
+                            />
+                        </button>
+                    </div>
                 </form>
             </div>
         </>

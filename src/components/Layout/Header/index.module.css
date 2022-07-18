@@ -1,5 +1,4 @@
-.header{
-    position: relative;
+.header {
     padding: 2rem;
     background-color: var(--primary-color);
 }
@@ -12,18 +11,59 @@
     border-radius: 50%;
     width: 40px;
 }
-.d_none{
+.d_none {
     display: none;
 }
-.d_initial{
+.d_initial {
     display: initial;
 }
-.modal{
+.modal {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+    top: 1rem;
+    right: 0.8rem;
     width: 50;
     width: 50%;
     background-color: white;
     text-align: center;
+    border-radius: 20px;
+}
+.modal div:nth-last-child(-n+2){
+    min-height: 3rem;
+}
+.modal > div:nth-child(1) {
+    position: relative;
+    text-align: end;
+}
+.back_modal {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    /* background-color: #31a2db48; */
+}
+.link {
+    cursor: pointer;
+    /* display: grid; */
+    align-content: center;
+    display: flex;
+    justify-content: center;
+}
+.link span{
+    align-self: center;
+    align-content: center;
+    display: flex;
+}.link span span{
+    margin-right: 10px;
+}
+.link span img{
+    align-self: center;
+}
+.cancel {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 45px;
+    background-color: white;
+    border-radius: 50%;
 }

@@ -1,6 +1,6 @@
 import { SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { socket } from '../../../chat/chat-socket';
 import { iRouterItem, iStore, iUser } from '../../../interfaces/interfaces';
 import { loadLoggedUsersAction } from '../../../reducers/logged-user/action.creators';
@@ -54,18 +54,24 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
 
     const openModal = () => {
         document
-            .querySelector('#drop-menu')
+            .querySelector('#back-modal')
             ?.classList.remove(`${styles.d_none}`);
+        // document
+        //     .querySelector('#drop-menu')
+        //     ?.classList.remove(`${styles.d_none}`);
         document
-            .querySelector('#drop-menu')
+            .querySelector('#back-modal')
             ?.classList.add(`${styles.d_initial}`);
+        // document
+        //     .querySelector('#drop-menu')
+        //     ?.classList.add(`${styles.d_initial}`);
     };
 
     const closeModal = () => {
         document
-            .querySelector('#drop-menu')
+            .querySelector('#back-modal')
             ?.classList.remove(`${styles.d_initial}`);
-        document.querySelector('#drop-menu')?.classList.add(`${styles.d_none}`);
+        document.querySelector('#back-modal')?.classList.add(`${styles.d_none}`);
     };
 
     const navAndClose = () => {
@@ -101,13 +107,14 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
                                 navAndEmit(item.path);
                             }}
                             key={item.label}
+                            className={styles.link}
                         >
                             {/* <div  key={item.label}> */}
                             {/* <Link to={item.path}>{item.label}</Link> */}
                             <span>{item.label}</span>
                         </div>
                     ))}
-                    <div>
+                    <div className={styles.link}>
                         <img
                             className={styles.avatar}
                             onClick={openModal}
@@ -118,19 +125,25 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
                 </nav>
 
                 <div
-                    id="drop-menu"
-                    className={`${styles.modal} ${styles.d_none}`}
+                    id="back-modal"
+                    className={`${styles.back_modal} ${styles.d_none}`}
+                    onClick={closeModal}
                 >
-                    <div onClick={closeModal}>
-                        <span>X</span>
-                    </div>
-                    <div onClick={navAndClose}>
-                        {/* <Link to={`/edit-profile`} > */}
-                        <span>Editar perfil</span>
-                        {/* </Link> */}
-                    </div>
-                    <div onClick={logout}>
-                        <span>Logout</span>
+                    <div
+                        id="drop-menu"
+                        className={`${styles.modal}`}
+                    >
+                        <div onClick={closeModal}>
+                            <span><img className={`${styles.link} ${styles.cancel}`} src="./assets/cancel.png" alt="close window" /></span>
+                        </div>
+                        <div onClick={navAndClose}  className={`${styles.link}`}>
+                            {/* <Link to={`/edit-profile`} > */}
+                            <span><span>Editar perfil</span> <img src="./assets/settings.png" alt="logout" /></span>
+                            {/* </Link> */}
+                        </div>
+                        <div onClick={logout}  className={`${styles.link}`}>
+                            <span><span>Logout</span> <img src="./assets/shutdown.png" alt="logout" /> </span>
+                        </div>
                     </div>
                 </div>
             </header>

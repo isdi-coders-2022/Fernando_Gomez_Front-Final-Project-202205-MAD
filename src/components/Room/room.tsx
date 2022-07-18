@@ -78,9 +78,6 @@ export function Room({ roomId, data }: { roomId: string; data: iMessage[] }) {
         }
     });
 
-    const cols = 30;
-    const rows = 2;
-
     return (
         <>
             <div id="ul-container" className={styles.ul_container}>

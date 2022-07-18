@@ -91,7 +91,7 @@ function App() {
     );
 
     const routerOptions: iRouterItem[] = [
-        { path: '/', label: 'Home', page: <HomePage /> },
+        { path: '/', label: 'Inicio', page: <HomePage /> },
         { path: '/login', label: 'Login', page: <LoginPage /> },
         { path: '/room/:id', label: 'Room', page: <RoomPage /> },
         {
@@ -99,8 +99,8 @@ function App() {
             label: 'Group Room',
             page: <GroupRoomPage />,
         },
-        { path: '/users', label: 'Users', page: <UsersPage /> },
-        { path: '/group-rooms', label: 'Groups', page: <GroupRoomsPage /> },
+        { path: '/users', label: 'Contactos', page: <UsersPage /> },
+        { path: '/group-rooms', label: 'Grupos', page: <GroupRoomsPage /> },
         { path: '/edit-profile', label: 'Edit profile', page: <EditProfilePage /> },
         {
             path: '/create-group',

@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 import { useSelector } from "react-redux";
 import { iRouterItem, iStore } from "../../interfaces/interfaces"
 import { Header } from "./Header/header";
-
+import styles from './index.module.css';
 
 export function Layout({
     children,
@@ -20,7 +20,7 @@ export function Layout({
             <Header navOptions={navOptions} />
 
         }
-            <main>{children}</main>
+            <main className={styles.main}>{children}</main>
         </>
     )
 }

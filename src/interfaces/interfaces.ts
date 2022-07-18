@@ -7,11 +7,11 @@ export interface iUser{
     surname: string;
     nickname: string;
     avatar?: string;
-    createdAt: string;
+    createdAt?: string;
     updatedAt?: string;
-    online: boolean;
+    online?: boolean;
     onConversation?: string; 
-    rooms: iRoom[];
+    rooms?: iRoom[];
 }
 
 export interface iRoom{

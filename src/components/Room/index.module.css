@@ -1,4 +1,17 @@
+/* .ul{
+    height: 75vh;
+    overflow: scroll;
+} */
+.ul_container{
+    height: 75vh;
+    overflow: scroll;
+}
+
 .list{
     display: grid;
+}
+.span{
+    display: block;
+    height: 45px;
 }
 

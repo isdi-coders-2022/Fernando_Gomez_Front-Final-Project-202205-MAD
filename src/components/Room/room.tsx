@@ -1,17 +1,17 @@
-import { iMessage, iStore } from "../../interfaces/interfaces";
-import { RoomCard } from "../RoomCard/room-card";
-import { socket} from '../../chat/chat-socket';
-import { SyntheticEvent, useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { iMessage, iStore } from '../../interfaces/interfaces';
+import { RoomCard } from '../RoomCard/room-card';
+import { socket } from '../../chat/chat-socket';
+import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './index.module.css';
 
-export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
+export function Room({ roomId, data }: { roomId: string; data: iMessage[] }) {
     // TODO review, don't need the data parameter
     const rooms = useSelector((store: iStore) => store.rooms);
 
     const user = useSelector((store: iStore) => store.user[0]);
     const users = useSelector((store: iStore) => store.users);
-    
+
     const room = rooms.find((room) => roomId === room._id);
 
     const id1 = room?.name?.substring(0, 24);
@@ -28,53 +28,73 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
         setFormData(element.value);
     };
 
-    const otherUser =  users.find(user => user._id === otherId)
+    const otherUser = users.find((user) => user._id === otherId);
 
     const seen = otherUser?.onConversation === roomId ? true : false;
-    
-    const handleSubmit = useCallback(async (ev: SyntheticEvent) => {
-        ev.preventDefault();
-       
-        const newMessage: iMessage = {
-            _id : '',
-            createdAt: JSON.stringify(new Date()),
-            sender: user._id as string,
-            recipient: otherId as string,
-            content: formData,
-            seen: seen
+
+    const handleSubmit = useCallback(
+        async (ev: SyntheticEvent) => {
+            ev.preventDefault();
+
+            const newMessage: iMessage = {
+                _id: '',
+                createdAt: JSON.stringify(new Date()),
+                sender: user._id as string,
+                recipient: otherId as string,
+                content: formData,
+                seen: seen,
+            };
+
+            let array = JSON.stringify(room?.messages);
+            let newArray = JSON.parse(array);
+            newArray?.push(newMessage);
+
+            socket.emit('message', {
+                message: newMessage,
+                roomId: room?._id as string,
+            });
+            setFormData('');
+        },
+        [formData]
+    );
+
+    socket.on('message', (payload) => {
+        if (payload._id === room?._id) {
+            const el = document.querySelector('#ul-container');
+            if (el) {
+                el.scrollTop = el.scrollHeight;
+            }
         }
-     
-        let array = JSON.stringify(room?.messages);
-        let newArray = JSON.parse(array);
-        newArray?.push(newMessage);
+    });
 
-        socket.emit('message', {
-            message: newMessage,
-            roomId: room?._id as string,
-        })
-        setFormData('');
-
-    }, [formData])
+    useEffect(() => {
+        const elem = document.querySelector('#ul-container');
+        if (elem) {
+            elem.scrollTop = elem.scrollHeight;
+        }
+    })
 
     return (
         <>
-            <ul data-testid="1">
-                {room?.messages.map(item => {
-                    return (
+            <div id="ul-container" className={styles.ul_container}>
+                <ul id="ul" className={styles.ul} data-testid="1">
+                    {room?.messages.map((item) => {
+                        return (
                             <li key={item.createdAt} className={styles.list}>
-                                <RoomCard message={item}/>
+                                <RoomCard message={item} />
                             </li>
-                        )
-                })
-                }
-            </ul>
-            
+                        );
+                    })}
+                </ul>
+                {/* <span className={styles.span}></span> */}
+            </div>
+
             <div>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <input 
+                        <input
                             id="input-box"
-                            type="text" 
+                            type="text"
                             name="name"
                             placeholder="Escribe un mensaje.."
                             onChange={handleChange}
@@ -83,9 +103,8 @@ export function Room({roomId, data}: {roomId: string , data: iMessage[]}) {
                         />
                     </div>
                     <button type="submit">Enviar</button>
-
                 </form>
             </div>
         </>
-    )
-} 
+    );
+}

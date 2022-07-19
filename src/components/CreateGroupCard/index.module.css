@@ -10,4 +10,6 @@
 }
 .card_container p{
     font-size: 1.2rem;
+}.ul_container{
+    height: 70vh;
 }

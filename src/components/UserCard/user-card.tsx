@@ -5,6 +5,7 @@ import { socket } from "../../chat/chat-socket";
 import { iRoom, iStore, iUser } from "../../interfaces/interfaces";
 import { addRoomAction } from "../../reducers/room/action.creators";
 import { sortIds } from "../../utils/sortIds";
+import { Avatar } from "../Avatar/avatar";
 import styles from './index.module.css';
 
 export function UserCard({user}: {user: iUser}) {
@@ -52,9 +53,12 @@ export function UserCard({user}: {user: iUser}) {
     return (
         <>
                     <div className={styles.card_container} onClick={handleClick}>
-                        <p>
-                            {user.nickname}
-                        </p>
+                        
+                            <span>
+                                <Avatar src={user.avatar as string} alt={user.nickname} />
+                            </span>
+                            <span>{user.nickname}</span>
+                        
                     </ div>
                 
         </>

@@ -7,6 +7,7 @@ import { iRoom, iStore, iUser } from '../../interfaces/interfaces';
 import { loadGroupUsersAction } from '../../reducers/group-room/action.creators';
 import styles from './index.module.css';
 import { storage } from '../../firebase';
+import { CreateGroupUsersList } from '../../components/CreateGroupUsersList/create-group-users-list';
 
 export default function CreateGroupPage() {
     const loggedUser = useSelector((store: iStore) => store.user[0]);
@@ -108,9 +109,9 @@ export default function CreateGroupPage() {
             </div>
             <div>
                 {search ? (
-                    <UsersList data={users} group={true} />
+                    <CreateGroupUsersList data={users} group={true} />
                 ) : (
-                    <UsersList data={result} group={true} />
+                    <CreateGroupUsersList data={result} group={true} />
                 )}
             </div>
         </div>

@@ -6,9 +6,9 @@
 }
 .modal {
     position: absolute;
-    top: 1rem;
-    right: 0.8rem;
-    width: 50;
+    top: 20vh;
+    right: 10vh;
+    left: 10vh;
     width: 50%;
     background-color: white;
     text-align: center;

@@ -8,7 +8,7 @@ describe('Given the Alert component', () => {
         test('Then it should render the component', async () => {
             render(
                 <BrowserRouter>
-                    <Alert />
+                    <Alert id={'id'} token={'token'} />
                 </BrowserRouter>,
                 { preloadedState, reducer }
             );

@@ -1,3 +1,12 @@
 .container {
-    padding: 1rem 0 0 0;
+    padding: 0.5rem;
+}
+.create {
+    display: flex;
+    justify-content: end;
+    padding-right: 2rem;
+}
+.search_box{
+    display: flex;
+    justify-content: center;
 }

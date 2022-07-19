@@ -14,6 +14,10 @@ import { iUser } from '../../interfaces/interfaces';
 import { socket } from '../../chat/chat-socket';
 import Swal from 'sweetalert2';
 
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import Button from '@mui/material/Button';
+
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
 
@@ -83,7 +87,7 @@ export default function LoginPage() {
                 icon: 'error',
                 title: 'Lo sentimos',
                 text: 'Usuario o contraseña incorrectos',
-              })
+            });
             setLoading(false);
             navigate('/');
         }
@@ -174,7 +178,9 @@ export default function LoginPage() {
                             </div>
                             <div>
                                 <div>
-                                    <button type="submit">Login</button>
+                                    <Button type="submit" variant="contained">
+                                        Login
+                                    </Button>
                                 </div>
                             </div>
                             <div>

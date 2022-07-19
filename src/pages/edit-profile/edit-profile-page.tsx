@@ -5,6 +5,8 @@ import { iUser, iStore } from "../../interfaces/interfaces";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
 import { socket } from "../../chat/chat-socket";
+import { Spinner } from "../../components/Layout/Spinner/spinner";
+import { Alert, openAlert, closeAlert } from "../../components/Alert/alert";
 
 export default function EditProfilePage(){
 
@@ -112,11 +114,15 @@ export default function EditProfilePage(){
                         <button type="submit">Guardar cambios</button>
 
                     </form>
+
+                    <button onClick={openAlert}>Eliminar mi cuenta</button>
+
+                    <Alert />
+
                 </>
             ) : (
                 <>
-                    <h1>Se ha producido un error..</h1>
-                    <button onClick={goBack}>Volver</button>
+                    <Spinner />
                 </>
             )
             }

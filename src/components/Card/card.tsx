@@ -4,7 +4,7 @@ import { socket } from '../../chat/chat-socket';
 import { iRoom, iStore } from '../../interfaces/interfaces';
 import { formatDate } from '../../utils/formatDate';
 import { Avatar } from '../Avatar/avatar';
-import styles from './index.module.css';
+import styles from './card.module.css';
 
 export function Card({ room }: { room: iRoom }) {
     const user = useSelector((store: iStore) => store.user[0]);
@@ -39,59 +39,83 @@ export function Card({ room }: { room: iRoom }) {
                     className={styles.card_container}
                     onClick={emitAndNavigate}
                 >
-                    <div>
-                        <div className={styles.avatar_container}>
-                            {room.type !== 'group' ? (
-                                <>
-                                    <Avatar src={otherUser?.avatar as string} alt={otherUser?.nickname as string} />
-                                    <span>
-                                        {otherUser?.nickname}
-                                        {otherUser?.online ? (
-                                            <span className="text_green">
-                                                en línea...
+                    <div className={styles.avatar_container}>
+                        {room.type === 'p2p' ? (
+                            <>
+                                <div>
+                                    <Avatar
+                                        src={otherUser?.avatar as string}
+                                        alt={otherUser?.nickname as string}
+                                    />
+                                </div>
+                                <div className={styles.info_container}>
+                                    <div className={styles.info1}>
+                                        <div>
+                                            <span>{otherUser?.nickname}</span>
+                                            <span>
+                                                {otherUser?.online ? (
+                                                    <span className="text_green">
+                                                        en línea...
+                                                    </span>
+                                                ) : (
+                                                    ''
+                                                )}
                                             </span>
-                                        ) : (
-                                            ''
-                                        )}
-                                    </span>
-                                </>
-                            ) : (
-                                <>
-                                    <Avatar src={room.image as string} alt={room.name as string} />
-                                    <span>{room.name}</span>
-                                </>
-                            )}
-                        </div>
-                        <div>
-                            {room.messages.length > 0 && (
-                                <>
-                                    <p className={styles.date}>
-                                        {formatDate(
-                                            room.messages[
-                                                room.messages.length - 1
-                                            ].createdAt as string
-                                        )}
-                                    </p>
-                                    <p className={styles.message}>
-                                        {
-                                            room.messages[
-                                                room.messages.length - 1
-                                            ].content
-                                        }
-                                    </p>
-                                </>
-                            )}
+                                        </div>
+                                        <div>
+                                            <span className={styles.date}>
+                                                {formatDate(
+                                                    room.messages[
+                                                        room.messages.length - 1
+                                                    ].createdAt as string
+                                                )}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className={styles.info2}>
+                                        <span className={styles.message}>
+                                            {
+                                                room.messages[
+                                                    room.messages.length - 1
+                                                ].content
+                                            }
+                                        </span>
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div>
+                                    <Avatar
+                                        src={room.image as string}
+                                        alt={room.name as string}
+                                    />
+                                </div>
+                                <div className={styles.info_container}>
+                                    <div className={styles.info1}>
+                                        <div>
+                                        <span>{room.name}</span>
+                                        </div>
+                                        <div></div>
+                                    </div>
+                                    <div className={styles.info2}>
+                                        {room.messages.length > 0 && <></>}
 
-                            {room.messages.length === 0 && (
-                                <>
-                                    <p className={styles.message}>
-                                        {room.owner === user._id
-                                            ? `Has creado este grupo`
-                                            : `Has sido añadido a este grupo`}
-                                    </p>
-                                </>
-                            )}
-                        </div>
+                                        {room.messages.length === 0 && (
+                                            <>
+                                                <span
+                                                    className={styles.message}
+                                                >
+                                                    {room.owner === user._id
+                                                        ? `Has creado este grupo`
+                                                        : `Has sido añadido a este grupo`}
+                                                </span>
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             )}

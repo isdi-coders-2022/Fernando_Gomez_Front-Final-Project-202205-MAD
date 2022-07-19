@@ -1,0 +1,42 @@
+.card_container {
+    padding: 1rem;
+    display: flex;
+    cursor: pointer;
+}
+.card_container:hover {
+    background-color: var(--primary-color-light);
+}
+.avatar_container {
+    display: flex;
+    width: 100%;
+}
+.info_container {
+    width: 100%;
+    padding-left: 1rem;
+}
+.info_container div{
+    width: 100%;
+}
+.info1,
+.info2 {
+    padding: 0.2rem;
+}
+.info1 {
+    display: flex;
+}
+.info1 div:first-child span:first-child {
+    font-weight: bold;
+}
+.info1 div:last-child span:first-child {
+    font-style: italic;
+}
+.info1 div:last-child {
+    text-align: end;
+}
+.info1 div:first-child span:first-child{
+    margin-right: 2rem;
+}
+.info2{
+    padding: 0.4rem 0 0 0;
+}
+

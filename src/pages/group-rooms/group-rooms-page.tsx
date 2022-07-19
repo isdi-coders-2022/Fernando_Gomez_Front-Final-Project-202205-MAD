@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { List } from '../../components/List/list';
 import { iRoom, iStore } from '../../interfaces/interfaces';
 import { dateToNumber } from '../../utils/dateToNumber';
-import styles from './index.module.css';
+import styles from './group-rooms-page.module.css';
 
 export default function GroupRoomsPage() {
     const rooms = useSelector((store: iStore) => store.rooms);

@@ -1,12 +1,9 @@
 .container {
-    padding: 0.5rem;
+    padding: 0.5rem 0 0 0;
 }
 .create {
     display: flex;
     justify-content: end;
     padding-right: 2rem;
 }
-.search_box{
-    display: flex;
-    justify-content: center;
-}
+

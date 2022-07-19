@@ -57,6 +57,28 @@ function App() {
         dispatcher(updateRoomAction(payload as iRoom));
     });
 
+    socket.on('delete-account', (payload) => {
+        if(!!localStorage.getUser()) {
+            if(payload._id !== localStorage.getUser()){
+                console.log('llega respuesta')
+                console.log(payload)
+        
+                dispatcher(updateUserAction(payload));
+        
+                // const newUser: iUser = {
+                //     ...user,
+                //     online: false,
+                // };
+        
+                // TODO notify other users from the back
+                // socket.emit('update-user', newUser);
+                console.log('un suario ha eliminado su cuenta')
+            }
+        } 
+        
+
+    })
+
 
     useEffect(() => {
         const userId: string = localStorage.getUser();

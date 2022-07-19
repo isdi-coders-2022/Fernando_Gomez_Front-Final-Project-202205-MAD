@@ -73,4 +73,14 @@ export class ApiChat {
         });
         return await resp.json();
     };
+
+    async deleteAccountUser(id: iUser['_id'], token: string): Promise<iUser> {
+        const resp = await fetch(`${this.apiUrl}user/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        });
+        return await resp.json();
+    };
 }

@@ -1,16 +1,27 @@
 import { SyntheticEvent, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { iUser, iStore } from "../../interfaces/interfaces";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
 import { socket } from "../../chat/chat-socket";
+import { Spinner } from "../../components/Layout/Spinner/spinner";
+import { Alert, openAlert, closeAlert } from "../../components/Alert/alert";
+import { deleteUserAction, loadUsersAction, updateUserAction } from "../../reducers/user/action.creators";
+import { LocalStoreService } from "../../services/local-storage";
+import { loadLoggedUsersAction } from "../../reducers/logged-user/action.creators";
+import { loadRoomsAction } from "../../reducers/room/action.creators";
 
 export default function EditProfilePage(){
 
     const user = useSelector((store: iStore) => store.user[0]);
+    // const localStorage = new LocalStoreService();
+
+    const token = localStorage.getItem('Token')
     const navigate = useNavigate();
     const goBack = () => navigate(-1);
+    const dispatcher = useDispatch();
+
 
 
     let initialState: iUser = user;
@@ -45,8 +56,28 @@ export default function EditProfilePage(){
             updatedUser
         );
 
-        navigate(`/`);
     }
+
+    socket.on('delete-account', (payload) => {
+        console.log('llega respuesta')
+        console.log(payload)
+
+        localStorage.removeItem('User')
+        localStorage.removeItem('Token')
+
+        dispatcher(updateUserAction(payload));
+
+        // const newUser: iUser = {
+        //     ...user,
+        //     online: false,
+        // };
+
+        // TODO notify other users from the back
+        // socket.emit('update-user', newUser);
+        console.log('cuenta eliminada')
+        navigate(`/`);
+
+    })
 
     return (
         <div >
@@ -112,11 +143,15 @@ export default function EditProfilePage(){
                         <button type="submit">Guardar cambios</button>
 
                     </form>
+
+                    <button onClick={openAlert}>Eliminar mi cuenta</button>
+
+                    <Alert id={user._id as string} token={token as string} />
+
                 </>
             ) : (
                 <>
-                    <h1>Se ha producido un error..</h1>
-                    <button onClick={goBack}>Volver</button>
+                    <Spinner />
                 </>
             )
             }

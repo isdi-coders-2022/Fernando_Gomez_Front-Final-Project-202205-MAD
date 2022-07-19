@@ -1,0 +1,34 @@
+.d_none {
+    display: none;
+}
+.d_initial {
+    display: initial;
+}
+.modal {
+    position: absolute;
+    top: 20vh;
+    right: 10vh;
+    left: 10vh;
+    width: 50%;
+    background-color: white;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.back_modal {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #cdd8dd00;
+}
+
+.cancel {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 45px;
+    background-color: white;
+    border-radius: 50%;
+}

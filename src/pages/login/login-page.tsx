@@ -12,6 +12,7 @@ import { storage } from '../../firebase';
 import styles from './index.module.css';
 import { iUser } from '../../interfaces/interfaces';
 import { socket } from '../../chat/chat-socket';
+import Swal from 'sweetalert2';
 
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
@@ -51,9 +52,7 @@ export default function LoginPage() {
 
         const resp = await apiChat.login(formData);
 
-        console.log(resp);
-
-        if (resp.status === 201) {
+        if (resp.statusCode !== 401) {
             const rooms = await apiChat.getAllRoomsByUser(
                 resp.user._id,
                 resp.token
@@ -80,8 +79,11 @@ export default function LoginPage() {
 
             navigate(`/`);
         } else {
-            // TODO improve this
-            alert('Se ha producido un error en login');
+            Swal.fire({
+                icon: 'error',
+                title: 'Lo sentimos',
+                text: 'Usuario o contraseña incorrectos',
+              })
             setLoading(false);
             navigate('/');
         }

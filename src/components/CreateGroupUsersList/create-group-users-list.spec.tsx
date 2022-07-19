@@ -1,16 +1,14 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { iRoom, iRouterItem, iStore, iUser } from '../../interfaces/interfaces';
-import { loggedUserReducer } from '../../reducers/logged-user/reducer';
-import { roomReducer } from '../../reducers/room/reducer';
-import { userReducer } from '../../reducers/user/reducer';
 import { mockUser, mockUser2, preloadedState, reducer } from '../../utils/mocks';
 import { render, screen } from '../../utils/test-utils';
-import { Layout } from '../../components/Layout/layout';
-import { UsersList } from '../../components/UsersList/users-list';
-import CreateGroupPage from './create-group-page';
+import { Layout } from '../Layout/layout';
+import { CreateGroupUsersList } from './create-group-users-list';
 
-describe('Given the CreateGroup Page', () => {
+
+
+describe('Given the UsersList component', () => {
   describe('when it is called', () => {
     test('it should be rendered', () => {
 
@@ -23,12 +21,12 @@ describe('Given the CreateGroup Page', () => {
       render(
         <BrowserRouter>
           <Layout navOptions={mockRouterOptions}>
-            <CreateGroupPage />
+            <CreateGroupUsersList data={[mockUser, mockUser2]} group={true} />
           </Layout>
         </BrowserRouter>,
         { preloadedState, reducer }
       );
-      const element = screen.getByText(/Aceptar y crear/i);
+      const element = screen.getByText(/nick1/i);
       expect(element).toBeInTheDocument();
     });
   });

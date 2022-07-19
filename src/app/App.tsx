@@ -95,7 +95,7 @@ function App() {
     const GroupRoomsPage = React.lazy(() => import('../pages/group-rooms/group-rooms-page'));
     const EditProfilePage = React.lazy(() => import('../pages/edit-profile/edit-profile-page'));
     const CreateGroupPage = React.lazy(
-        () => import('../pages/create-group/create-group')
+        () => import('../pages/create-group/create-group-page')
     );
 
     const routerOptions: iRouterItem[] = [

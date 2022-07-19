@@ -1,20 +1,29 @@
-.card_container{
-    -webkit-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.75);
+.card_container {
+    -webkit-box-shadow: 0px 0px 14px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 14px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 14px 1px rgba(0, 0, 0, 0.75);
+    padding: 0.4rem 0.7rem 0.4rem 0.7rem;
 }
-.card_container:hover{
+.card_container:hover {
     background-color: gray;
 }
-.message{
+.message {
     font-size: 1.2rem;
     text-align: end;
 }
-.card_container span{
+.card_container span {
     font-size: 1rem;
 }
-.date{
+.date {
     font-size: 0.8rem;
     font-style: italic;
     text-align: end;
+}
+.avatar_container {
+    display: flex;
+    align-items: center;
+    
+}
+.avatar_container img {
+    margin-right: 20px;
 }

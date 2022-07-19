@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -102,19 +103,17 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
             <header className={styles.header}>
                 <nav className={styles.nav}>
                     {navOptions.map((item) => (
-                        <div
-                            onClick={() => {
+                        <div>
+                            <Button onClick={() => {
                                 navAndEmit(item.path);
                             }}
                             key={item.label}
-                            className={styles.link}
-                        >
-                            {/* <div  key={item.label}> */}
-                            {/* <Link to={item.path}>{item.label}</Link> */}
-                            <span>{item.label}</span>
+                            variant="outlined"
+                            className={styles.link2} 
+                            >{item.label}</Button>
                         </div>
                     ))}
-                    <div className={styles.link}>
+                    <div>
                         <img
                             className={styles.avatar}
                             onClick={openModal}
@@ -137,9 +136,7 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
                             <span><img className={`${styles.link} ${styles.cancel}`} src="./assets/cancel.png" alt="close window" /></span>
                         </div>
                         <div onClick={navAndClose}  className={`${styles.link}`}>
-                            {/* <Link to={`/edit-profile`} > */}
                             <span><span>Editar perfil</span> <img src="./assets/settings.png" alt="logout" /></span>
-                            {/* </Link> */}
                         </div>
                         <div onClick={logout}  className={`${styles.link}`}>
                             <span><span>Logout</span> <img src="./assets/shutdown.png" alt="logout" /> </span>

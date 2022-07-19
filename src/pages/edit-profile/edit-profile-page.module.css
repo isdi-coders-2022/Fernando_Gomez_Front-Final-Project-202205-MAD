@@ -1,0 +1,13 @@
+.form_container{
+    text-align: center;
+    padding: 2rem;
+}
+.form_container div{
+    margin: 0.2rem;
+}
+.form_container>div{
+    margin-top: 6rem;
+}
+.form_container form button{
+    margin-top: 1rem;
+}

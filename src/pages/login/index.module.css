@@ -6,11 +6,11 @@
     flex-direction: column;
 }
 
-.form {
+/* .form {
     justify-content: center;
     display: flex;
     flex-direction: column;
-}
+} */
 
 .form div {
     display: flex;

@@ -6,7 +6,6 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase';
 import { socket } from '../../chat/chat-socket';
 import { Spinner } from '../../components/Layout/Spinner/spinner';
-import { Alert, openAlert, closeAlert } from '../../components/Alert/alert';
 import {
     deleteUserAction,
     loadUsersAction,
@@ -16,6 +15,8 @@ import { LocalStoreService } from '../../services/local-storage';
 import { loadLoggedUsersAction } from '../../reducers/logged-user/action.creators';
 import { loadRoomsAction } from '../../reducers/room/action.creators';
 import Swal from 'sweetalert2';
+import { Button, TextField } from '@mui/material';
+import styles from './edit-profile-page.module.css';
 
 export default function EditProfilePage() {
     const user = useSelector((store: iStore) => store.user[0]);
@@ -71,111 +72,121 @@ export default function EditProfilePage() {
     });
 
     const deleteAccount = (id: string, token: string) => {
-        
-    
         console.log('send from socket: ', id, token);
-        socket.emit('delete-account', 
-            {id, token}
-        );
-    
-    }
+        socket.emit('delete-account', { id, token });
+    };
 
     const alert = () => {
         Swal.fire({
             title: 'Confirmación necesaria',
-            text: "¿Quieres eliminar tu cuenta definitivamente?",
+            text: '¿Quieres eliminar tu cuenta definitivamente?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
             confirmButtonText: 'Sí, eliminar!',
-            cancelButtonText: 'Cancelar'
+            cancelButtonText: 'Cancelar',
         }).then((result) => {
             if (result.isConfirmed) {
-                
-                deleteAccount(user._id as string, token as string)
-
+                deleteAccount(user._id as string, token as string);
             }
         });
     };
 
     return (
-        <div>
+        <div className={styles.form_container}>
             {user ? (
                 <>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} className={styles.form}>
                         <div>
-                            <label htmlFor="">Email</label>
-                        </div>
-                        <div>
-                            <input
+                            <TextField
                                 type="email"
                                 name="email"
                                 placeholder="Email"
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
+                                id="outlined-basic"
+                                label="Email"
+                                variant="outlined"
+                                size="small"
                             />
                         </div>
                         <div>
-                            <label htmlFor="">Nombre</label>
-                        </div>
-                        <div>
-                            <input
+                            <TextField
                                 type="text"
                                 name="name"
                                 placeholder="Nombre"
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
+                                id="outlined-basic"
+                                label="Nombre"
+                                variant="outlined"
+                                size="small"
                             />
                         </div>
                         <div>
-                            <label htmlFor="">Apellidos</label>
-                        </div>
-                        <div>
-                            <input
+                            <TextField
                                 type="text"
                                 name="surname"
                                 placeholder="Apellidos"
                                 value={formData.surname}
                                 onChange={handleChange}
                                 required
+                                id="outlined-basic"
+                                label="Apellidos"
+                                variant="outlined"
+                                size="small"
                             />
                         </div>
                         <div>
-                            <label htmlFor="">Nick name</label>
-                        </div>
-                        <div>
-                            <input
+                            <TextField
                                 type="text"
                                 name="nickname"
                                 placeholder="Nick name"
                                 value={formData.nickname}
                                 onChange={handleChange}
                                 required
+                                id="outlined-basic"
+                                label="Nick"
+                                variant="outlined"
+                                size="small"
                             />
                         </div>
                         <div>
-                            <div>
-                                <label htmlFor="">Avatar</label>
-                            </div>
-                            <div>
-                                <input
-                                    type="file"
-                                    name="avatar"
-                                    onChange={handleUpload}
-                                />
-                            </div>
+                            <TextField
+                                type="file"
+                                name="avatar"
+                                onChange={handleUpload}
+                                id="outlined-basic"
+                                variant="outlined"
+                                size="small"
+                            />
                         </div>
 
-                        <button type="submit">Guardar cambios</button>
+                        <div>
+                            <Button
+                                variant="contained"
+                                size="small"
+                                type="submit"
+                            >
+                                Guardar cambios
+                            </Button>
+                        </div>
                     </form>
 
-                    <button onClick={openAlert}>Eliminar mi cuenta</button>
-                    <button onClick={alert}>Eliminar mi cuenta</button>
+                   <div>
+                   <Button
+                        variant="contained"
+                        size="small"
+                        color="error"
+                        onClick={alert}
+                    >
+                        Eliminar mi cuenta
+                    </Button>
+                   </div>
 
-                    <Alert id={user._id as string} token={token as string} />
                 </>
             ) : (
                 <>

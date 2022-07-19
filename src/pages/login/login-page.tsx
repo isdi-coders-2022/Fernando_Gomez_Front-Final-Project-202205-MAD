@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
 
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
@@ -151,30 +152,28 @@ export default function LoginPage() {
                             className={styles.form}
                         >
                             <div>
-                                <div>
-                                    <label htmlFor="">Email</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
+                                <TextField
+                                    type="email"
+                                    name="email"
+                                    onChange={handleChange}
+                                    required
+                                    id="outlined-basic"
+                                    label="Email"
+                                    variant="outlined"
+                                    size="small"
+                                />
                             </div>
                             <div>
-                                <div>
-                                    <label htmlFor="">Password</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
+                                <TextField
+                                    type="password"
+                                    name="password"
+                                    onChange={handleChange}
+                                    required
+                                    id="outlined-basic"
+                                    label="Contraseña"
+                                    variant="outlined"
+                                    size="small"
+                                />
                             </div>
                             <div>
                                 <div>
@@ -188,9 +187,12 @@ export default function LoginPage() {
                                     <p>¿No tienes cuenta?</p>
                                 </div>
                                 <div>
-                                    <button onClick={openModal}>
+                                    <Button
+                                        onClick={openModal}
+                                        variant="outlined"
+                                    >
                                         Regístrate
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         </form>
@@ -203,85 +205,83 @@ export default function LoginPage() {
                             className={`${styles.modal} ${styles.d_none} ${styles.form}`}
                         >
                             <div>
-                                <div>
-                                    <label htmlFor="">Nombre</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        onChange={handleChangeSignUp}
-                                        required
-                                    />
-                                </div>
+                                <TextField
+                                    type="text"
+                                    name="name"
+                                    onChange={handleChangeSignUp}
+                                    required
+                                    id="outlined-basic"
+                                    label="Nombre"
+                                    variant="outlined"
+                                    size="small"
+                                />
+                            </div>
+                            <div>
+                                <TextField
+                                     type="text"
+                                     name="surname"
+                                     onChange={handleChangeSignUp}
+                                     required
+                                    id="outlined-basic"
+                                    label="Apellido"
+                                    variant="outlined"
+                                    size="small"
+                                />
+                            </div>
+                            <div>
+                                <TextField
+                                     type="text"
+                                     name="nickname"
+                                     onChange={handleChangeSignUp}
+                                     required
+                                    id="outlined-basic"
+                                    label="Nick"
+                                    variant="outlined"
+                                    size="small"
+                                />
+                            </div>
+                            <div>
+                                <TextField
+                                     type="email"
+                                     name="email"
+                                     onChange={handleChangeSignUp}
+                                     required
+                                    id="outlined-basic"
+                                    label="Email"
+                                    variant="outlined"
+                                    size="small"
+                                />
+                            </div>
+                            <div>
+                                <TextField
+                                     type="password"
+                                     name="password"
+                                     onChange={handleChangeSignUp}
+                                     required
+                                    id="outlined-basic"
+                                    label="Contraseña"
+                                    variant="outlined"
+                                    size="small"
+                                />
+                            </div>
+                            <div>
+                                <TextField
+                                     type="file"
+                                     name="avatar"
+                                     onChange={handleUpload}
+                                    id="outlined-basic"
+                                    variant="outlined"
+                                    size="small"
+                                />
                             </div>
                             <div>
                                 <div>
-                                    <label htmlFor="">Apellido</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="text"
-                                        name="surname"
-                                        onChange={handleChangeSignUp}
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <div>
-                                    <label htmlFor="">Nick name</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="text"
-                                        name="nickname"
-                                        onChange={handleChangeSignUp}
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <div>
-                                    <label htmlFor="">Email</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        onChange={handleChangeSignUp}
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <div>
-                                    <label htmlFor="">Password</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        onChange={handleChangeSignUp}
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <div>
-                                    <label htmlFor="">Avatar</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="file"
-                                        name="avatar"
-                                        onChange={handleUpload}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <div>
-                                    <button type="submit">Registrarme</button>
+                                <Button
+                                        type="submit"
+                                        variant="contained"
+                                    >
+                                        Registrarme
+                                    </Button>
                                 </div>
                             </div>
                             <div>
@@ -289,7 +289,12 @@ export default function LoginPage() {
                                     <p>¿Ya tienes cuenta?</p>
                                 </div>
                                 <div>
-                                    <button onClick={closeModal}>Login</button>
+                                <Button
+                                        onClick={closeModal}
+                                        variant="outlined"
+                                    >
+                                        Login
+                                    </Button>
                                 </div>
                             </div>
                         </form>

@@ -10,6 +10,11 @@
 .avatar {
     border-radius: 50%;
     width: 40px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.avatar:hover {
+    transform: scale(1.2);
 }
 .d_none {
     display: none;
@@ -27,7 +32,7 @@
     text-align: center;
     border-radius: 20px;
 }
-.modal div:nth-last-child(-n+2){
+.modal div:nth-last-child(-n + 2) {
     min-height: 3rem;
 }
 .modal > div:nth-child(1) {
@@ -42,21 +47,26 @@
     left: 0;
     /* background-color: #31a2db48; */
 }
+.link2 {
+    color: white !important;
+    border-radius: 10px !important;
+}
 .link {
     cursor: pointer;
-    /* display: grid; */
+    display: grid;
     align-content: center;
     display: flex;
     justify-content: center;
 }
-.link span{
+.link span {
     align-self: center;
     align-content: center;
     display: flex;
-}.link span span{
+}
+.link span span {
     margin-right: 10px;
 }
-.link span img{
+.link span img {
     align-self: center;
 }
 .cancel {

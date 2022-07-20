@@ -17,7 +17,6 @@ export function CreateGroupUsersList({ data, group }: { data: iUser[], group: bo
                 users.map(item => (
                     <li key={item._id}>
                         <CreateGroupCard user={item} />
-                        {/* <p>create group card</p> */}
                     </li>
                 ))
 

@@ -16,17 +16,6 @@ export function RoomCard({
     const date = formatDate(message.createdAt as string);
     const sender = users.find((user) => user._id === message.sender);
 
-    // let info: string = '';
-    // if (user._id === sender?._id) {
-    //     if (message.seen === true) {
-    //         info = <img src="" alt="" />;
-    //     } else {
-    //         info = 'no visto';
-    //     }
-    // }
-
-    // const temp = rtype;
-
     return rtype === 'p2p' ? (
         <div
             className={

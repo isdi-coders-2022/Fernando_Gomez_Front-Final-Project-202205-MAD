@@ -5,7 +5,6 @@ import { UserCard } from "../UserCard/user-card";
 import styles from './index.module.css';
 
 export function CreateGroupUsersList({ data, group }: { data: iUser[], group: boolean }) {
-    console.log('create group users list');
     const user = useSelector((store: iStore) => store.user[0]);
 
 

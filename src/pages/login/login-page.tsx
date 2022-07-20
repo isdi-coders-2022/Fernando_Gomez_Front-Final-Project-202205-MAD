@@ -108,13 +108,15 @@ export default function LoginPage() {
     const handleSubmitSignUp = async (ev: SyntheticEvent) => {
         ev.preventDefault();
         const resp = await apiChat.signup(signUp);
-        console.log(resp);
 
         if (resp.status === 201) {
             closeModal();
         } else {
-            // TODO improve this
-            alert('Se ha producido un error');
+            Swal.fire({
+                icon: 'error',
+                title: 'Lo sentimos',
+                text: 'Se ha producido un error, vuelve a intentarlo',
+            });
         }
     };
 

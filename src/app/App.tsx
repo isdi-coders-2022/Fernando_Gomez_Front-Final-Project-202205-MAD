@@ -16,9 +16,7 @@ import { LocalStoreService } from '../services/local-storage';
 import './App.css';
 
 function App() {
-    // TODO login and register forms seems to cross over when insert data in login and try to access to register
     const localStorage = useMemo(() => new LocalStoreService(), []);
-    // const loggedUser = useSelector((store: iStore) => store.user[0]);
 
     const dispatcher = useDispatch();
     const apiChat = useMemo(() => new ApiChat(), []);
@@ -60,19 +58,8 @@ function App() {
     socket.on('delete-account', (payload) => {
         if(!!localStorage.getUser()) {
             if(payload._id !== localStorage.getUser()){
-                console.log('llega respuesta')
-                console.log(payload)
         
                 dispatcher(updateUserAction(payload));
-        
-                // const newUser: iUser = {
-                //     ...user,
-                //     online: false,
-                // };
-        
-                // TODO notify other users from the back
-                // socket.emit('update-user', newUser);
-                console.log('un suario ha eliminado su cuenta')
             }
         } 
         

@@ -6,7 +6,6 @@ import { addGroupUserAction, deleteGroupUserAction } from "../../reducers/group-
 import styles from './create-group-card.module.css';
 
 export function CreateGroupCard({ user }: { user: iUser }) {
-    console.log('create group card');
     const groupRoom = useSelector((store: iStore) => store.groupRoom);
     const dispatcher = useDispatch();
 

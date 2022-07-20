@@ -30,7 +30,7 @@ export default function HomePage() {
 
     return (
         <>
-            <h1 className={styles.h1} data-testid="2">
+            <h1 className={styles.h1} data-testid="home-page">
                 Conversaciones
             </h1>
             <List data={sortedRooms} />

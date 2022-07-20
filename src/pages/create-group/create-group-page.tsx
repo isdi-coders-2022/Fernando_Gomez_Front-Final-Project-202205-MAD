@@ -55,7 +55,6 @@ export default function CreateGroupPage() {
         );
         const url = await getDownloadURL(ref(storage, `/files/${file.name}`));
         setFormData({ ...formData, image: url });
-        console.log(url);
     }
 
     const create = async (ev: SyntheticEvent) => {
@@ -101,7 +100,7 @@ export default function CreateGroupPage() {
                     </div>
                 </div>
                 <div className={styles.button}>
-                    <Button type="submit" variant="contained" size="small">
+                    <Button type="submit" variant="contained" size="small" data-testid="submit-button">
                         Crear grupo
                     </Button>
                 </div>

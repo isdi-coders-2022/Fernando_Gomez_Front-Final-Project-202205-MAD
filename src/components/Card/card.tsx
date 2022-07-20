@@ -17,7 +17,6 @@ export function Card({ room }: { room: iRoom }) {
     const initialUnSeen = room.messages
         .filter((message) => message.seen === false)
         .length.toString();
-    // console.log(unSeenMessages.length);
     const [unSeen, setUnSeen] = useState(initialUnSeen);
     let unSeenMessages = '0';
 
@@ -25,9 +24,9 @@ export function Card({ room }: { room: iRoom }) {
         unSeenMessages = payload.messages
             .filter((message: { seen: boolean }) => message.seen === false)
             .length.toString();
-        console.log(unSeenMessages);
+        // console.log(unSeenMessages);
         setUnSeen(unSeenMessages);
-        console.log(unSeenMessages);
+        // console.log(unSeenMessages);
         if (payload._id === room._id) {
             setUnSeen(unSeenMessages);
         } else {
@@ -59,7 +58,9 @@ export function Card({ room }: { room: iRoom }) {
                 <div
                     className={styles.card_container}
                     onClick={emitAndNavigate}
-                    data-testid="2"
+                    data-testid="div-c"
+                    // eslint-disable-next-line jsx-a11y/aria-role
+                    role="buttom"
                 >
                     <div className={styles.avatar_container} data-testid="1">
                         {room.type === 'p2p' ? (

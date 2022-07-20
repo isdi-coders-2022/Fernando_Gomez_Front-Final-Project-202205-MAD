@@ -53,9 +53,6 @@ export default function EditProfilePage() {
     };
 
     socket.on('delete-account', (payload) => {
-        console.log('llega respuesta');
-        console.log(payload);
-
         localStorage.removeItem('User');
         localStorage.removeItem('Token');
 
@@ -66,7 +63,6 @@ export default function EditProfilePage() {
     });
 
     const deleteAccount = (id: string, token: string) => {
-        console.log('send from socket: ', id, token);
         socket.emit('delete-account', { id, token });
     };
 

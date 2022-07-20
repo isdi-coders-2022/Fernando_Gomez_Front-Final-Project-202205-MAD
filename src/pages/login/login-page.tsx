@@ -29,6 +29,7 @@ export default function LoginPage() {
     const initialState = { email: '', password: '' };
     const initSignUp = {
         name: '',
+        surname: '',
         nickname: '',
         email: '',
         avatar: '',
@@ -141,7 +142,7 @@ export default function LoginPage() {
             {loading ? (
                 <Spinner />
             ) : (
-                <div className={styles.container} data-testid="1">
+                <div className={styles.container} data-testid="login">
                     <div className={styles.logo_section}>
                         <img src="./assets/logo.png" alt="" />
                     </div>
@@ -177,7 +178,11 @@ export default function LoginPage() {
                             </div>
                             <div>
                                 <div>
-                                    <Button type="submit" variant="contained">
+                                    <Button
+                                        type="submit"
+                                        variant="contained"
+                                        data-testid="login-button"
+                                    >
                                         Login
                                     </Button>
                                 </div>
@@ -218,10 +223,10 @@ export default function LoginPage() {
                             </div>
                             <div>
                                 <TextField
-                                     type="text"
-                                     name="surname"
-                                     onChange={handleChangeSignUp}
-                                     required
+                                    type="text"
+                                    name="surname"
+                                    onChange={handleChangeSignUp}
+                                    required
                                     id="outlined-basic"
                                     label="Apellido"
                                     variant="outlined"
@@ -230,10 +235,10 @@ export default function LoginPage() {
                             </div>
                             <div>
                                 <TextField
-                                     type="text"
-                                     name="nickname"
-                                     onChange={handleChangeSignUp}
-                                     required
+                                    type="text"
+                                    name="nickname"
+                                    onChange={handleChangeSignUp}
+                                    required
                                     id="outlined-basic"
                                     label="Nick"
                                     variant="outlined"
@@ -242,10 +247,10 @@ export default function LoginPage() {
                             </div>
                             <div>
                                 <TextField
-                                     type="email"
-                                     name="email"
-                                     onChange={handleChangeSignUp}
-                                     required
+                                    type="email"
+                                    name="email"
+                                    onChange={handleChangeSignUp}
+                                    required
                                     id="outlined-basic"
                                     label="Email"
                                     variant="outlined"
@@ -254,10 +259,10 @@ export default function LoginPage() {
                             </div>
                             <div>
                                 <TextField
-                                     type="password"
-                                     name="password"
-                                     onChange={handleChangeSignUp}
-                                     required
+                                    type="password"
+                                    name="password"
+                                    onChange={handleChangeSignUp}
+                                    required
                                     id="outlined-basic"
                                     label="Contraseña"
                                     variant="outlined"
@@ -266,9 +271,10 @@ export default function LoginPage() {
                             </div>
                             <div>
                                 <TextField
-                                     type="file"
-                                     name="avatar"
-                                     onChange={handleUpload}
+                                    data-testid="fileupload"
+                                    type="file"
+                                    name="avatar"
+                                    onChange={handleUpload}
                                     id="outlined-basic"
                                     variant="outlined"
                                     size="small"
@@ -276,10 +282,7 @@ export default function LoginPage() {
                             </div>
                             <div>
                                 <div>
-                                <Button
-                                        type="submit"
-                                        variant="contained"
-                                    >
+                                    <Button type="submit" variant="contained">
                                         Registrarme
                                     </Button>
                                 </div>
@@ -289,9 +292,10 @@ export default function LoginPage() {
                                     <p>¿Ya tienes cuenta?</p>
                                 </div>
                                 <div>
-                                <Button
+                                    <Button
                                         onClick={closeModal}
                                         variant="outlined"
+                                        data-testid="signup-button"
                                     >
                                         Login
                                     </Button>

@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { iStore, iUser } from "../../interfaces/interfaces";
 import { CreateGroupCard } from "../CreateGroupCard/create-group-card";
-import { UserCard } from "../UserCard/user-card";
 import styles from './index.module.css';
 
 export function CreateGroupUsersList({ data, group }: { data: iUser[], group: boolean }) {

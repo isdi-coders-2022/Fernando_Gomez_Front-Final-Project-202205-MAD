@@ -25,7 +25,7 @@ describe('Given the LoginPage ', () => {
                 </BrowserRouter>,
                 { preloadedState, reducer }
             );
-            const element = screen.getByText(/Avatar/i);
+            const element = screen.getByTestId('1');
             expect(element).toBeInTheDocument();
         });
     });

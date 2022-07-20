@@ -14,8 +14,6 @@ import { iUser } from '../../interfaces/interfaces';
 import { socket } from '../../chat/chat-socket';
 import Swal from 'sweetalert2';
 
-import * as React from 'react';
-import ReactDOM from 'react-dom';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 
@@ -141,7 +139,7 @@ export default function LoginPage() {
             {loading ? (
                 <Spinner />
             ) : (
-                <div className={styles.container}>
+                <div className={styles.container} data-testid="1">
                     <div className={styles.logo_section}>
                         <img src="./assets/logo.png" alt="" />
                     </div>

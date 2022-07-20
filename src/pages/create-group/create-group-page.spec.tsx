@@ -1,13 +1,9 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { iRoom, iRouterItem, iStore, iUser } from '../../interfaces/interfaces';
-import { loggedUserReducer } from '../../reducers/logged-user/reducer';
-import { roomReducer } from '../../reducers/room/reducer';
-import { userReducer } from '../../reducers/user/reducer';
-import { mockUser, mockUser2, preloadedState, reducer } from '../../utils/mocks';
+import { iRouterItem } from '../../interfaces/interfaces';
+import { preloadedState, reducer } from '../../utils/mocks';
 import { render, screen } from '../../utils/test-utils';
 import { Layout } from '../../components/Layout/layout';
-import { UsersList } from '../../components/UsersList/users-list';
 import CreateGroupPage from './create-group-page';
 
 describe('Given the CreateGroup Page', () => {
@@ -28,7 +24,7 @@ describe('Given the CreateGroup Page', () => {
         </BrowserRouter>,
         { preloadedState, reducer }
       );
-      const element = screen.getByText(/Aceptar y crear/i);
+      const element = screen.getByText(/Crear grupo/i);
       expect(element).toBeInTheDocument();
     });
   });

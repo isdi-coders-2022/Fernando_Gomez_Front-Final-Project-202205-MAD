@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { socket } from '../../chat/chat-socket';
-import { iMessage, iRoom, iStore } from '../../interfaces/interfaces';
+import { iRoom, iStore } from '../../interfaces/interfaces';
 import { formatDate } from '../../utils/formatDate';
 import { Avatar } from '../Avatar/avatar';
 import styles from './card.module.css';
@@ -33,14 +33,12 @@ export function Card({ room }: { room: iRoom }) {
         } else {
             setUnSeen('0');
         }
-        // const quantity = unSeenMessages;
     });
 
     let otherId = '';
     user._id === id1 ? (otherId = id2 as string) : (otherId = id1 as string);
 
     const otherUser = users.find((user) => user._id === otherId);
-    // TODO do the same in the other cards of groups and users
     const emitAndNavigate = () => {
         socket.emit('update-seen-messages', {
             otherUserId: otherUser?._id,
@@ -61,8 +59,9 @@ export function Card({ room }: { room: iRoom }) {
                 <div
                     className={styles.card_container}
                     onClick={emitAndNavigate}
+                    data-testid="2"
                 >
-                    <div className={styles.avatar_container}>
+                    <div className={styles.avatar_container} data-testid="1">
                         {room.type === 'p2p' ? (
                             <>
                                 <div>

@@ -2,8 +2,6 @@ import { Button, TextField } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { SearchBox } from '../../components/SearchBox/search-box';
-import { UserCard } from '../../components/UserCard/user-card';
 import { UsersList } from '../../components/UsersList/users-list';
 import { iStore, iUser } from '../../interfaces/interfaces';
 import styles from './users-page.module.css';

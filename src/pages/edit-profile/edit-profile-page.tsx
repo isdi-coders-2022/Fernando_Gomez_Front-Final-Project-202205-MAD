@@ -7,13 +7,8 @@ import { storage } from '../../firebase';
 import { socket } from '../../chat/chat-socket';
 import { Spinner } from '../../components/Layout/Spinner/spinner';
 import {
-    deleteUserAction,
-    loadUsersAction,
     updateUserAction,
 } from '../../reducers/user/action.creators';
-import { LocalStoreService } from '../../services/local-storage';
-import { loadLoggedUsersAction } from '../../reducers/logged-user/action.creators';
-import { loadRoomsAction } from '../../reducers/room/action.creators';
 import Swal from 'sweetalert2';
 import { Button, TextField } from '@mui/material';
 import styles from './edit-profile-page.module.css';
@@ -24,7 +19,6 @@ export default function EditProfilePage() {
 
     const token = localStorage.getItem('Token');
     const navigate = useNavigate();
-    const goBack = () => navigate(-1);
     const dispatcher = useDispatch();
 
     let initialState: iUser = user;
@@ -59,9 +53,6 @@ export default function EditProfilePage() {
     };
 
     socket.on('delete-account', (payload) => {
-        console.log('llega respuesta');
-        console.log(payload);
-
         localStorage.removeItem('User');
         localStorage.removeItem('Token');
 
@@ -72,7 +63,6 @@ export default function EditProfilePage() {
     });
 
     const deleteAccount = (id: string, token: string) => {
-        console.log('send from socket: ', id, token);
         socket.emit('delete-account', { id, token });
     };
 
@@ -98,7 +88,7 @@ export default function EditProfilePage() {
             {user ? (
                 <>
                     <form onSubmit={handleSubmit} className={styles.form}>
-                        <div>
+                        <div data-testid="1">
                             <TextField
                                 type="email"
                                 name="email"

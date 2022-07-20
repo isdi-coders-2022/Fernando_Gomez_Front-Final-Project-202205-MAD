@@ -8,7 +8,6 @@ import { storage } from '../../firebase';
 import { CreateGroupUsersList } from '../../components/CreateGroupUsersList/create-group-users-list';
 import styles from './create-group-page.module.css';
 import { Button, TextField } from '@mui/material';
-import { SearchBox } from '../../components/SearchBox/search-box';
 
 export default function CreateGroupPage() {
     const loggedUser = useSelector((store: iStore) => store.user[0]);
@@ -56,7 +55,6 @@ export default function CreateGroupPage() {
         );
         const url = await getDownloadURL(ref(storage, `/files/${file.name}`));
         setFormData({ ...formData, image: url });
-        console.log(url);
     }
 
     const create = async (ev: SyntheticEvent) => {
@@ -102,7 +100,7 @@ export default function CreateGroupPage() {
                     </div>
                 </div>
                 <div className={styles.button}>
-                    <Button type="submit" variant="contained" size="small">
+                    <Button type="submit" variant="contained" size="small" data-testid="submit-button">
                         Crear grupo
                     </Button>
                 </div>

@@ -1,9 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { iRoom, iRouterItem, iStore, iUser } from '../../interfaces/interfaces';
-import { loggedUserReducer } from '../../reducers/logged-user/reducer';
-import { roomReducer } from '../../reducers/room/reducer';
-import { userReducer } from '../../reducers/user/reducer';
+import { iRouterItem } from '../../interfaces/interfaces';
 import { mockUser, mockUser2, preloadedState, reducer } from '../../utils/mocks';
 import { render, screen } from '../../utils/test-utils';
 import { Layout } from '../Layout/layout';
@@ -29,7 +26,7 @@ describe('Given the UsersList component', () => {
         </BrowserRouter>,
         { preloadedState, reducer }
       );
-      const element = screen.getByText(/nick1/i);
+      const element = screen.getByText(/nick2/i);
       expect(element).toBeInTheDocument();
     });
   });

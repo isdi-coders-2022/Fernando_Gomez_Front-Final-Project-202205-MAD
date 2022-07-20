@@ -26,7 +26,7 @@ describe('Given the HomePage component', () => {
                 { preloadedState, reducer }
             );
 
-            const element = screen.getByTestId('2');
+            const element = screen.getByTestId('home-page');
             expect(element).toBeInTheDocument();
         });
     });

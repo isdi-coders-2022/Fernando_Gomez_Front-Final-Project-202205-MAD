@@ -24,7 +24,13 @@ export function Card({ room }: { room: iRoom }) {
         console.log(unSeenMessages);
         setUnSeen(unSeenMessages)
         console.log(unSeenMessages);
-        setUnSeen(unSeenMessages);
+        if(payload._id === room._id){
+            setUnSeen(unSeenMessages);
+
+        } else {
+            setUnSeen('0');
+
+        }
         // const quantity = unSeenMessages;
     })
 
@@ -95,7 +101,7 @@ export function Card({ room }: { room: iRoom }) {
                                                 ].content
                                             }
                                         </span>
-                                        <span>
+                                        <span className={styles.unseen}>
                                             {unSeen !== '0' && 
                                                 unSeen
                                             }

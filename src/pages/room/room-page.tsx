@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Room } from '../../components/Room/room';
 import { iMessage, iStore } from '../../interfaces/interfaces';
-import styles from './index.module.css'
+import styles from './room-page.module.css'
 
 export default function RoomPage() {
     const { id } = useParams();

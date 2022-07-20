@@ -6,4 +6,8 @@
 .other_user{
     display: flex;
     align-items: center;
+    padding: 0.5rem 0 0.5rem 0;
+}
+.other_user span:last-child{
+    font-weight: bold;
 }

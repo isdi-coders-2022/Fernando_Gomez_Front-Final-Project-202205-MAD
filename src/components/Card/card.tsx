@@ -14,25 +14,27 @@ export function Card({ room }: { room: iRoom }) {
     const id1 = room.name?.substring(0, 24);
     const id2 = room.name?.substring(24, room.name.length);
 
-    const initialUnSeen = room.messages.filter(message => message.seen === false).length.toString();
+    const initialUnSeen = room.messages
+        .filter((message) => message.seen === false)
+        .length.toString();
     // console.log(unSeenMessages.length);
     const [unSeen, setUnSeen] = useState(initialUnSeen);
     let unSeenMessages = '0';
 
     socket.on('message', (payload) => {
-        unSeenMessages = payload.messages.filter(((message: { seen: boolean; }) => message.seen === false)).length.toString();
+        unSeenMessages = payload.messages
+            .filter((message: { seen: boolean }) => message.seen === false)
+            .length.toString();
         console.log(unSeenMessages);
-        setUnSeen(unSeenMessages)
+        setUnSeen(unSeenMessages);
         console.log(unSeenMessages);
-        if(payload._id === room._id){
+        if (payload._id === room._id) {
             setUnSeen(unSeenMessages);
-
         } else {
             setUnSeen('0');
-
         }
         // const quantity = unSeenMessages;
-    })
+    });
 
     let otherId = '';
     user._id === id1 ? (otherId = id2 as string) : (otherId = id1 as string);
@@ -101,11 +103,11 @@ export function Card({ room }: { room: iRoom }) {
                                                 ].content
                                             }
                                         </span>
-                                        <span className={styles.unseen}>
-                                            {unSeen !== '0' && 
-                                                unSeen
-                                            }
-                                        </span>
+                                        {unSeen !== '0' && (
+                                            <span className={styles.unseen}>
+                                                {unSeen}
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                             </>

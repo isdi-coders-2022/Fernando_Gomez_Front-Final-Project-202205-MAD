@@ -107,7 +107,18 @@ export default function CreateGroupPage() {
                     </Button>
                 </div>
             </form>
-            <SearchBox users={users} />
+            <div>
+                <div className={styles.search_box}>
+                    <TextField
+                        type="text"
+                        id="searchBar"
+                        onChange={changeInput}
+                        label="🔍"
+                        variant="outlined"
+                        size="small"
+                    />
+                </div>
+            </div>
             <div>
                 {search ? (
                     <CreateGroupUsersList data={users} group={true} />

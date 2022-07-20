@@ -24,24 +24,7 @@ export function SearchBox({ users }: { users: iUser[] }) {
 
     return (
         <>
-            <div className={styles.search_box}>
-                <TextField
-                    type="text"
-                    id="searchBar"
-                    onChange={changeInput}
-                    label="🔍"
-                    variant="outlined"
-                    size="small"
-                />
-            </div>
-
-            <div>
-                {search ? (
-                    <UsersList data={users} group={false} />
-                ) : (
-                    <UsersList data={result} group={false} />
-                )}
-            </div>
+            
         </>
     );
 }

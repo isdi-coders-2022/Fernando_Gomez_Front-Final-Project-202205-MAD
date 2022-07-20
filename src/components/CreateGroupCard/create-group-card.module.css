@@ -1,0 +1,31 @@
+.card_container{
+    padding: 1rem;
+    display: flex;
+    cursor: pointer;
+}
+.card_container:hover{
+    background-color: var(--primary-color-light);
+}
+.card_container p{
+    font-size: 1.2rem;
+}
+.avatar_container{
+    display: flex;
+}
+.info_container{
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+    width: 100%;
+}
+.info_container span:first-child{
+    font-weight: bold;
+    margin-right: 2rem;
+}
+.non_added{
+    font-style: italic;
+}
+.added{
+    font-weight: bold;
+    color: green;
+}

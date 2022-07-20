@@ -1,10 +1,12 @@
+import { Avatar } from "@mui/material";
 import { SyntheticEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { iStore, iUser } from "../../interfaces/interfaces";
 import { addGroupUserAction, deleteGroupUserAction } from "../../reducers/group-room/action.creators";
-import styles from './index.module.css';
+import styles from './create-group-card.module.css';
 
 export function CreateGroupCard({ user }: { user: iUser }) {
+    console.log('create group card');
     const groupRoom = useSelector((store: iStore) => store.groupRoom);
     const dispatcher = useDispatch();
 
@@ -27,7 +29,7 @@ export function CreateGroupCard({ user }: { user: iUser }) {
 
     return (
         <>
-            <div className={styles.card_container} onClick={handleClick}>
+            {/* <div className={styles.card_container} onClick={handleClick}>
                 <p>
                     {user.nickname}
                 </p>
@@ -38,7 +40,27 @@ export function CreateGroupCard({ user }: { user: iUser }) {
                     <span onClick={handleClick}>añadir</span>
                 )
                 }
-            </ div>
+            </ div> */}
+
+            <div className={styles.card_container} onClick={handleClick}>
+                <div>
+                    <span className={styles.avatar_container}>
+                        <Avatar
+                            src={user.avatar as string}
+                            alt={user.nickname}
+                        />
+                    </span>
+                </div>
+                <div className={styles.info_container}>
+                    <span>{user.nickname}</span>
+                    {added ? (
+                    <span onClick={handleClick} className={styles.added} >seleccionado</span>
+                ) : (
+                    <span onClick={handleClick} className={styles.non_added}>seleccionar</span>
+                )
+                }
+                </div>
+            </div>
 
         </>
     )

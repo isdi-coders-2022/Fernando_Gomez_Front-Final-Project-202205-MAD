@@ -63,7 +63,6 @@ export function UserCard({ user }: { user: iUser }) {
                         />
                     </span>
                 </div>
-
                 <div className={styles.info_container}>
                     <span>{user.nickname}</span>
                 </div>

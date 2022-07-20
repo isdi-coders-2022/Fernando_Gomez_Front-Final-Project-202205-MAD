@@ -6,4 +6,8 @@
     justify-content: end;
     padding-right: 2rem;
 }
-
+.search_box{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0.4rem;
+}

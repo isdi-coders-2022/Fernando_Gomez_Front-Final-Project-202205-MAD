@@ -7,6 +7,8 @@ export class LocalStoreService {
     }
 
     getUser(): string {
+        console.log(localStorage.getItem);
+
         return localStorage.getItem(this.user)
             ? JSON.parse(localStorage.getItem(this.user) as string)
             : '';

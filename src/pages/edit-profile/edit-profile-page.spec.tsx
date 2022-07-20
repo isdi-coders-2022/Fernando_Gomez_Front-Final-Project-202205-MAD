@@ -14,8 +14,29 @@ import { render, screen } from '../../utils/test-utils';
 import { Layout } from '../../components/Layout/layout';
 import { UsersList } from '../../components/UsersList/users-list';
 import EditProfilePage from './edit-profile-page';
+import { socket } from '../../chat/chat-socket';
+import { LocalStoreService } from '../../services/local-storage';
+
+const localStorageMock = {
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+    clear: jest.fn(),
+    removeItem: jest.fn(),
+    length: 2,
+    key: jest.fn(),
+};
+
+jest.mock('../../chat/chat-socket');
 
 describe('Given the CreateGroup Page', () => {
+    let localStoreService = new LocalStoreService();
+
+    beforeEach(() => {
+        Storage.prototype.getItem = localStorageMock.getItem;
+        Storage.prototype.setItem = localStorageMock.setItem;
+        Storage.prototype.removeItem = localStorageMock.removeItem;
+    });
+
     describe('when it is called', () => {
         test('it should be rendered', () => {
             const HomePage = React.lazy(
@@ -36,6 +57,20 @@ describe('Given the CreateGroup Page', () => {
             );
             const element = screen.getByTestId('1');
             expect(element).toBeInTheDocument();
+        });
+    });
+
+    describe('When calling the socket.on function', () => {
+        test('It should access the socket.on function', () => {
+            socket.on = jest.fn();
+            render(
+                <BrowserRouter>
+                    <EditProfilePage />
+                </BrowserRouter>,
+                { preloadedState, reducer }
+            );
+
+            expect(socket.on).toHaveBeenCalled();
         });
     });
 });

@@ -1,5 +1,5 @@
 .container {
-    padding: 0.5rem;
+    padding: 0.5rem 0 0 0;
 }
 .create {
     display: flex;
@@ -9,4 +9,5 @@
 .search_box{
     display: flex;
     justify-content: center;
+    padding-bottom: 0.4rem;
 }

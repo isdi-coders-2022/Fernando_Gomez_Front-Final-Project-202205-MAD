@@ -3,7 +3,7 @@ import { RoomCard } from '../RoomCard/room-card';
 import { socket } from '../../chat/chat-socket';
 import { SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import styles from './index.module.css';
+import styles from './room.module.css';
 
 export function Room({ roomId, data }: { roomId: string; data: iMessage[] }) {
     // TODO review, don't need the data parameter

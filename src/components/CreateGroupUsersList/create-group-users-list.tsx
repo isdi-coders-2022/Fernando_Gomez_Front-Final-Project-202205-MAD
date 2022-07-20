@@ -5,6 +5,7 @@ import { UserCard } from "../UserCard/user-card";
 import styles from './index.module.css';
 
 export function CreateGroupUsersList({ data, group }: { data: iUser[], group: boolean }) {
+    console.log('create group users list');
     const user = useSelector((store: iStore) => store.user[0]);
 
 
@@ -12,24 +13,14 @@ export function CreateGroupUsersList({ data, group }: { data: iUser[], group: bo
 
     return (
         <ul className={styles.ul_container}>
-            {group ? (
+            {
 
                 users.map(item => (
                     <li key={item._id}>
                         <CreateGroupCard user={item} />
-                        {/* <p>create group card</p> */}
                     </li>
                 ))
 
-            ) : (
-
-                users.map(item => (
-                    <li key={item._id}>
-                        <UserCard user={item} />
-                    </li>
-                ))
-
-            )
 
             }
 

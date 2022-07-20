@@ -1,12 +1,14 @@
 import { SyntheticEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { socket } from '../../chat/chat-socket';
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { iStore, iUser } from '../../interfaces/interfaces';
 import { loadGroupUsersAction } from '../../reducers/group-room/action.creators';
-import styles from './index.module.css';
 import { storage } from '../../firebase';
 import { CreateGroupUsersList } from '../../components/CreateGroupUsersList/create-group-users-list';
+import styles from './create-group-page.module.css';
+import { Button, TextField } from '@mui/material';
+import { SearchBox } from '../../components/SearchBox/search-box';
 
 export default function CreateGroupPage() {
     const loggedUser = useSelector((store: iStore) => store.user[0]);
@@ -19,8 +21,8 @@ export default function CreateGroupPage() {
     const [result, setResult] = useState(initResult);
     const initFormData = {
         name: '',
-        image: ''
-    }
+        image: '',
+    };
     const [formData, setFormData] = useState(initFormData);
 
     let results: iUser[] = [];
@@ -53,7 +55,7 @@ export default function CreateGroupPage() {
             file as unknown as Blob | Uint8Array | ArrayBuffer
         );
         const url = await getDownloadURL(ref(storage, `/files/${file.name}`));
-        setFormData({ ...formData, image: url })
+        setFormData({ ...formData, image: url });
         console.log(url);
     }
 
@@ -61,50 +63,61 @@ export default function CreateGroupPage() {
         ev.preventDefault();
         const newGroupRoom = [...groupRoom];
         newGroupRoom.unshift(loggedUser._id as string);
-        
+
         const newRoom = {
             ...formData,
             owner: loggedUser._id as string,
-            users: newGroupRoom
+            users: newGroupRoom,
         };
-        socket.emit('new-group-room', newRoom );
+        socket.emit('new-group-room', newRoom);
         dispatcher(loadGroupUsersAction([]));
-        
     };
-    
 
     return (
         <div className={styles.container}>
-            <h1>Selecciona los participantes</h1>
-            <form id="form" onSubmit={create}>
-                <div>
-                    <input onChange={handleChange} type="text" placeholder='Nombre del grupo' name="name" required />
-                </div>
-
-                <div>
-                        <div><label htmlFor="">Avatar</label></div>
-                        <div>
-                            <input
-                                type="file"
-                                name="image"
-                                onChange={handleUpload}
-                            />
-                        </div>
-                    </div>
-
-                <div>
+            <h1 className={styles.h1}>Selecciona los participantes</h1>
+            <form id="form" className={styles.form} onSubmit={create}>
+                <div className={styles.fields}>
                     <div>
-                        <button type="submit">Aceptar y crear</button>
+                        <TextField
+                            type="text"
+                            name="name"
+                            onChange={handleChange}
+                            id="outlined-basic"
+                            variant="outlined"
+                            label="Nombre del grupo"
+                            size="small"
+                            required
+                        />
                     </div>
+                    <div>
+                        <TextField
+                            type="file"
+                            name="image"
+                            onChange={handleUpload}
+                            id="outlined-basic"
+                            variant="outlined"
+                            size="small"
+                        />
+                    </div>
+                </div>
+                <div className={styles.button}>
+                    <Button type="submit" variant="contained" size="small">
+                        Crear grupo
+                    </Button>
                 </div>
             </form>
             <div>
-                <input
-                    onChange={changeInput}
-                    type="text"
-                    id="searchBar"
-                    placeholder="🔍"
-                />
+                <div className={styles.search_box}>
+                    <TextField
+                        type="text"
+                        id="searchBar"
+                        onChange={changeInput}
+                        label="🔍"
+                        variant="outlined"
+                        size="small"
+                    />
+                </div>
             </div>
             <div>
                 {search ? (

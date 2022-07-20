@@ -176,17 +176,16 @@ export default function EditProfilePage() {
                         </div>
                     </form>
 
-                   <div>
-                   <Button
-                        variant="contained"
-                        size="small"
-                        color="error"
-                        onClick={alert}
-                    >
-                        Eliminar mi cuenta
-                    </Button>
-                   </div>
-
+                    <div>
+                        <Button
+                            variant="contained"
+                            size="small"
+                            color="error"
+                            onClick={alert}
+                        >
+                            Eliminar mi cuenta
+                        </Button>
+                    </div>
                 </>
             ) : (
                 <>

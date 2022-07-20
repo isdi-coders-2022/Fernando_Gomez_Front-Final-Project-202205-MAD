@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { iMessage, iStore } from '../../interfaces/interfaces';
 import { formatDate } from '../../utils/formatDate';
-import styles from './index.module.css';
+import styles from './room-card.module.css';
 
 export function RoomCard({
     message,
@@ -16,17 +16,6 @@ export function RoomCard({
     const date = formatDate(message.createdAt as string);
     const sender = users.find((user) => user._id === message.sender);
 
-    let info: string = '';
-    if (user._id === sender?._id) {
-        if (message.seen === true) {
-            info = 'visto';
-        } else {
-            info = 'no visto';
-        }
-    }
-
-    const temp = rtype;
-
     return rtype === 'p2p' ? (
         <div
             className={
@@ -35,10 +24,21 @@ export function RoomCard({
                     : `${styles.card_container} ${styles.not_mine}`
             }
         >
-            <p className={styles.date}>
-                <span>{info}</span> {date}
-            </p>
-            <p className={styles.message}>{message.content}</p>
+            <div>
+            <span >
+                <span>
+                    {user._id === sender?._id ? 
+                       message.seen === true ? <img src="/assets/check-blue.png" alt="seen message" />
+                        : <img src="/assets/check-black.png" alt="unseen message" />
+                        : ''
+
+                    }
+                </span> {date}
+            </span>
+            </div>
+            <div>
+            <span className={styles.message}>{message.content}</span>
+            </div>
         </div>
     ) : (
         <div
@@ -48,10 +48,14 @@ export function RoomCard({
                     : `${styles.card_container} ${styles.not_mine}`
             }
         >
-            <p className={styles.date}>
+            <div>
+            <span >
                  {date}
-            </p>
-            <p className={styles.message}>{message.content}</p>
+            </span>
+            </div>
+            <div>
+            <span className={styles.message}>{message.content}</span>
+            </div>
         </div>
     );
 }

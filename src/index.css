@@ -17,7 +17,8 @@ code {
 }
 
 :root {
-    --primary-color: #31a1db;
+    --primary-color: #1565c0;
+    --primary-color-light: #31a1db3d;
 }
 
 #root {

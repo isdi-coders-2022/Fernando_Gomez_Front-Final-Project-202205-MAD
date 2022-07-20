@@ -1,0 +1,19 @@
+.card_container{
+    padding: 1rem;
+    display: flex;
+    cursor: pointer;
+}
+.card_container:hover{
+    background-color: var(--primary-color-light);
+}
+.card_container p{
+    font-size: 1.2rem;
+}
+.avatar_container{
+    display: flex;
+}
+.info_container{
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+}

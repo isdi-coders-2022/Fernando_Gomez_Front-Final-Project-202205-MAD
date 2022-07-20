@@ -1,0 +1,21 @@
+.container {
+    padding: 0.5rem 0 0 0;
+}
+.h1 {
+    font-size: 1rem;
+    margin: 0 1rem 1rem 1rem;
+}
+.fields {
+    display: flex;
+    padding: 0 1rem 1rem 1rem;
+    justify-content: space-between;
+}
+.button {
+    text-align: center;
+    padding: 1rem 0 2rem 0;
+}
+.search_box{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0.4rem;
+}

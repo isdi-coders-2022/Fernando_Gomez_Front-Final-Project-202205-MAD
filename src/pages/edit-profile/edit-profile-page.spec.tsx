@@ -10,12 +10,14 @@ import {
     preloadedState,
     reducer,
 } from '../../utils/mocks';
-import { render, screen } from '../../utils/test-utils';
+import { fireEvent, render, screen, waitFor } from '../../utils/test-utils';
 import { Layout } from '../../components/Layout/layout';
 import { UsersList } from '../../components/UsersList/users-list';
 import EditProfilePage from './edit-profile-page';
 import { socket } from '../../chat/chat-socket';
 import { LocalStoreService } from '../../services/local-storage';
+import { ApiChat } from '../../services/api';
+import sweetalert2 from 'sweetalert2';
 
 const localStorageMock = {
     getItem: jest.fn(),
@@ -28,6 +30,12 @@ const localStorageMock = {
 
 jest.mock('../../chat/chat-socket');
 
+const HomePage = React.lazy(() => import('../../pages/home/home-page'));
+
+const mockRouterOptions: iRouterItem[] = [
+    { path: '/', label: 'Home', page: <HomePage /> },
+];
+
 describe('Given the CreateGroup Page', () => {
     let localStoreService = new LocalStoreService();
 
@@ -38,15 +46,9 @@ describe('Given the CreateGroup Page', () => {
     });
 
     describe('when it is called', () => {
+        socket.on = jest.fn();
+
         test('it should be rendered', () => {
-            const HomePage = React.lazy(
-                () => import('../../pages/home/home-page')
-            );
-
-            const mockRouterOptions: iRouterItem[] = [
-                { path: '/', label: 'Home', page: <HomePage /> },
-            ];
-
             render(
                 <BrowserRouter>
                     <Layout navOptions={mockRouterOptions}>
@@ -55,22 +57,37 @@ describe('Given the CreateGroup Page', () => {
                 </BrowserRouter>,
                 { preloadedState, reducer }
             );
-            const element = screen.getByTestId('1');
+            const element = screen.getByTestId('delete-account');
             expect(element).toBeInTheDocument();
+            expect(socket.on).toHaveBeenCalled();
         });
     });
 
-    describe('When calling the socket.on function', () => {
-        test('It should access the socket.on function', () => {
-            socket.on = jest.fn();
+    describe('When clicking the Eliminar cuenta button', () => {
+        test('It should call the Swal.fire function', async () => {
+            ApiChat.prototype.deleteAccountUser = jest
+                .fn()
+                .mockResolvedValue({});
             render(
                 <BrowserRouter>
-                    <EditProfilePage />
+                    <Layout navOptions={mockRouterOptions}>
+                        <EditProfilePage />
+                    </Layout>
                 </BrowserRouter>,
                 { preloadedState, reducer }
             );
 
-            expect(socket.on).toHaveBeenCalled();
+            const button = screen.getByTestId('delete-account')
+            screen.debug(button);
+
+            const buttons = screen.getAllByRole('button');
+            expect(buttons).toHaveLength(3);
+
+            // const element = screen.getByTestId('edit-page');
+            fireEvent.click(button);
+            await waitFor(() => {
+                expect(sweetalert2.fire).toHaveBeenCalled();
+            });
         });
     });
 });

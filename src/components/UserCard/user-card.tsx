@@ -1,15 +1,13 @@
 import { SyntheticEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { socket } from '../../chat/chat-socket';
 import { iRoom, iStore, iUser } from '../../interfaces/interfaces';
-import { addRoomAction } from '../../reducers/room/action.creators';
 import { sortIds } from '../../utils/sortIds';
 import { Avatar } from '../Avatar/avatar';
 import styles from './user-card.module.css';
 
 export function UserCard({ user }: { user: iUser }) {
-    // TODO verify if there exists teh room yet
     const loggedUser = useSelector((store: iStore) => store.user[0]);
 
     const rooms = useSelector((store: iStore) => store.rooms);
@@ -54,7 +52,7 @@ export function UserCard({ user }: { user: iUser }) {
 
     return (
         <>
-            <div className={styles.card_container} onClick={handleClick}>
+            <div className={styles.card_container} onClick={handleClick} data-testid="div-user-card">
                 <div>
                     <span className={styles.avatar_container}>
                         <Avatar

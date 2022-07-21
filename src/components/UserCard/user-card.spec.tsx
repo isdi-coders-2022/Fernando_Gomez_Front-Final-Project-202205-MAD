@@ -1,7 +1,8 @@
 import { BrowserRouter } from 'react-router-dom';
 import { socket } from '../../chat/chat-socket';
 import { mockUser, preloadedState, reducer } from '../../utils/mocks';
-import { render, screen } from '../../utils/test-utils';
+import { sortIds } from '../../utils/sortIds';
+import { fireEvent, render, screen } from '../../utils/test-utils';
 import {UserCard} from './user-card';
 
 jest.mock('../../chat/chat-socket');
@@ -31,6 +32,25 @@ describe('Given the UserCard component', () => {
             );
 
             expect(socket.on).toHaveBeenCalled();
+        });
+    });
+
+    describe('When calling the handle click function', () => {
+        test('It should call the socket.emit function', () => {
+           
+            socket.emit = jest.fn();
+            // sortIds = jest.fn().mockResolvedValue('12');
+            render(
+                <BrowserRouter>
+                    <UserCard user={mockUser} />
+                </BrowserRouter>,
+                { preloadedState, reducer }
+            );
+
+            const div = screen.getByTestId('div-user-card');
+            fireEvent.click(div);
+
+            expect(socket.emit).toHaveBeenCalled();
         });
     });
 });

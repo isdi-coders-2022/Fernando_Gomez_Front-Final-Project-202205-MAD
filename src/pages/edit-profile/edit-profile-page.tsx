@@ -16,7 +16,7 @@ export default function EditProfilePage() {
     const user = useSelector((store: iStore) => store.user[0]);
     const localStorage = new LocalStoreService();
 
-    const token = localStorage.getToken()
+    const token = localStorage.getToken();
     const navigate = useNavigate();
     const dispatcher = useDispatch();
 
@@ -47,7 +47,6 @@ export default function EditProfilePage() {
     const handleSubmit = async (ev: SyntheticEvent) => {
         ev.preventDefault();
         const updatedUser: iUser = { ...(formData as iUser) };
-
         socket.emit('update-user', updatedUser);
     };
 
@@ -55,8 +54,8 @@ export default function EditProfilePage() {
         // localStorage.removeItem('User');
         // localStorage.removeItem('Token');
 
-localStorage.removeUser();
-localStorage.removeToken();
+        localStorage.removeUser();
+        localStorage.removeToken();
 
         dispatcher(updateUserAction(payload));
 
@@ -154,6 +153,7 @@ localStorage.removeToken();
                                 id="outlined-basic"
                                 variant="outlined"
                                 size="small"
+                                data-testid="fileupload"
                             />
                         </div>
 

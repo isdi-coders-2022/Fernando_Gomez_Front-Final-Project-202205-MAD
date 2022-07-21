@@ -57,15 +57,9 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
         document
             .querySelector('#back-modal')
             ?.classList.remove(`${styles.d_none}`);
-        // document
-        //     .querySelector('#drop-menu')
-        //     ?.classList.remove(`${styles.d_none}`);
         document
             .querySelector('#back-modal')
             ?.classList.add(`${styles.d_initial}`);
-        // document
-        //     .querySelector('#drop-menu')
-        //     ?.classList.add(`${styles.d_initial}`);
     };
 
     const closeModal = () => {
@@ -124,6 +118,8 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
                             onClick={openModal}
                             src={user.avatar}
                             alt={user.nickname}
+                            id="open-modal"
+                            role="button"
                         />
                     </div>
                 </nav>
@@ -149,7 +145,7 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
                                 <img src="./assets/settings.png" alt="logout" />
                             </span>
                         </div>
-                        <div onClick={logout} className={`${styles.link}`}>
+                        <div onClick={logout} className={`${styles.link}`} id="logout-button" role="button">
                             <span>
                                 <span>Logout</span>{' '}
                                 <img src="./assets/shutdown.png" alt="logout" />{' '}

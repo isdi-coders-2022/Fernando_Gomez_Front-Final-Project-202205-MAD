@@ -26,6 +26,7 @@ export default function LoginPage() {
     const apiChat = useMemo(() => new ApiChat(), []);
 
     const navigate = useNavigate();
+
     const initialState = { email: '', password: '' };
     const initSignUp = {
         name: '',

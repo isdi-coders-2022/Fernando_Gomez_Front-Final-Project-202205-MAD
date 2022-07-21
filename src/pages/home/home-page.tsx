@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { socket } from '../../chat/chat-socket';
 import { List } from '../../components/List/list';
 import { iRoom, iStore } from '../../interfaces/interfaces';
 

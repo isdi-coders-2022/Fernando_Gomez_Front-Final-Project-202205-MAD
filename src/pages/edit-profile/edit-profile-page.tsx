@@ -10,12 +10,13 @@ import { updateUserAction } from '../../reducers/user/action.creators';
 import Swal from 'sweetalert2';
 import { Button, TextField } from '@mui/material';
 import styles from './edit-profile-page.module.css';
+import { LocalStoreService } from '../../services/local-storage';
 
 export default function EditProfilePage() {
     const user = useSelector((store: iStore) => store.user[0]);
-    // const localStorage = new LocalStoreService();
+    const localStorage = new LocalStoreService();
 
-    const token = localStorage.getItem('Token');
+    const token = localStorage.getToken()
     const navigate = useNavigate();
     const dispatcher = useDispatch();
 
@@ -51,8 +52,11 @@ export default function EditProfilePage() {
     };
 
     socket.on('delete-account', (payload) => {
-        localStorage.removeItem('User');
-        localStorage.removeItem('Token');
+        // localStorage.removeItem('User');
+        // localStorage.removeItem('Token');
+
+localStorage.removeUser();
+localStorage.removeToken();
 
         dispatcher(updateUserAction(payload));
 

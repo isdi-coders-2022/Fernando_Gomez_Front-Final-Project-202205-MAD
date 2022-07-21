@@ -1,6 +1,7 @@
 export class LocalStoreService {
     user: string;
     token: string;
+    static LocalStoreService: {};
     constructor() {
         this.user = 'User';
         this.token = 'Token';

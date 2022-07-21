@@ -1,17 +1,19 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { iRoom, iRouterItem, iStore, iUser } from '../../../interfaces/interfaces';
+import { iRouterItem } from '../../../interfaces/interfaces';
 import { Header } from './header';
-import { loggedUserReducer } from '../../../reducers/logged-user/reducer';
-import { userReducer } from '../../../reducers/user/reducer';
-import { roomReducer } from '../../../reducers/room/reducer';
 import { Layout } from '../layout';
-import { fireEvent, render, screen } from '../../../utils/test-utils';
+import {  render, screen } from '../../../utils/test-utils';
 import { preloadedState, reducer } from '../../../utils/mocks';
+import { socket } from '../../../chat/chat-socket';
 
-
+jest.mock('../../../chat/chat-socket');
 
 describe('Given the Header component', () => {
+    beforeEach(() => {
+        socket.emit = jest.fn();
+
+    })
   describe('when it is called', () => {
     test('it should be rendered', () => {
 

@@ -1,7 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { socket } from '../../chat/chat-socket';
 import { mockUser, preloadedState, reducer } from '../../utils/mocks';
-import { sortIds } from '../../utils/sortIds';
 import { fireEvent, render, screen } from '../../utils/test-utils';
 import {UserCard} from './user-card';
 

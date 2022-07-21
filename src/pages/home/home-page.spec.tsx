@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Layout } from '../../components/Layout/layout';
-import { iRoom, iRouterItem, iStore, iUser } from '../../interfaces/interfaces';
+import { iRouterItem } from '../../interfaces/interfaces';
 import HomePage from '../../pages/home/home-page';
 import { preloadedState, reducer } from '../../utils/mocks';
 import { render, screen } from '../../utils/test-utils';

@@ -23,6 +23,7 @@ function App() {
     const navigate = useNavigate();
 
     socket.on('message', (payload) => {
+        console.log('mensaje llega: ', payload);
         dispatcher(updateRoomAction(payload as iRoom));
     })
 

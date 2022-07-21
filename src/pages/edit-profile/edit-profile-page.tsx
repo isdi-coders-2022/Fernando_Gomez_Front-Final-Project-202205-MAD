@@ -147,6 +147,18 @@ export default function EditProfilePage() {
                         </div>
                         <div>
                             <TextField
+                                type="password"
+                                name="password"
+                                onChange={handleChange}
+                                required
+                                id="outlined-basic"
+                                label="Contraseña"
+                                variant="outlined"
+                                size="small"
+                            />
+                        </div>
+                        <div>
+                            <TextField
                                 type="file"
                                 name="avatar"
                                 onChange={handleUpload}

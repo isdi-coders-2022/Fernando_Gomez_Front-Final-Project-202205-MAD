@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { socket } from '../chat/chat-socket';
 import { Layout } from '../components/Layout/layout';
 import { iRoom, iRouterItem, iUser } from '../interfaces/interfaces';
@@ -29,6 +30,10 @@ function App() {
 
     socket.on('update-user', (payload) => {
         dispatcher(updateUserAction(payload as iUser));
+        if(payload._id === localStorage.getUser()){
+            Swal.fire('', 'Tu perfil ha sido actualizado con éxito!', 'success');
+            navigate('/')
+        }
     })
 
     socket.on('on-conversation', (payload) => {

@@ -28,20 +28,7 @@ export function CreateGroupCard({ user }: { user: iUser }) {
 
     return (
         <>
-            {/* <div className={styles.card_container} onClick={handleClick}>
-                <p>
-                    {user.nickname}
-                </p>
-
-                {added ? (
-                    <span onClick={handleClick} >añadido</span>
-                ) : (
-                    <span onClick={handleClick}>añadir</span>
-                )
-                }
-            </ div> */}
-
-            <div className={styles.card_container} onClick={handleClick}>
+            <div className={styles.card_container} onClick={handleClick} data-testid="create-group-card">
                 <div>
                     <span className={styles.avatar_container}>
                         <Avatar

@@ -25,8 +25,8 @@ code {
     position: relative;
     height: 99.8vh;
     align-self: center;
-    min-width: 650px;
-    max-width: 650px;
+    min-width: 600px;
+    max-width: 600px;
     margin: auto;
     border: 1px solid #00000025;
     border-radius: 20px;

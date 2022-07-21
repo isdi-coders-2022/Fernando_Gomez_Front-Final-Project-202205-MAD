@@ -17,6 +17,7 @@ export const mockMessage: iMessage = {
 export const mockRoom: iRoom = {
     _id: '1',
     owner: 'id',
+    name: '12',
     messages: [
         mockMessage
     ],

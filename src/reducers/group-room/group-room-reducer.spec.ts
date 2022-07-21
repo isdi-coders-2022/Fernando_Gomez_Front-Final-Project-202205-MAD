@@ -1,8 +1,7 @@
 import * as actions from './action.creators';
 import { AnyAction } from '@reduxjs/toolkit';
-import { iRoom } from '../../interfaces/interfaces';
 import { groupRoomReducer } from './reducer';
-import { mockUser, mockUserId, mockUserId2, mockUsersArray } from '../../utils/mocks';
+import { mockUserId, mockUserId2 } from '../../utils/mocks';
 
 describe('Given GroupRoom reducer', () => {
     describe('When calling it with load action with an array of users ids', () => {

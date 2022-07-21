@@ -6,18 +6,17 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase';
 import { socket } from '../../chat/chat-socket';
 import { Spinner } from '../../components/Layout/Spinner/spinner';
-import {
-    updateUserAction,
-} from '../../reducers/user/action.creators';
+import { updateUserAction } from '../../reducers/user/action.creators';
 import Swal from 'sweetalert2';
 import { Button, TextField } from '@mui/material';
 import styles from './edit-profile-page.module.css';
+import { LocalStoreService } from '../../services/local-storage';
 
 export default function EditProfilePage() {
     const user = useSelector((store: iStore) => store.user[0]);
-    // const localStorage = new LocalStoreService();
+    const localStorage = new LocalStoreService();
 
-    const token = localStorage.getItem('Token');
+    const token = localStorage.getToken();
     const navigate = useNavigate();
     const dispatcher = useDispatch();
 
@@ -48,13 +47,15 @@ export default function EditProfilePage() {
     const handleSubmit = async (ev: SyntheticEvent) => {
         ev.preventDefault();
         const updatedUser: iUser = { ...(formData as iUser) };
-
         socket.emit('update-user', updatedUser);
     };
 
     socket.on('delete-account', (payload) => {
-        localStorage.removeItem('User');
-        localStorage.removeItem('Token');
+        // localStorage.removeItem('User');
+        // localStorage.removeItem('Token');
+
+        localStorage.removeUser();
+        localStorage.removeToken();
 
         dispatcher(updateUserAction(payload));
 
@@ -66,7 +67,7 @@ export default function EditProfilePage() {
         socket.emit('delete-account', { id, token });
     };
 
-    const alert = () => {
+    const alert1 = () => {
         Swal.fire({
             title: 'Confirmación necesaria',
             text: '¿Quieres eliminar tu cuenta definitivamente?',
@@ -88,7 +89,7 @@ export default function EditProfilePage() {
             {user ? (
                 <>
                     <form onSubmit={handleSubmit} className={styles.form}>
-                        <div data-testid="1">
+                        <div data-testid="edit-page">
                             <TextField
                                 type="email"
                                 name="email"
@@ -152,6 +153,7 @@ export default function EditProfilePage() {
                                 id="outlined-basic"
                                 variant="outlined"
                                 size="small"
+                                data-testid="fileupload"
                             />
                         </div>
 
@@ -171,7 +173,8 @@ export default function EditProfilePage() {
                             variant="contained"
                             size="small"
                             color="error"
-                            onClick={alert}
+                            onClick={alert1}
+                            data-testid="delete-account"
                         >
                             Eliminar mi cuenta
                         </Button>

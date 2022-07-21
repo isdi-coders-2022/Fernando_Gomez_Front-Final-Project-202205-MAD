@@ -74,7 +74,11 @@ export function Card({ room }: { room: iRoom }) {
                                 <div className={styles.info_container}>
                                     <div className={styles.info1}>
                                         <div>
-                                            <span>{otherUser?.nickname}</span>
+                                            <span>{!otherUser 
+                                                ? 'Cuenta eliminada'
+                                                : otherUser?.nickname
+                                                
+                                                }</span>
                                             <span>
                                                 {otherUser?.online ? (
                                                     <span className="text_green">

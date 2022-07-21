@@ -50,18 +50,18 @@ export default function EditProfilePage() {
         socket.emit('update-user', updatedUser);
     };
 
-    socket.on('delete-account', (payload) => {
-        // localStorage.removeItem('User');
-        // localStorage.removeItem('Token');
+    // socket.on('delete-account', (payload) => {
+    //     // localStorage.removeItem('User');
+    //     // localStorage.removeItem('Token');
 
-        localStorage.removeUser();
-        localStorage.removeToken();
+    //     localStorage.removeUser();
+    //     localStorage.removeToken();
 
-        dispatcher(updateUserAction(payload));
+    //     dispatcher(updateUserAction(payload));
 
-        Swal.fire('', 'Tu cuenta ha sido eliminada', 'success');
-        navigate(`/`);
-    });
+    //     Swal.fire('', 'Tu cuenta ha sido eliminada', 'success');
+    //     navigate(`/`);
+    // });
 
     const deleteAccount = (id: string, token: string) => {
         socket.emit('delete-account', { id, token });

@@ -113,6 +113,12 @@ export default function LoginPage() {
 
         if (resp.status === 201) {
             closeModal();
+            Swal.fire({
+                icon: 'success',
+                title: 'Tu cuenta ha sido creada con éxito',
+                text: 'Ya puedes acceder al chat!',
+            });
+            navigate(`/`);
         } else {
             Swal.fire({
                 icon: 'error',

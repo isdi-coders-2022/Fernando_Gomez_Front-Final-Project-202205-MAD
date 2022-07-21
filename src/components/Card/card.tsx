@@ -14,7 +14,9 @@ export function Card({ room }: { room: iRoom }) {
     const id1 = room.name?.substring(0, 24);
     const id2 = room.name?.substring(24, room.name.length);
 
-    const initialUnSeen = room.messages
+    const temp = room.messages.filter((message) => message.sender !== user._id);
+
+    const initialUnSeen = temp
         .filter((message) => message.seen === false)
         .length.toString();
     const [unSeen, setUnSeen] = useState(initialUnSeen);
@@ -74,11 +76,11 @@ export function Card({ room }: { room: iRoom }) {
                                 <div className={styles.info_container}>
                                     <div className={styles.info1}>
                                         <div>
-                                            <span>{!otherUser 
-                                                ? 'Cuenta eliminada'
-                                                : otherUser?.nickname
-                                                
-                                                }</span>
+                                            <span>
+                                                {!otherUser
+                                                    ? 'Cuenta eliminada'
+                                                    : otherUser?.nickname}
+                                            </span>
                                             <span>
                                                 {otherUser?.online ? (
                                                     <span className="text_green">
@@ -131,7 +133,21 @@ export function Card({ room }: { room: iRoom }) {
                                         <div></div>
                                     </div>
                                     <div className={styles.info2}>
-                                        {room.messages.length > 0 && <></>}
+                                        {room.messages.length > 0 && (
+                                            <span className={styles.message}>
+                                                {
+                                                    room.messages[
+                                                        room.messages.length - 1
+                                                    ].content
+                                                }
+                                            </span>
+                                        )}
+
+                                        {unSeen !== '0' && (
+                                            <span className={styles.unseen}>
+                                                {unSeen}
+                                            </span>
+                                        )}
 
                                         {room.messages.length === 0 && (
                                             <>

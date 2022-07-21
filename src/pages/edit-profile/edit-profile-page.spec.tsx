@@ -63,31 +63,31 @@ describe('Given the CreateGroup Page', () => {
         });
     });
 
-    describe('When clicking the Eliminar cuenta button', () => {
-        test('It should call the Swal.fire function', async () => {
-            ApiChat.prototype.deleteAccountUser = jest
-                .fn()
-                .mockResolvedValue({});
-            render(
-                <BrowserRouter>
-                    <Layout navOptions={mockRouterOptions}>
-                        <EditProfilePage />
-                    </Layout>
-                </BrowserRouter>,
-                { preloadedState, reducer }
-            );
+    // describe('When clicking the Eliminar cuenta button', () => {
+    //     test('It should call the Swal.fire function', async () => {
+    //         ApiChat.prototype.deleteAccountUser = jest
+    //             .fn()
+    //             .mockResolvedValue({});
+    //         render(
+    //             <BrowserRouter>
+    //                 <Layout navOptions={mockRouterOptions}>
+    //                     <EditProfilePage />
+    //                 </Layout>
+    //             </BrowserRouter>,
+    //             { preloadedState, reducer }
+    //         );
 
-            const button = screen.getByTestId('delete-account')
-            screen.debug(button);
+    //         const button = screen.getByTestId('delete-account')
+    //         screen.debug(button);
 
-            const buttons = screen.getAllByRole('button');
-            expect(buttons).toHaveLength(3);
+    //         const buttons = screen.getAllByRole('button');
+    //         expect(buttons).toHaveLength(3);
 
-            // const element = screen.getByTestId('edit-page');
-            fireEvent.click(button);
-            await waitFor(() => {
-                expect(sweetalert2.fire).toHaveBeenCalled();
-            });
-        });
-    });
+    //         // const element = screen.getByTestId('edit-page');
+    //         fireEvent.click(button);
+    //         await waitFor(() => {
+    //             expect(sweetalert2.fire).toHaveBeenCalled();
+    //         });
+    //     });
+    // });
 });

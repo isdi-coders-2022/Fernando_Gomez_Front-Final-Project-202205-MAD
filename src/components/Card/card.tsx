@@ -143,11 +143,11 @@ export function Card({ room }: { room: iRoom }) {
                                             </span>
                                         )}
 
-                                        {unSeen !== '0' && (
+                                        {/* {unSeen !== '0' && (
                                             <span className={styles.unseen}>
                                                 {unSeen}
                                             </span>
-                                        )}
+                                        )} */}
 
                                         {room.messages.length === 0 && (
                                             <>

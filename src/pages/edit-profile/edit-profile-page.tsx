@@ -6,7 +6,6 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase';
 import { socket } from '../../chat/chat-socket';
 import { Spinner } from '../../components/Layout/Spinner/spinner';
-import { updateUserAction } from '../../reducers/user/action.creators';
 import Swal from 'sweetalert2';
 import { Button, TextField } from '@mui/material';
 import styles from './edit-profile-page.module.css';
@@ -17,8 +16,6 @@ export default function EditProfilePage() {
     const localStorage = new LocalStoreService();
 
     const token = localStorage.getToken();
-    const navigate = useNavigate();
-    const dispatcher = useDispatch();
 
     let initialState: iUser = user;
     initialState = { ...(user as iUser) };
@@ -39,7 +36,6 @@ export default function EditProfilePage() {
             avatarRef,
             file as unknown as Blob | Uint8Array | ArrayBuffer
         );
-        // TODO needs twice to load the correct image
         const url = await getDownloadURL(ref(storage, `/files/${file.name}`));
         setFormData({ ...formData, avatar: url });
     }
@@ -49,19 +45,6 @@ export default function EditProfilePage() {
         const updatedUser: iUser = { ...(formData as iUser) };
         socket.emit('update-user', updatedUser);
     };
-
-    // socket.on('delete-account', (payload) => {
-    //     // localStorage.removeItem('User');
-    //     // localStorage.removeItem('Token');
-
-    //     localStorage.removeUser();
-    //     localStorage.removeToken();
-
-    //     dispatcher(updateUserAction(payload));
-
-    //     Swal.fire('', 'Tu cuenta ha sido eliminada', 'success');
-    //     navigate(`/`);
-    // });
 
     const deleteAccount = (id: string, token: string) => {
         socket.emit('delete-account', { id, token });

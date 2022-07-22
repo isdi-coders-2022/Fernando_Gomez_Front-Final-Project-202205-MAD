@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import styles from './room.module.css';
 
 export function Room({ roomId, data }: { roomId: string; data: iMessage[] }) {
-    // TODO review, don't need the data parameter
     const rooms = useSelector((store: iStore) => store.rooms);
 
     const user = useSelector((store: iStore) => store.user[0]);

@@ -25,19 +25,29 @@ export function RoomCard({
             }
         >
             <div>
-            <span >
                 <span>
-                    {user._id === sender?._id ? 
-                       message.seen === true ? <img src="/assets/check-blue.png" alt="seen message" />
-                        : <img src="/assets/check-black.png" alt="unseen message" />
-                        : ''
-
-                    }
-                </span> {date}
-            </span>
+                    <span>
+                        {user._id === sender?._id ? (
+                            message.seen === true ? (
+                                <img
+                                    src="/assets/check-blue.png"
+                                    alt="seen message"
+                                />
+                            ) : (
+                                <img
+                                    src="/assets/check-black.png"
+                                    alt="unseen message"
+                                />
+                            )
+                        ) : (
+                            ''
+                        )}
+                    </span>{' '}
+                    {date}
+                </span>
             </div>
             <div>
-            <span className={styles.message}>{message.content}</span>
+                <span className={styles.message}>{message.content}</span>
             </div>
         </div>
     ) : (
@@ -49,12 +59,10 @@ export function RoomCard({
             }
         >
             <div>
-            <span >
-                 {date}
-            </span>
+                <span>{date}</span>
             </div>
             <div>
-            <span className={styles.message}>{message.content}</span>
+                <span className={styles.message}>{message.content}</span>
             </div>
         </div>
     );

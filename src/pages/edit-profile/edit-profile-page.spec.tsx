@@ -81,43 +81,14 @@ describe('Given the CreateGroup Page', () => {
         });
     });
 
-    // describe('When clicking the Eliminar cuenta button', () => {
-    //     test('It should call the Swal.fire function', async () => {
-    //         ApiChat.prototype.deleteAccountUser = jest
-    //             .fn()
-    //             .mockResolvedValue({});
-    //         render(
-    //             <BrowserRouter>
-    //                 <Layout navOptions={mockRouterOptions}>
-    //                     <EditProfilePage />
-    //                 </Layout>
-    //             </BrowserRouter>,
-    //             { preloadedState, reducer }
-    //         );
-
-    //         const button = screen.getByTestId('delete-account');
-
-    //         const buttons = screen.getAllByRole('button');
-    //         expect(buttons).toHaveLength(3);
-
-    //         // const element = screen.getByTestId('edit-page');
-    //         fireEvent.click(button);
-    //         await waitFor(() => {
-    //             expect(sweetalert2.fire).toHaveBeenCalled();
-    //         });
-    //     });
-    // });
-
     describe('When we click the button Registrarme', () => {
         test('Then it should be called the ApiChat', () => {
-            // (useNavigate as jest.Mock).mockReturnValue(navigate);
             render(
                 <BrowserRouter>
                     <EditProfilePage />
                 </BrowserRouter>,
                 { preloadedState, reducer }
             );
-            // const str = JSON.stringify(someValues);
 
             const blob = new Blob([JSON.stringify({ test: 'test' })]);
             const file = new File([blob], 'values.json', {
@@ -141,12 +112,6 @@ describe('Given the CreateGroup Page', () => {
             const email = screen.getByLabelText(/Email/) as HTMLFormElement;
             fireEvent.change(email, { target: { value: 'email' } });
             userEvent.type(email, 'nombre');
-
-            // const password = screen.getByLabelText(
-            //     /Contraseña/
-            // ) as HTMLFormElement;
-            // userEvent.type(password, 'nombre');
-            screen.debug(email);
 
             fireEvent.click(screen.getByText(/Guardar cambios/i));
 

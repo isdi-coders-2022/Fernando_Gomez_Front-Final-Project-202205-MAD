@@ -1,19 +1,18 @@
-import { iUser } from "../interfaces/interfaces";
+import { iUser } from '../interfaces/interfaces';
 
 export class ApiChat {
     apiUrl: string;
-    constructor(){
-        this.apiUrl = 'http://localhost:4000/'
+    constructor() {
+        this.apiUrl = 'http://localhost:4000/';
     }
 
     async signup(payload: any): Promise<any> {
-        // TODO review these types
         const resp = await fetch(`${this.apiUrl}user`, {
             method: 'POST',
             body: JSON.stringify(payload),
             headers: {
                 'Content-Type': 'application/json',
-            }
+            },
         });
         return await resp.json();
     }
@@ -24,7 +23,7 @@ export class ApiChat {
             body: JSON.stringify(payload),
             headers: {
                 'Content-Type': 'application/json',
-            }
+            },
         });
         return await resp.json();
     }
@@ -34,8 +33,8 @@ export class ApiChat {
         const resp = await fetch(url, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`
-            }
+                Authorization: `Bearer ${token}`,
+            },
         });
         return await resp.json();
     }
@@ -45,8 +44,8 @@ export class ApiChat {
         const resp = await fetch(url, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`
-            }
+                Authorization: `Bearer ${token}`,
+            },
         });
         return await resp.json();
     }
@@ -56,31 +55,34 @@ export class ApiChat {
         const resp = await fetch(url, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`
-            }
+                Authorization: `Bearer ${token}`,
+            },
         });
         return await resp.json();
     }
 
-    async updateUser(id: iUser['_id'], token: string, payload: iUser): Promise<iUser> {
+    async updateUser(
+        id: iUser['_id'],
+        token: string,
+        payload: iUser
+    ): Promise<iUser> {
         const resp = await fetch(`${this.apiUrl}user/${id}`, {
             method: 'PATCH',
             body: JSON.stringify(payload),
             headers: {
-                'Authorization': `Bearer ${token}`,
-                // 'Content-Type': 'application/json',
-            }
+                Authorization: `Bearer ${token}`,
+            },
         });
         return await resp.json();
-    };
+    }
 
     async deleteAccountUser(id: iUser['_id'], token: string): Promise<iUser> {
         const resp = await fetch(`${this.apiUrl}user/${id}`, {
             method: 'DELETE',
             headers: {
-                'Authorization': `Bearer ${token}`,
-            }
+                Authorization: `Bearer ${token}`,
+            },
         });
         return await resp.json();
-    };
+    }
 }

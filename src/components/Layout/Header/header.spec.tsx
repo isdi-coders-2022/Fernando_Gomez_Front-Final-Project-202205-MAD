@@ -45,14 +45,9 @@ describe('Given the Header component', () => {
                 </BrowserRouter>,
                 { preloadedState, reducer }
             );
-            //   const button = screen.getByTestId('open-modal')
-            // const button = screen.getByAltText(/nick1/i);
             const buttons = screen.getAllByRole('button');
-            // console.log(buttons[0]);
             fireEvent.click(buttons[0]);
-            // const logout = screen.getByTestId('logout-button')
             const buttons2 = screen.getAllByRole('button');
-            console.log(buttons2[2]);
             fireEvent.click(buttons2[2]);
             expect(socket.emit).toHaveBeenCalled();
         });

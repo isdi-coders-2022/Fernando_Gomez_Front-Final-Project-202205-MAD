@@ -38,7 +38,6 @@ describe('Given the UserCard component', () => {
         test('It should call the socket.emit function', () => {
            
             socket.emit = jest.fn();
-            // sortIds = jest.fn().mockResolvedValue('12');
             render(
                 <BrowserRouter>
                     <UserCard user={mockUser} />

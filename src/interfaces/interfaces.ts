@@ -32,6 +32,7 @@ export interface iMessage{
     content: string;
     createdAt?: string;
     seen?: boolean;
+    seenBy: string []
 }
 export interface iStore{
     user: iUser[];

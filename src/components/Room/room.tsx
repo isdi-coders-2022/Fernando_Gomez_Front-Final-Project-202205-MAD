@@ -43,6 +43,7 @@ export function Room({ roomId, data }: { roomId: string; data: iMessage[] }) {
                 recipient: otherId as string,
                 content: formData,
                 seen: seen,
+                seenBy: []
             };
 
             let array = JSON.stringify(room?.messages);

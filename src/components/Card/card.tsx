@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { socket } from '../../chat/chat-socket';
-import { iRoom, iStore } from '../../interfaces/interfaces';
+import { iMessage, iRoom, iStore } from '../../interfaces/interfaces';
 import { formatDate } from '../../utils/formatDate';
 import { Avatar } from '../Avatar/avatar';
 import styles from './card.module.css';
@@ -23,16 +23,23 @@ export function Card({ room }: { room: iRoom }) {
     let unSeenMessages = '0';
 
     socket.on('message', (payload) => {
-        unSeenMessages = payload.messages
+        if (payload.type === 'p2p'){
+            unSeenMessages = payload.messages
             .filter((message: { seen: boolean }) => message.seen === false)
             .length.toString();
-        // console.log(unSeenMessages);
         setUnSeen(unSeenMessages);
-        // console.log(unSeenMessages);
         if (payload._id === room._id) {
             setUnSeen(unSeenMessages);
         } else {
             setUnSeen('0');
+        }
+        } else {
+            unSeenMessages = payload.messages
+            .filter((message: { seenBy: (string | undefined)[]; }) => message.seenBy.includes(user._id))
+            .length.toString();
+            const counter = payload.messages.map((message: { seenBy: (string | undefined)[]; }) => message.seenBy.includes(user._id))
+            setUnSeen(counter.length.toString());
+            console.log('counter:', counter.length.toString());
         }
     });
 
@@ -41,11 +48,19 @@ export function Card({ room }: { room: iRoom }) {
 
     const otherUser = users.find((user) => user._id === otherId);
     const emitAndNavigate = () => {
-        socket.emit('update-seen-messages', {
-            otherUserId: otherUser?._id,
-            token: user.token,
-            roomId: room._id,
-        });
+        if(room.type === 'p2p'){
+            socket.emit('update-seen-messages', {
+                otherUserId: otherUser?._id,
+                token: user.token,
+                roomId: room._id,
+            });
+        } else{
+            socket.emit('update-seen-messages-group', {
+                room: room._id,
+                token: user.token,
+                user: user._id
+            })
+        }
         socket.emit('on-conversation', {
             userId: user._id,
             token: user.token,

@@ -12,6 +12,7 @@ export const mockMessage: iMessage = {
     sender: 'sender id',
     recipient: 'recipient id',
     content: 'content of message',
+    seenBy: ['']
 };
 
 export const mockRoom: iRoom = {

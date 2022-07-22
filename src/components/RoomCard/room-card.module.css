@@ -15,15 +15,21 @@
 .mine {
     text-align: end;
     justify-self: end;
-    width: 80%;
-    border-radius: 20px 0 0 20px;
+    width: 70%;
     padding-right: 1rem;
+    border-radius: 0 20px 0 20px;
+    height: 55px;
+}
+.mine div:first-child, .not_mine div:first-child {
+    margin: 3px
 }
 
 .not_mine {
     background-color: var(--primary-color-light);
     text-align: start;
-    width: 80%;
+    width: 70%;
     border-radius: 0 20px 20px 0;
     padding-left: 1rem;
+    border-radius: 20px 0 20px 0;
+    height: 55px;
 }

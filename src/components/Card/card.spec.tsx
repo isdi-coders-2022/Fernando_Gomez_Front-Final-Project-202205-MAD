@@ -37,7 +37,6 @@ describe('Given the Card component', () => {
     });
     describe('When calling the socket.on function', () => {
         test('It should access the socket.on function', () => {
-            // socket.on = jest.fn().mockResolvedValue('result');
             socket.on = jest.fn();
             render(
                 <BrowserRouter>
@@ -45,9 +44,6 @@ describe('Given the Card component', () => {
                 </BrowserRouter>,
                 { preloadedState, reducer }
             );
-            // const div = screen.getByTestId('div-c');
-            // fireEvent.click(div);
-
             expect(socket.on).toHaveBeenCalled();
         });
     });

@@ -26,9 +26,7 @@ export function Card({ room }: { room: iRoom }) {
         unSeenMessages = payload.messages
             .filter((message: { seen: boolean }) => message.seen === false)
             .length.toString();
-        // console.log(unSeenMessages);
         setUnSeen(unSeenMessages);
-        // console.log(unSeenMessages);
         if (payload._id === room._id) {
             setUnSeen(unSeenMessages);
         } else {

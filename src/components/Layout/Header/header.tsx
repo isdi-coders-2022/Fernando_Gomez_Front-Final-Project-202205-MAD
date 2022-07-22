@@ -104,7 +104,6 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
                                 onClick={() => {
                                     navAndEmit(item.path);
                                 }}
-                                
                                 variant="outlined"
                                 className={styles.link2}
                             >
@@ -145,7 +144,12 @@ export function Header({ navOptions }: { navOptions: iRouterItem[] }) {
                                 <img src="./assets/settings.png" alt="logout" />
                             </span>
                         </div>
-                        <div onClick={logout} className={`${styles.link}`} id="logout-button" role="button">
+                        <div
+                            onClick={logout}
+                            className={`${styles.link}`}
+                            id="logout-button"
+                            role="button"
+                        >
                             <span>
                                 <span>Logout</span>{' '}
                                 <img src="./assets/shutdown.png" alt="logout" />{' '}

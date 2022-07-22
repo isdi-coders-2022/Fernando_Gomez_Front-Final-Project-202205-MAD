@@ -45,7 +45,6 @@ export default function CreateGroupPage() {
     };
 
     async function handleUpload(ev: SyntheticEvent) {
-        // TODO export this function -> dry
         const element = ev.target as HTMLInputElement;
         const file = (element.files as FileList)[0];
         const avatarRef = ref(storage, `/files/${file.name}`);

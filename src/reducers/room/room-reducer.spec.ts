@@ -1,6 +1,5 @@
 import * as actions from './action.creators';
 import { AnyAction } from '@reduxjs/toolkit';
-import { iRoom } from '../../interfaces/interfaces';
 import { roomReducer } from './reducer';
 import { mockRoom2, mockRoomArray } from '../../utils/mocks';
 

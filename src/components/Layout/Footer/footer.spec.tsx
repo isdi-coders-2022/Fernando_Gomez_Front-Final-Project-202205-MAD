@@ -1,14 +1,6 @@
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
-import { iMessage, iRoom, iStore, iUser } from '../../../interfaces/interfaces';
-import { loggedUserReducer } from '../../../reducers/logged-user/reducer';
-import { roomReducer } from '../../../reducers/room/reducer';
-import { userReducer } from '../../../reducers/user/reducer';
+import { BrowserRouter } from 'react-router-dom';
 import { preloadedState, reducer } from '../../../utils/mocks';
-// import { iMessage, iRoom, iStore, iUser } from '../../interfaces/interfaces';
-// import { loggedUserReducer } from '../../reducers/logged-user/reducer';
-// import { roomReducer } from '../../reducers/room/reducer';
-// import { userReducer } from '../../reducers/user/reducer';
-import { fireEvent, render, screen } from '../../../utils/test-utils';
+import { render, screen } from '../../../utils/test-utils';
 import {Footer} from './footer';
 
 describe('Given the Footer component', () => {

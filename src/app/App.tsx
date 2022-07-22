@@ -29,7 +29,6 @@ function App() {
     const navigate = useNavigate();
 
     socket.on('message', (payload) => {
-        console.log('mensaje llega: ', payload);
         dispatcher(updateRoomAction(payload as iRoom));
     });
 
@@ -70,12 +69,10 @@ function App() {
     });
 
     socket.on('delete-account', (payload) => {
-        console.log('payload', payload);
-        console.log('loggedUser', loggedUser);
         if (loggedUser) {
             if (payload._id === loggedUser._id) {
-                localStorage.removeItem('User')
-                localStorage.removeItem('Token')
+                localStorage.removeItem('User');
+                localStorage.removeItem('Token');
 
                 dispatcher(deleteUserAction(payload));
 
@@ -84,20 +81,16 @@ function App() {
                     icon: 'success',
                     title: 'Tu cuenta ha sido eliminada!',
                     showConfirmButton: false,
-                    timer: 3000
-                  })
+                    timer: 3000,
+                });
                 setTimeout(() => {
-                    window.location.reload()
+                    window.location.reload();
                 }, 3000);
-
-            }else{
-                console.log('otro usario hha eliminado su cuenta');
+            } else {
                 dispatcher(deleteUserAction(payload));
             }
-        } 
+        }
     });
-
-    
 
     useEffect(() => {
         const userId: string = localStorageService.getUser();
